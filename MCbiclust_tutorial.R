@@ -1,6 +1,7 @@
 # New package testing.
 library(MCbiclust)
 
+
 # Load example CCLE data and mitochondrial genes
 data(CCLE_data)
 data(Mitochondrial_genes)
