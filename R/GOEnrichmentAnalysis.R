@@ -1,14 +1,9 @@
-GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate,sig.type = "Mann-Whitney"){
+GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate){
   data(GO_term_matrix)
   data(GO_term_genes)
-  if(sig_type=="Mann-Whitney"){
-    pvalues<-MannWhitneyGOTerms(Genes,GeneValues)
-  }
-  else  if(sig_type=="ztest"){
-    pvalues<-ZTestGOTerms(Genes,GeneValues)
-  } else{
-    stop('sig_type must be  "Mann-Whitney" or "ztest", see help for details.')}
-  
+
+  pvalues <- MannWhitneyGOTerms(gene.names,gene.values)
+
   GenelistNum <- function(y){
     return(length(which(gene.names %in% y)))
   }
