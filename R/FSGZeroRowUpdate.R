@@ -1,3 +1,11 @@
+#' FindSeedGroups function for updating rows with 0 sd
+#' 
+#' @param gem 
+#' @param seed
+#' @param group1.loc
+#' @param group2.loc
+#' @return Updated gene locations and correlation matrix
+
 FSGZeroRowUpdate <- function(gem,seed,group1.loc,group2.loc){
   gem.t <- t(gem)
   zero.rows <- which(apply(X = gem[, seed],MARGIN = 1,FUN = sd) == 0)

@@ -1,3 +1,11 @@
+#' Function needed for gene vector calculation
+#' 
+#' @param gem
+#' @param seed
+#' @param n
+
+#' @return Calculation
+
 GeneVecFunCalc <- function(gem,seed,n){
   test1 <- cutree(hclust(dist(cor(t(gem[,seed])))),k = n)
   test2 <- lapply(seq(length = n),FUN = function(x) which(test1 == x))

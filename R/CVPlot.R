@@ -1,3 +1,13 @@
+#' Make correlation vector plot
+#' 
+#' @param cv.df A dataframe containing the correlation vectors of one or more patterns.
+#' @param geneset.loc A gene set of interest (e.g. mitochondrial) to be plotted separately from rest of genes.
+#' @param alpha1 Transparency level of non-gene set genes
+#' @param alpha2 Transparency level of gene set genes
+#' @param cnames Character vector containing names for the correlation vector
+#' @return A plot of the correlation vectors
+
+
 CVPlot <- function(cv.df,geneset.loc,geneset.name,alpha1 = 0.005,alpha2 = 0.1,cnames=NULL){
   library(GGally)
   

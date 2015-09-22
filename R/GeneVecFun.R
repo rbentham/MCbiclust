@@ -1,3 +1,11 @@
+#' Calcuclates gene vector used in calculation of correlation vector
+#' 
+#' @param gem
+#' @param seed
+#' @param splits
+
+#' @return Average expression vector that matches pattern in seed
+
 GeneVecFun <- function(gem,seed,splits){
   test.list <- list()
   for(i in 2:splits){

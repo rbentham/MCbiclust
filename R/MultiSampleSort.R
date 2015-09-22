@@ -1,3 +1,14 @@
+#' SampleSort for multiple patterns
+#' 
+#' @param gem 
+#' @param av.corvec
+#' @param top.genes.num
+#' @param groups
+#' @param initial.seeds
+#' @param num.cores
+#' @param sort.length
+#' @return Order of samples by strength to correlation pattern
+
 MultiSampleSort <- function(gem, av.corvec, top.genes.num, groups, initial.seeds,
                             num.cores,sort.length){
   

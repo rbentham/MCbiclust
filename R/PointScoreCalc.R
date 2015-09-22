@@ -1,3 +1,10 @@
+#' Calculate point score for samples based on gene groups
+#' 
+#' @param gem 
+#' @param gloc1
+#' @param gloc2
+#' @return Numeric vector of point score for each sample
+
 PointScoreCalc <- function(gem,gloc1,gloc2){
     gem1 <- gem - rowMeans(gem)
     samp.len <- dim(gem1)[2]

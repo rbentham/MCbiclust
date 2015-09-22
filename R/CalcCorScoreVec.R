@@ -1,3 +1,12 @@
+#' Calculate numeric vector showing correlation score decrease with sample order
+#' 
+#' @param ordered.list 
+#' @param gem
+#' @param seed.size
+#' @param mc
+#' @param num.cores
+#' @return Vector of correlation scores
+
 CalcCorScoreVec <- function(ordered.list, gem, seed.size = 10, mc = FALSE,
                             num.cores = NULL){
   if(mc == TRUE){

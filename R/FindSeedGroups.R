@@ -1,3 +1,14 @@
+#' FindSeed version for when pattern of regulation is known
+#' 
+#' @param gem 
+#' @param seed.size
+#' @param iterations
+#' @param group1.loc
+#' @param group2.loc
+#' @param initial.seed
+#' @param full.detail
+#' @return Seed of highly correlating samples
+
 FindSeedGroups <-function(gem, seed.size, iterations, group1.loc, group2.loc,
                           initial.seed = NULL, full.detail = FALSE){
   gem <- gem[c(group1.loc,group2.loc),]

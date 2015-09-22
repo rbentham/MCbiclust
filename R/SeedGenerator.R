@@ -1,3 +1,12 @@
+#' Calculate initial seeds to minimise overlaps
+#' 
+#' @param seed.size
+#' @param numbers
+#' @param sample.length
+#' @param break.num
+#' @param attempts
+#' @return Initial seed list
+
 SeedGenerator <- function(seed.size,numbers,sample.length,break.num = 0, attempts = 1000){
   sample_list3 <- list()
   sample_list3[[1]] <- sample(c(1:sample.length),seed.size)

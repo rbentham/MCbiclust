@@ -1,3 +1,11 @@
+#' Sort all samples by strength to correlation pattern
+#' 
+#' @param gem 
+#' @param seed
+#' @param num.cores
+#' @param sort.length
+#' @return Order of samples by strength to correlation pattern
+
 SampleSort <- function(gem,seed,num.cores,sort.length = NULL){
   require(parallel)
   require(compiler)
@@ -20,7 +28,8 @@ for(j in seq.vec){
   len1 <- length(next.seed)
   multi.core.list <- lapply(seq(length = len1), function(x)c(seed1, next.seed[x]))
 
-  test.cor.values <- unlist(mclapply(multi.core.list, FUN=temp.fun1, mc.cores = num.cores, , mc.preschedule = TRUE)))
+  test.cor.values <- unlist(mclapply(multi.core.list, FUN=temp.fun1, mc.cores = num.cores,
+                                     mc.preschedule = TRUE))
   
   tcv.max[j + 1] <- max(test.cor.values)
   seed1 <- c(seed1, next.seed[which(test.cor.values==tcv.max[j + 1])[1]])

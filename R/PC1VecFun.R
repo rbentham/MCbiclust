@@ -1,3 +1,12 @@
+#' Calculate PC1 of found pattern
+#' 
+#' @param top.gem
+#' @param seed.sort
+#' @param n
+
+#' @return PC1 value for each sample
+
+
 PC1VecFun <- function(top.gem,seed.sort,n){
   pca.matrix <- top.mat[,seed.sort[seq(length = n)]]
   pca.results <- prcomp(t(pca.matrix),scores=TRUE,cor=TRUE,center=TRUE)

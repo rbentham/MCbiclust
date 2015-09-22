@@ -1,3 +1,12 @@
+#' Slihouette validation of correlation vector clusters 
+#' 
+#' @param cor.vec.mat
+#' @param max.clusters
+#' @param plots
+
+#' @return The distinct clusters of correlation vectors
+
+
 SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE){
   cor.vec.mat.len <- dim(cor.vec.mat)[1]
   cor.vec.mat.add <- dim(cor.vec.mat)[2] + 1
