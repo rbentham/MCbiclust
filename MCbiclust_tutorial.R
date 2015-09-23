@@ -1,7 +1,23 @@
+# INSTALLATION
+# Raw code for the package is availiable at https://github.com/rbentham/MCbiclust
+# to load on your machine follow these steps:
+# 1. Create a folder called MCbiclust containing all the files on the github
+# 2. On terminal/command line go to the directory containing the MCbiclust folder
+# 2. Run command R CMD build MCbiclust on terminal/command line. This builds the file
+# MCbiclust_1.0.0.tar.gz
+# 3. While running R the package can now be installed from source with command
+# install.packages(path_to_file, repos = NULL, type="source")
+# where path_to_file on windows will be replaced by something like C:\\MCbiclust_1.0.0.tar.gz
+# and on linux/mac will look something like
+# /Users/bobbybentham/Documents/PhD/My_R_packages/MCbiclust_1.0.0.tar.gz
+# The package and all corresponding code should be able to be accessed by
+# library(MCbiclust)
+
 # New package testing.
 library(MCbiclust)
 library(gplots)
 library(ggplot2)
+
 
 # 1. Load example CCLE data and mitochondrial genes ----
 data(CCLE_data)
