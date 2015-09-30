@@ -8,7 +8,7 @@
 
 
 PC1VecFun <- function(top.gem,seed.sort,n){
-  pca.matrix <- top.mat[,seed.sort[seq(length = n)]]
+  pca.matrix <- top.gem[,seed.sort[seq(length = n)]]
   pca.results <- prcomp(t(pca.matrix),scores=TRUE,cor=TRUE,center=TRUE)
   pca.loadings <- pca.results$rotation
   
