@@ -10,7 +10,7 @@
 #' @return Order of samples by strength to correlation pattern
 
 MultiSampleSort <- function(gem, av.corvec, top.genes.num, groups, initial.seeds,
-                            num.cores,sort.length){
+                            num.cores,sort.length = NULL){
   
   top.genes <- lapply(X = av.corvec,
                       FUN = function(x) order(abs(x),decreasing = T)[seq(length = top.genes.num)])
@@ -29,7 +29,7 @@ MultiSampleSort <- function(gem, av.corvec, top.genes.num, groups, initial.seeds
                      FUN = function(x) initial.seeds[groups[[x]]][[which.max(top.seed.score[[x]])[1]]])
   top.mat <- lapply(top.genes, FUN = function(x) as.matrix(gem)[x,])
   
-  multi.samp.sort <- lapply(seq(length = length(multi.clust.groups)),
+  multi.samp.sort <- lapply(seq(length = length(groups)),
                             FUN = function(x) SampleSort(top.mat[[x]],
                                                          seed = top.seed[[x]],num.cores = num.cores,
                                                          sort.length = sort.length))
