@@ -13,5 +13,5 @@ MannWhitneyGOTerms <- function(genes, gene.values){
     else{
       go.pvalues[i] <- NA}
   }
-  return(p.adjust(go.pvalues))
+  return((go.pvalues))
 }
