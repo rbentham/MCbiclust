@@ -21,12 +21,12 @@ SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE){
     si2 <- silhouette(x = cutree(cor.hclust,k = i),dist = cor.dist)
     sil.value[i-1] <- mean(si2[,3])}
   
-  if(plots == T) print(plot(seq(length = 19)+1, sil.value, xlab="k",ylab="Mean silhoette width"))
+  if(plots == T) print(plot(seq(length = 19)+1, sil.value, xlab="Number of clusters",ylab="Mean silhoette width"))
   
   k1 <- which.max(sil.value) + 1
   si2 <- silhouette(x = cutree(cor.hclust,k = k1), dist = cor.dist)
   
-  if(plots == T) print(plot(si2,col="red"))
+  if(plots == T) print(plot(si2,col="red",main=""))
   
   cluster.groups <- lapply(seq(k1),
                            FUN=function(x) which(cutree(cor.hclust,k = k1) == x))
