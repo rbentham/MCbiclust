@@ -10,6 +10,7 @@
 GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate,output.type = NULL){
   data(GO_term_matrix)
   data(GO_term_genes)
+
   
   if(length(output.type)!=0){
     if(output.type!="EM"){
