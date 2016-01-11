@@ -10,7 +10,13 @@
 GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate,output.type = NULL){
   data(GO_term_matrix)
   data(GO_term_genes)
-
+  
+  if(length(output.type)!=0){
+    if(output.type!="EM"){
+      stop("output.type should be either NULL or `EM`")
+    }
+  }
+  
   pvalues <- MannWhitneyGOTerms(gene.names,gene.values)
   adj.pvalues <- p.adjust(pvalues)
 
@@ -36,11 +42,13 @@ GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate,output.type = N
     if(g.av.value[i] > 0) phenotype[i] <- 1
   }
   
+  
+  if(length(output.type) == 0){
+    return(cbind(GO_term_matrix[sig.p[ordering.p],], num.genes,
+                 g.in.genelist, adj.p.value, g.av.value))}
   if(output.type == "EM"){
-    return(cbind(GO_term_matrix[sig.p[ordering.p],],p.value,adj.p.value,phenotype))
-    
-  }else{
-    return(cbind(GO_term_matrix[sig.p[ordering.p],],num.genes,g.in.genelist,adj.p.value,g.av.value))
-  }
+    return(cbind(GO_term_matrix[sig.p[ordering.p],],
+                 p.value, adj.p.value, phenotype))}
+
 
 }

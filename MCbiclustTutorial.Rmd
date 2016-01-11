@@ -455,7 +455,7 @@ Instead of using `SampleSort` a special sorting function for this case is used, 
 
 ```{r,cache=TRUE}
 CCLE.samp.multi.sort <-  MultiSampleSort(CCLE_data[,-c(1,2)], average.corvec, 750,
-                            multi.clust.groups, initial.seed1,2,50)
+                            multi.clust.groups, CCLE.multi.seed,2,50)
 ```
 
 # Alternative methods based on known gene regulation groups
