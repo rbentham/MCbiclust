@@ -38,8 +38,6 @@ GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate,output.type = N
   p.value <- pvalues[sig.p][ordering.p]
   adj.p.value <- adj.pvalues[sig.p][ordering.p]
   
-  g.av.value[which(g.in.genelist == 0)] <- 0
-  
   phenotype <- rep(-1,length(sig.p))
   for(i in seq(length = length(sig.p))){
     if(g.av.value[i] > 0) phenotype[i] <- 1
