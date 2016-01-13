@@ -11,7 +11,7 @@ MannWhitneyGOTerms <- function(genes, gene.values){
     if(length(a) > 10){
       go.pvalues[i] <- wilcox.test(gene.values[a],gene.values)$p.value}
     else{
-      go.pvalues[i] <- NA}
+      go.pvalues[i] <- 1}
   }
   return((go.pvalues))
 }
