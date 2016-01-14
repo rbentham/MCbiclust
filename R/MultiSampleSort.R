@@ -25,7 +25,7 @@ MultiSampleSort <- function(gem, av.corvec, top.genes.num, groups, initial.seeds
     }
   }
   
-  top.seed <- lapply(seq(length = length(average.corvec)),
+  top.seed <- lapply(seq(length = length(av.corvec)),
                      FUN = function(x) initial.seeds[groups[[x]]][[which.max(top.seed.score[[x]])[1]]])
   top.mat <- lapply(top.genes, FUN = function(x) as.matrix(gem)[x,])
   
