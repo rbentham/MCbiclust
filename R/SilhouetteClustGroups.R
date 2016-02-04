@@ -7,11 +7,16 @@
 #' @return The distinct clusters of correlation vectors
 
 
-SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE, seed1 = 100){
-  set.seed(seed1)
-  cor.vec.mat.len <- dim(cor.vec.mat)[1]
-  cor.vec.mat.add <- dim(cor.vec.mat)[2] + 1
-  cor.vec.mat2 <- cbind(cor.vec.mat, rnorm(cor.vec.mat.len, 0))
+SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE, seed1 = 100, rand.vec = TRUE){
+  
+  if(rand.vec == TRUE){
+    set.seed(seed1)
+    cor.vec.mat.len <- dim(cor.vec.mat)[1]
+    cor.vec.mat.add <- dim(cor.vec.mat)[2] + 1
+    cor.vec.mat2 <- cbind(cor.vec.mat, rnorm(cor.vec.mat.len, 0))
+  }else{
+    cor.vec.mat2 <- cor.vec.mat
+  }
   
   cor.dist <- as.dist(1 - abs(cor(cor.vec.mat2)))
   cor.hclust <- hclust(cor.dist)
@@ -32,9 +37,11 @@ SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE, seed
   cluster.groups <- lapply(seq(k1),
                            FUN=function(x) which(cutree(cor.hclust,k = k1) == x))
   
-  cor.vec.minus.fun <- function(x){length(which(x==cor.vec.mat.add))}
-  cor.vec.minus <- which(unlist(lapply(cluster.groups,FUN = cor.vec.minus.fun))==1)
+  if(rand.vec == TRUE){
+    cor.vec.minus.fun <- function(x){length(which(x==cor.vec.mat.add))}
+    cor.vec.minus <- which(unlist(lapply(cluster.groups,FUN = cor.vec.minus.fun))==1)
   
-  cluster.groups <- cluster.groups[-cor.vec.minus]
+    cluster.groups <- cluster.groups[-cor.vec.minus]
+  }
   return(cluster.groups)
 }
