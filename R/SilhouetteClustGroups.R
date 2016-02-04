@@ -7,7 +7,8 @@
 #' @return The distinct clusters of correlation vectors
 
 
-SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE){
+SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE, seed1 = 100){
+  set.seed(seed1)
   cor.vec.mat.len <- dim(cor.vec.mat)[1]
   cor.vec.mat.add <- dim(cor.vec.mat)[2] + 1
   cor.vec.mat2 <- cbind(cor.vec.mat, rnorm(cor.vec.mat.len, 0))
