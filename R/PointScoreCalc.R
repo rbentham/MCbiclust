@@ -6,7 +6,7 @@
 #' @return Numeric vector of point score for each sample
 
 PointScoreCalc <- function(gem,gloc1,gloc2){
-    gem1 <- gem - rowMeans(gem)
+    gem1 <- gem - apply(gem,MARGIN = 1,median)
     samp.len <- dim(gem1)[2]
     
     rankings.vec <- rep(0,samp.len)

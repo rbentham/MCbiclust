@@ -3,6 +3,8 @@
 #' @param cor.vec.mat
 #' @param max.clusters
 #' @param plots
+#' @param seed1
+#' @param rand.vec
 
 #' @return The distinct clusters of correlation vectors
 
