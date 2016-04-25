@@ -21,7 +21,7 @@ FindSeed <- function (gem, seed.size, iterations, initial.seed = NULL, full.deta
   zero.rows <- which(apply(X = gem[, seed],MARGIN = 1,FUN = sd) == 0)
 
   if (length(zero.rows) != 0) {
-    test.cor <- cor(gem_t[seed, -zero.rows])
+    test.cor <- cor(gem.t[seed, -zero.rows])
   }
   else {
   test.cor <- cor(gem.t[seed, ])
