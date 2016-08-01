@@ -1,8 +1,8 @@
 Package: MCbiclust
 Type: Package
 Title: Massive correlating biclusters for gene expression data and associated methods.
-Version: 1.0.0
-Date: 2014-12-27
+Version: 0.1.0
+Date: 2016-08-01
 Author: Robert Bentham
 Maintainer: Robert Bentham <robert.bentham.11@ucl.ac.uk>
 Description: Custom made algorithm and associated methods for finding, visualising and analysing biclusters in large gene expression data sets. Algorithm is based on with a supplied gene set of size n, finding the maximum strength correlation matrix containing m samples from the data set.
