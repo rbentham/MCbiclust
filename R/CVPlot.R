@@ -89,7 +89,7 @@ CVPlot <- function(cv.df,geneset.loc,geneset.name,alpha1 = 0.005,alpha2 = 0.1,cn
   for(i in 1:(cv.num-1)){
     custom_cv_plot <- putPlot(custom_cv_plot,H_d_plot_fun(i),i,i)}
   
-  custom_cv_plot <- putPlot(custom_cv_plot,H_d_plot_fun(cv.num,l1=T),cv.num,cv.num)
+  custom_cv_plot <- putPlot(custom_cv_plot,H_d_plot_fun(cv.num,l1=F),cv.num,cv.num)
   
   return(custom_cv_plot)
 }
