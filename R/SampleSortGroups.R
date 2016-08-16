@@ -9,8 +9,7 @@
 #' @return Order of samples by strength to correlation pattern
 
 SampleSortGroups <-
-  function(gem,group1.loc,group2.loc,seed,num.cores,sort.length = NULL){
-    require(multicore)
+  function(gem,group1.loc,group2.loc,seed,num.cores = NULL ,sort.length = NULL){
 
     if(length(sort.length) == 0){
       sample.size <- dim(gem)[2]}
@@ -52,7 +51,12 @@ SampleSortGroups <-
       for(i1 in 1:length(multi.core.list)){
         multi.core.list[[i1]] <- c(multi.core.list[[i1]],next.seed[i1])
       }
-      test.val2 <- unlist(mclapply(multi.core.list,FUN=SampSortMulti,mc.cores=num.cores))
+      if(length(num.cores)==0){
+        test.val2 <- unlist(bplapply(multi.core.list,FUN=SampSortMulti,
+                                     BPPARAM = MulticoreParam()))
+      }else{
+        test.val2 <- unlist(bplapply(multi.core.list,FUN=SampSortMulti,
+                                   BPPARAM = MulticoreParam(workers = num.cores)))}
       
       test.val.max[j+1] <- max(test.val2)
       seed <- c(seed,next.seed[which(test.val2==test.val.max[j+1])[1]])
