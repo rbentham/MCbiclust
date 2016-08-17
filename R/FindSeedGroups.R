@@ -10,6 +10,7 @@
 #' @return Seed of highly correlating samples
 #' @export
 
+# Test
 FindSeedGroups <-function(gem, seed.size, iterations, group1.loc, group2.loc,
                           initial.seed = NULL, full.detail = FALSE){
   gem <- gem[c(group1.loc,group2.loc),]
