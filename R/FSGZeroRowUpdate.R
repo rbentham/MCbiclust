@@ -1,9 +1,9 @@
 #' FindSeedGroups function for updating rows with 0 sd
 #' 
-#' @param gem 
-#' @param seed
-#' @param group1.loc
-#' @param group2.loc
+#' @param gem Gene expression matrix
+#' @param seed Sample seed of highly correlating genes
+#' @param group1.loc Location of genes highly correlated to each other but anti-correlated to group2
+#' @param group2.loc Location of genes highly correlated to each other but anti-correlated to group1
 #' @return Updated gene locations and correlation matrix
 
 FSGZeroRowUpdate <- function(gem,seed,group1.loc,group2.loc){

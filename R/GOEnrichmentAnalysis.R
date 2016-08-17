@@ -1,11 +1,12 @@
 #' Calculate gene set enrichment of correlation vector using Mann-Whitney test
 #' 
-#' @param gene.names
-#' @param gene.values
-#' @param sig.rate
-#' @param output.type
+#' @param gene.names Names of the genes
+#' @param gene.values Values associated with the genes 
+#' @param sig.rate Level of significance
+#' @param output.type Alternative output
 
 #' @return Significant gene sets
+#' @export
 
 GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate,output.type = NULL){
   data(GO_term_matrix)

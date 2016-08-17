@@ -1,8 +1,8 @@
 #' Function needed for gene vector calculation
 #' 
-#' @param gem
-#' @param seed
-#' @param n
+#' @param gem Gene set expression matrix
+#' @param seed Seed of highly correlating samples
+#' @param n Number of splits
 
 #' @return Calculation
 

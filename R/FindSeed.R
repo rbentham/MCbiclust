@@ -1,11 +1,12 @@
 #' Find highly correlated seed of samples for gene expression matrix
 #' 
-#' @param gem 
-#' @param seed.size
-#' @param iterations
-#' @param initial.seed
-#' @param full.detail
+#' @param gem Gene expression matrix
+#' @param seed.size Size of sample seed
+#' @param iterations Number of iterations
+#' @param initial.seed Initial seed used, if NULL randomly chosen
+#' @param full.detail True or False of additional output
 #' @return Highly correlated seed
+#' @export
 
 FindSeed <- function (gem, seed.size, iterations, initial.seed = NULL, full.detail = FALSE){
   

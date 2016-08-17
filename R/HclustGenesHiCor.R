@@ -1,9 +1,10 @@
 #' Find the most highly correlated genes using hierarchical clustering
 #' 
-#' @param gem 
-#' @param seed
-#' @param cuts
+#' @param gem Gene expression matrix
+#' @param seed Seed of highly correlating samples
+#' @param cuts Number of groups to cut dendogram into
 #' @return Numeric vector of most highly correlated genes
+#' @export
 
 HclustGenesHiCor <- function(gem,seed,cuts){
   

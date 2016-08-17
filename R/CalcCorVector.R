@@ -1,8 +1,9 @@
 #' Calculate correlation vector
 #' 
-#' @param gene.vec 
-#' @param gem
+#' @param gene.vec Single vector containing average expression levels
+#' @param gem Gene expression matrix
 #' @return Correlation vector
+#' @export
 
 CalcCorVector <- function(gene.vec, gem){
     dim1 <- dim(gem)[1]

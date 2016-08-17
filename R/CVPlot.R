@@ -6,11 +6,10 @@
 #' @param alpha2 Transparency level of gene set genes
 #' @param cnames Character vector containing names for the correlation vector
 #' @return A plot of the correlation vectors
+#' @export
 
 
 CVPlot <- function(cv.df,geneset.loc,geneset.name,alpha1 = 0.005,alpha2 = 0.1,cnames=NULL){
-  library(GGally)
-  
   if(is.character(geneset.name)==F){
     stop("geneset.name must be a single character value")
   }
@@ -30,11 +29,11 @@ CVPlot <- function(cv.df,geneset.loc,geneset.name,alpha1 = 0.005,alpha2 = 0.1,cn
   
   if(dim(cv.df)[2] == 2){
     a1 <- colnames(cv.df)[1]
-    p <- eval(parse(text=paste("ggplot(cv.df,aes(x =",a1,",col=Status))")))
-    return(p + geom_density() )
+    p <- eval(parse(text=paste("ggplot2::ggplot(cv.df,aes(x =",a1,",col=Status))")))
+    return(p + ggplot2::geom_density() )
   }
   
-  custom_cv_plot <- ggpairs(cv.df[,-status.loc],upper = "blank",lower = "blank",
+  custom_cv_plot <- GGally::ggpairs(cv.df[,-status.loc],upper = "blank",lower = "blank",
                             title = "",axisLabels ="show", legends=T)
   
   col_cv <- scales::hue_pal(h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
@@ -43,8 +42,8 @@ CVPlot <- function(cv.df,geneset.loc,geneset.name,alpha1 = 0.005,alpha2 = 0.1,cn
   H_plot_fun <- function(a,b){
     a1 <- colnames(cv.df)[a]
     b1 <- colnames(cv.df)[b]
-    p <- eval(parse(text=paste("ggplot(cv.df[-geneset.loc,],aes(x =",a1,",y =",b1,"))")))
-    return(p + geom_point(size = 2,alpha = alpha1,col=col_cv[2]))
+    p <- eval(parse(text=paste("ggplot2::ggplot(cv.df[-geneset.loc,],aes(x =",a1,",y =",b1,"))")))
+    return(p + ggplot2::geom_point(size = 2,alpha = alpha1,col=col_cv[2]))
   }
   
   H_combn <- combn(cv.num,2)
@@ -56,13 +55,13 @@ CVPlot <- function(cv.df,geneset.loc,geneset.name,alpha1 = 0.005,alpha2 = 0.1,cn
   p_H_plots <- lapply(c(1:dim(H_combn)[2]),H_plot_fun2)
   
   for(i in 1:dim(H_combn)[2]){
-    custom_cv_plot <- putPlot(custom_cv_plot,p_H_plots[[i]],H_combn[2,i],H_combn[1,i])}
+    custom_cv_plot <- GGally::putPlot(custom_cv_plot,p_H_plots[[i]],H_combn[2,i],H_combn[1,i])}
   
   H_m_plot_fun <- function(a,b){
     a1 <- colnames(cv.df)[a]
     b1 <- colnames(cv.df)[b]
-    p <- eval(parse(text=paste("ggplot(cv.df[geneset.loc,],aes(x =",a1,",y =",b1,"))")))
-    return(p + geom_point(size = 2,alpha = alpha2,col=col_cv[1]))
+    p <- eval(parse(text=paste("ggplot2::ggplot(cv.df[geneset.loc,],aes(x =",a1,",y =",b1,"))")))
+    return(p + ggplot2::geom_point(size = 2,alpha = alpha2,col=col_cv[1]))
   }
   
   H_m_plot_fun2 <- function(i){
@@ -73,23 +72,23 @@ CVPlot <- function(cv.df,geneset.loc,geneset.name,alpha1 = 0.005,alpha2 = 0.1,cn
   p_mH_plots <- lapply(c(1:dim(H_combn)[2]),H_m_plot_fun2)
   
   for(i in 1:dim(H_combn)[2]){
-    custom_cv_plot <- putPlot(custom_cv_plot,p_mH_plots[[i]],H_combn[1,i],H_combn[2,i])}
+    custom_cv_plot <- GGally::putPlot(custom_cv_plot,p_mH_plots[[i]],H_combn[1,i],H_combn[2,i])}
   
   
   H_d_plot_fun <- function(a,l1=F){
     a1 <- colnames(cv.df)[a]
-    p <- eval(parse(text=paste("ggplot(cv.df,aes(x =",a1,",col=Status))")))
+    p <- eval(parse(text=paste("ggplot2::ggplot(cv.df,aes(x =",a1,",col=Status))")))
     if(l1 == F){
-      return(p + geom_density() + theme(legend.position="none"))}
+      return(p + ggplot2::geom_density() + ggplot2::theme(legend.position="none"))}
     else{
-      return(p + geom_density())}
+      return(p + ggplot2::geom_density())}
   }
   
   
   for(i in 1:(cv.num-1)){
-    custom_cv_plot <- putPlot(custom_cv_plot,H_d_plot_fun(i),i,i)}
+    custom_cv_plot <- GGally::putPlot(custom_cv_plot,H_d_plot_fun(i),i,i)}
   
-  custom_cv_plot <- putPlot(custom_cv_plot,H_d_plot_fun(cv.num,l1=F),cv.num,cv.num)
+  custom_cv_plot <- GGally::putPlot(custom_cv_plot,H_d_plot_fun(cv.num,l1=F),cv.num,cv.num)
   
   return(custom_cv_plot)
 }
