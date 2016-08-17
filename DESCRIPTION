@@ -1,11 +1,23 @@
 Package: MCbiclust
 Type: Package
-Title: Massive correlating biclusters for gene expression data and associated methods.
+Title: Massive correlating biclusters for gene expression data and associated
+    methods.
 Version: 0.1.0
 Date: 2016-08-01
 Author: Robert Bentham
 Maintainer: Robert Bentham <robert.bentham.11@ucl.ac.uk>
-Description: Custom made algorithm and associated methods for finding, visualising and analysing biclusters in large gene expression data sets. Algorithm is based on with a supplied gene set of size n, finding the maximum strength correlation matrix containing m samples from the data set.
-Depends: BiocParallel, cluster, stats, GGally, ggplot2, scales
-Suggests: gplots
-License: GPL-2 
+Description: Custom made algorithm and associated methods for finding,
+    visualising and analysing biclusters in large gene expression data sets.
+    Algorithm is based on with a supplied gene set of size n, finding the maximum
+    strength correlation matrix containing m samples from the data set.
+Depends:
+    BiocParallel,
+    cluster,
+    stats,
+    GGally,
+    ggplot2,
+    scales
+Suggests:
+    gplots
+License: GPL-2
+RoxygenNote: 5.0.1

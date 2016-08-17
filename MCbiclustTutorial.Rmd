@@ -119,9 +119,14 @@ All genes can be measured by how they match to this pattern in two steps. The fi
 The second function `CalcCorVector` calculates the correlation vector by calculating the correlation of the average expression value found in the first step to every gene measured in the data set. This value is called the correlation vector.
 
 ```{r,cache=TRUE}
-CCLE.gene.vec <- GeneVecFun(CCLE.mito, CCLE.seed, 10)
-CCLE.cor.vec <- CalcCorVector(gene.vec = CCLE.gene.vec,
-                              gem = CCLE_data[,-c(1,2)][,CCLE.seed])
+# Old version:
+# CCLE.gene.vec <- GeneVecFun(CCLE.mito, CCLE.seed, 10)
+# CCLE.cor.vec <- CalcCorVector(gene.vec = CCLE.gene.vec,
+#                              gem = CCLE_data[,-c(1,2)][,CCLE.seed])
+
+CCLE.cor.vec <- CVEval(gem.part = CCLE.mito,
+                        gem.all = CCLE_data[,-c(1,2)],
+                        seed = CCLE.seed, splits = 10)
 ```
 # Gene Set Enrichment
 
