@@ -18,6 +18,9 @@ Depends:
     ggplot2,
     scales
 Suggests:
-    gplots
+    gplots,
+    knitr,
+    rmarkdown
 License: GPL-2
 RoxygenNote: 5.0.1
+VignetteBuilder: knitr
