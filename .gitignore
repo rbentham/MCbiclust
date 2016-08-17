@@ -6,3 +6,4 @@ data/
 MCbiclustTutorial_cache/
 MCbiclustTutorial_files/
 MCbiclust_GO.gmt
+inst/doc
