@@ -1,9 +1,10 @@
 #' Calculate bicluster threshold
 #' 
-#' @param cor.vec
-#' @param sort.order
-#' @param pc1
+#' @param cor.vec Correlation vector
+#' @param sort.order Order of samples
+#' @param pc1 PC1 values for samples
 #' @return Genes and samples in bicluster
+#' @export
 
 ThresholdBic <- function(cor.vec,sort.order,pc1,samp.sig = 0){
   

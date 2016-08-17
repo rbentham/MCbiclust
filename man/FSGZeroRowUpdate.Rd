@@ -7,7 +7,13 @@
 FSGZeroRowUpdate(gem, seed, group1.loc, group2.loc)
 }
 \arguments{
-\item{gem}{}
+\item{gem}{Gene expression matrix}
+
+\item{seed}{Sample seed of highly correlating genes}
+
+\item{group1.loc}{Location of genes highly correlated to each other but anti-correlated to group2}
+
+\item{group2.loc}{Location of genes highly correlated to each other but anti-correlated to group1}
 }
 \value{
 Updated gene locations and correlation matrix

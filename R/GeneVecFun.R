@@ -1,10 +1,10 @@
 #' Calcuclates gene vector used in calculation of correlation vector
 #' 
-#' @param gem
-#' @param seed
-#' @param splits
-
+#' @param gem Gene expression matrix
+#' @param seed Seed of highly correlating samples
+#' @param splits Maximum number of cuts from hierarchical clustering
 #' @return Average expression vector that matches pattern in seed
+#' @export
 
 GeneVecFun <- function(gem,seed,splits){
   test.list <- list()
@@ -12,7 +12,6 @@ GeneVecFun <- function(gem,seed,splits){
     test.list[[i-1]] <- GeneVecFunCalc(gem,seed,i)
   }
   test4 <- which.max(sapply(test.list,max))
-  test.list[[test4]]
   test1 <- cutree(hclust(dist(cor(t(gem[,seed])))),k = (test4 + 1))
   test2 <- lapply(seq(length = (test4 + 1)),FUN = function(x) which(test1 == x))
   temp.fun <- function(x) CorScoreCalc(gem[test2[[x]],],seed) * sqrt(length(test2[[x]]))

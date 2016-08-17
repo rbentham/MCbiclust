@@ -7,7 +7,9 @@
 CalcCorVector(gene.vec, gem)
 }
 \arguments{
-\item{gene.vec}{}
+\item{gene.vec}{Single vector containing average expression levels}
+
+\item{gem}{Gene expression matrix}
 }
 \value{
 Correlation vector

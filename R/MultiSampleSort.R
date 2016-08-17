@@ -1,13 +1,14 @@
 #' SampleSort for multiple patterns
 #' 
-#' @param gem 
-#' @param av.corvec
-#' @param top.genes.num
-#' @param groups
-#' @param initial.seeds
-#' @param num.cores
-#' @param sort.length
+#' @param gem Gene expression matrix
+#' @param av.corvec List of average correlation vector 
+#' @param top.genes.num Number of the top genes in correlation vector to use for sorting samples
+#' @param groups List showing what runs belong to which correlation vector group
+#' @param initial.seeds List of sample seeds from all runs
+#' @param num.cores Number of cores for use in parallel evaluation
+#' @param sort.length Number of samples to be sorted
 #' @return Order of samples by strength to correlation pattern
+#' @export
 
 MultiSampleSort <- function(gem, av.corvec, top.genes.num, groups, initial.seeds,
                             num.cores,sort.length = NULL){

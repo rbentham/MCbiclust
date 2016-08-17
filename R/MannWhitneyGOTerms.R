@@ -1,7 +1,7 @@
 #' Runs Mann-Whitney test for all GO terms
 #' 
-#' @param genes 
-#' @param gene.values
+#' @param genes Gene names
+#' @param gene.values Gene values
 #' @return p-value for each GO Term
 
 MannWhitneyGOTerms <- function(genes, gene.values){

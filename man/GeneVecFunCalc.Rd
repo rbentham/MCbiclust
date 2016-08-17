@@ -6,6 +6,13 @@
 \usage{
 GeneVecFunCalc(gem, seed, n)
 }
+\arguments{
+\item{gem}{Gene set expression matrix}
+
+\item{seed}{Seed of highly correlating samples}
+
+\item{n}{Number of splits}
+}
 \value{
 Calculation
 }

@@ -1,12 +1,13 @@
 #' Sort all samples by strength to a known correlation pattern
 #' 
-#' @param gem 
-#' @param seed
-#' @param group1.loc
-#' @param group2.loc
-#' @param num.cores
-#' @param sort.length
+#' @param gem Gene expression matrix
+#' @param seed Seed for highly correlating samples
+#' @param group1.loc Location of genes highly correlated to each other but anti-correlated to group2
+#' @param group2.loc Location of genes highly correlated to each other but anti-correlated to group1
+#' @param num.cores Number of cores used in parallel evaluation
+#' @param sort.length Number of samples to be sorted
 #' @return Order of samples by strength to correlation pattern
+#' @export
 
 SampleSortGroups <-
   function(gem,group1.loc,group2.loc,seed,num.cores = NULL ,sort.length = NULL){

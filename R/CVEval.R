@@ -1,10 +1,11 @@
 #' Calculate correlation vector
 #' 
-#' @param gem.part 
-#' @param gem.all
-#' @param seed
-#' @param splits
+#' @param gem.part Part of gene expression matrix only containing gene set of interest
+#' @param gem.all All of gene expression matrix
+#' @param seed Seed of highly correlating samples
+#' @param splits Number of cuts from hierarchical clustering
 #' @return Correlation vector
+#' @export
 
 CVEval <- function(gem.part, gem.all, seed, splits){
   gene.vec <- GeneVecFun(gem.part, seed, splits)

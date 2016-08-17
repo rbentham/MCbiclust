@@ -8,7 +8,17 @@ SampleSortGroups(gem, group1.loc, group2.loc, seed, num.cores = NULL,
   sort.length = NULL)
 }
 \arguments{
-\item{gem}{}
+\item{gem}{Gene expression matrix}
+
+\item{group1.loc}{Location of genes highly correlated to each other but anti-correlated to group2}
+
+\item{group2.loc}{Location of genes highly correlated to each other but anti-correlated to group1}
+
+\item{seed}{Seed for highly correlating samples}
+
+\item{num.cores}{Number of cores used in parallel evaluation}
+
+\item{sort.length}{Number of samples to be sorted}
 }
 \value{
 Order of samples by strength to correlation pattern

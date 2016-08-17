@@ -8,7 +8,15 @@ FindSeed(gem, seed.size, iterations, initial.seed = NULL,
   full.detail = FALSE)
 }
 \arguments{
-\item{gem}{}
+\item{gem}{Gene expression matrix}
+
+\item{seed.size}{Size of sample seed}
+
+\item{iterations}{Number of iterations}
+
+\item{initial.seed}{Initial seed used, if NULL randomly chosen}
+
+\item{full.detail}{True or False of additional output}
 }
 \value{
 Highly correlated seed

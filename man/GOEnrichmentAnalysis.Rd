@@ -6,6 +6,15 @@
 \usage{
 GOEnrichmentAnalysis(gene.names, gene.values, sig.rate, output.type = NULL)
 }
+\arguments{
+\item{gene.names}{Names of the genes}
+
+\item{gene.values}{Values associated with the genes}
+
+\item{sig.rate}{Level of significance}
+
+\item{output.type}{Alternative output}
+}
 \value{
 Significant gene sets
 }

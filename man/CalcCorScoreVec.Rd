@@ -8,7 +8,15 @@ CalcCorScoreVec(ordered.list, gem, seed.size = 10, mc = FALSE,
   num.cores = NULL)
 }
 \arguments{
-\item{ordered.list}{}
+\item{ordered.list}{Ordered list of the samples from SampleSort}
+
+\item{gem}{Gene expression matrix}
+
+\item{seed.size}{Size of the seed}
+
+\item{mc}{True or False for whether to use parallel evaluation}
+
+\item{num.cores}{Number of cores used for parallel evaluation}
 }
 \value{
 Vector of correlation scores

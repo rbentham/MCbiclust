@@ -7,7 +7,11 @@
 PointScoreCalc(gem, gloc1, gloc2)
 }
 \arguments{
-\item{gem}{}
+\item{gem}{Gene expression matrix}
+
+\item{gloc1}{Location of genes highly correlated to each other but anti-correlated to group2}
+
+\item{gloc2}{Location of genes highly correlated to each other but anti-correlated to group1}
 }
 \value{
 Numeric vector of point score for each sample

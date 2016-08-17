@@ -6,6 +6,13 @@
 \usage{
 ThresholdBic(cor.vec, sort.order, pc1, samp.sig = 0)
 }
+\arguments{
+\item{cor.vec}{Correlation vector}
+
+\item{sort.order}{Order of samples}
+
+\item{pc1}{PC1 values for samples}
+}
 \value{
 Genes and samples in bicluster
 }

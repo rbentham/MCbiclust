@@ -8,7 +8,19 @@ FindSeedGroups(gem, seed.size, iterations, group1.loc, group2.loc,
   initial.seed = NULL, full.detail = FALSE)
 }
 \arguments{
-\item{gem}{}
+\item{gem}{Gene expression matrix}
+
+\item{seed.size}{Number of samples in seed}
+
+\item{iterations}{Number of iterations}
+
+\item{group1.loc}{Location of genes highly correlated to each other but anti-correlated to group2}
+
+\item{group2.loc}{Location of genes highly correlated to each other but anti-correlated to group1}
+
+\item{initial.seed}{Which seed to begin the algorithm on, randomly selected if NULL}
+
+\item{full.detail}{Return additional information}
 }
 \value{
 Seed of highly correlating samples

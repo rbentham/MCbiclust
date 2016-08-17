@@ -7,7 +7,13 @@
 SampleSort(gem, seed, num.cores = NULL, sort.length = NULL)
 }
 \arguments{
-\item{gem}{}
+\item{gem}{Gene expression matrix}
+
+\item{seed}{Sample seed of highly correlating genes}
+
+\item{num.cores}{Number of cores used in parallel evaluation}
+
+\item{sort.length}{Number of samples to be sorted}
 }
 \value{
 Order of samples by strength to correlation pattern

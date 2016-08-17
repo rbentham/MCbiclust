@@ -1,9 +1,10 @@
 #' Calculate point score for samples based on gene groups
 #' 
-#' @param gem 
-#' @param gloc1
-#' @param gloc2
+#' @param gem Gene expression matrix
+#' @param gloc1 Location of genes highly correlated to each other but anti-correlated to group2
+#' @param gloc2 Location of genes highly correlated to each other but anti-correlated to group1
 #' @return Numeric vector of point score for each sample
+#' @export
 
 PointScoreCalc <- function(gem,gloc1,gloc2){
     gem1 <- gem - apply(gem,MARGIN = 1,median)

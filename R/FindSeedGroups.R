@@ -1,13 +1,14 @@
 #' FindSeed version for when pattern of regulation is known
 #' 
-#' @param gem 
-#' @param seed.size
-#' @param iterations
-#' @param group1.loc
-#' @param group2.loc
-#' @param initial.seed
-#' @param full.detail
+#' @param gem Gene expression matrix
+#' @param seed.size Number of samples in seed
+#' @param iterations Number of iterations 
+#' @param group1.loc Location of genes highly correlated to each other but anti-correlated to group2
+#' @param group2.loc Location of genes highly correlated to each other but anti-correlated to group1
+#' @param initial.seed Which seed to begin the algorithm on, randomly selected if NULL
+#' @param full.detail Return additional information
 #' @return Seed of highly correlating samples
+#' @export
 
 FindSeedGroups <-function(gem, seed.size, iterations, group1.loc, group2.loc,
                           initial.seed = NULL, full.detail = FALSE){

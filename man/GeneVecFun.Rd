@@ -6,6 +6,13 @@
 \usage{
 GeneVecFun(gem, seed, splits)
 }
+\arguments{
+\item{gem}{Gene expression matrix}
+
+\item{seed}{Seed of highly correlating samples}
+
+\item{splits}{Maximum number of cuts from hierarchical clustering}
+}
 \value{
 Average expression vector that matches pattern in seed
 }

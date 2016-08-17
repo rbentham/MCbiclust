@@ -7,7 +7,13 @@
 CVEval(gem.part, gem.all, seed, splits)
 }
 \arguments{
-\item{gem.part}{}
+\item{gem.part}{Part of gene expression matrix only containing gene set of interest}
+
+\item{gem.all}{All of gene expression matrix}
+
+\item{seed}{Seed of highly correlating samples}
+
+\item{splits}{Number of cuts from hierarchical clustering}
 }
 \value{
 Correlation vector

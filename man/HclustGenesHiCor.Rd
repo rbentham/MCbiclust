@@ -7,7 +7,11 @@
 HclustGenesHiCor(gem, seed, cuts)
 }
 \arguments{
-\item{gem}{}
+\item{gem}{Gene expression matrix}
+
+\item{seed}{Seed of highly correlating samples}
+
+\item{cuts}{Number of groups to cut dendogram into}
 }
 \value{
 Numeric vector of most highly correlated genes

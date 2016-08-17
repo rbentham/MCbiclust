@@ -7,7 +7,9 @@
 CorScoreCalc(gene.expr.matrix, sample.vec)
 }
 \arguments{
-\item{gene.expr.matrix}{}
+\item{gene.expr.matrix}{Gene expression matrix}
+
+\item{sample.vec}{Vector of samples}
 }
 \value{
 The correlation score

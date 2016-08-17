@@ -8,7 +8,19 @@ MultiSampleSort(gem, av.corvec, top.genes.num, groups, initial.seeds, num.cores,
   sort.length = NULL)
 }
 \arguments{
-\item{gem}{}
+\item{gem}{Gene expression matrix}
+
+\item{av.corvec}{List of average correlation vector}
+
+\item{top.genes.num}{Number of the top genes in correlation vector to use for sorting samples}
+
+\item{groups}{List showing what runs belong to which correlation vector group}
+
+\item{initial.seeds}{List of sample seeds from all runs}
+
+\item{num.cores}{Number of cores for use in parallel evaluation}
+
+\item{sort.length}{Number of samples to be sorted}
 }
 \value{
 Order of samples by strength to correlation pattern

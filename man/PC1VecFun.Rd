@@ -6,6 +6,13 @@
 \usage{
 PC1VecFun(top.gem, seed.sort, n)
 }
+\arguments{
+\item{top.gem}{Gene expression matrix containing only highly correlating genes}
+
+\item{seed.sort}{Ordering of samples according to strength of correlation}
+
+\item{n}{Number of samples to use in calculation of PC1}
+}
 \value{
 PC1 value for each sample
 }

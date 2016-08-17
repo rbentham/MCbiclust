@@ -7,6 +7,17 @@
 SilhouetteClustGroups(cor.vec.mat, max.clusters, plots = FALSE, seed1 = 100,
   rand.vec = TRUE)
 }
+\arguments{
+\item{cor.vec.mat}{Correlation matrix of the correlation vectors (CVs)}
+
+\item{max.clusters}{Maximum number of clusters to divide CVs into}
+
+\item{plots}{True or False for whether to show silhouette plots}
+
+\item{seed1}{Value used to set random seed}
+
+\item{rand.vec}{True or False for whether to add random correlation vector used for comparison}
+}
 \value{
 The distinct clusters of correlation vectors
 }

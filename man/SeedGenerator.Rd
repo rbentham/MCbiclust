@@ -7,6 +7,17 @@
 SeedGenerator(seed.size, numbers, sample.length, break.num = 0,
   attempts = 1000)
 }
+\arguments{
+\item{seed.size}{Size of seed}
+
+\item{numbers}{Number of seeds to be generated}
+
+\item{sample.length}{Number of samples}
+
+\item{break.num}{Target length of intersections with previous seed}
+
+\item{attempts}{Number of attempts before best result is selected}
+}
 \value{
 Initial seed list
 }

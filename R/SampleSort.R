@@ -1,10 +1,11 @@
 #' Sort all samples by strength to correlation pattern
 #' 
-#' @param gem 
-#' @param seed
-#' @param num.cores
-#' @param sort.length
+#' @param gem Gene expression matrix
+#' @param seed Sample seed of highly correlating genes
+#' @param num.cores Number of cores used in parallel evaluation
+#' @param sort.length Number of samples to be sorted
 #' @return Order of samples by strength to correlation pattern
+#' @export
 
 SampleSort <- function(gem,seed,num.cores = NULL,sort.length = NULL){
   require(compiler)

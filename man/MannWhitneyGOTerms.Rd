@@ -7,7 +7,9 @@
 MannWhitneyGOTerms(genes, gene.values)
 }
 \arguments{
-\item{genes}{}
+\item{genes}{Gene names}
+
+\item{gene.values}{Gene values}
 }
 \value{
 p-value for each GO Term

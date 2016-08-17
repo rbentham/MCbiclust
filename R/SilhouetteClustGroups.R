@@ -1,12 +1,13 @@
 #' Slihouette validation of correlation vector clusters 
 #' 
-#' @param cor.vec.mat
-#' @param max.clusters
-#' @param plots
-#' @param seed1
-#' @param rand.vec
+#' @param cor.vec.mat Correlation matrix of the correlation vectors (CVs)
+#' @param max.clusters Maximum number of clusters to divide CVs into
+#' @param plots True or False for whether to show silhouette plots
+#' @param seed1 Value used to set random seed
+#' @param rand.vec True or False for whether to add random correlation vector used for comparison
 
 #' @return The distinct clusters of correlation vectors
+#' @export
 
 
 SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE, seed1 = 100, rand.vec = TRUE){
@@ -23,10 +24,9 @@ SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE, seed
   cor.dist <- as.dist(1 - abs(cor(cor.vec.mat2)))
   cor.hclust <- hclust(cor.dist)
   
-  library(cluster)
   sil.value <- seq(length = (max.clusters  - 1))
   for(i in 2:max.clusters){
-    si2 <- silhouette(x = cutree(cor.hclust,k = i),dist = cor.dist)
+    si2 <- cluster::silhouette(x = cutree(cor.hclust,k = i),dist = cor.dist)
     sil.value[i-1] <- mean(si2[,3])}
   
   if(plots == T) print(plot(seq(length = 19)+1, sil.value, xlab="Number of clusters",ylab="Mean silhoette width"))

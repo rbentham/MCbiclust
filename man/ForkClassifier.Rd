@@ -6,6 +6,11 @@
 \usage{
 ForkClassifier(pc1, samp.num)
 }
+\arguments{
+\item{pc1}{PC1 values of samples}
+
+\item{samp.num}{Number of samples in the bicluster}
+}
 \value{
 Classification of each sample
 }
