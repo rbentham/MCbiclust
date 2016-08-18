@@ -3,7 +3,6 @@
 #' @param top.gem Gene expression matrix containing only highly correlating genes
 #' @param seed.sort Ordering of samples according to strength of correlation
 #' @param n Number of samples to use in calculation of PC1
-
 #' @return PC1 value for each sample
 #' @export
 

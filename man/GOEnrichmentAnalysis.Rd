@@ -4,7 +4,7 @@
 \alias{GOEnrichmentAnalysis}
 \title{Calculate gene set enrichment of correlation vector using Mann-Whitney test}
 \usage{
-GOEnrichmentAnalysis(gene.names, gene.values, sig.rate, output.type = NULL)
+GOEnrichmentAnalysis(gene.names, gene.values, sig.rate)
 }
 \arguments{
 \item{gene.names}{Names of the genes}

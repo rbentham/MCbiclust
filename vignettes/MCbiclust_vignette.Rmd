@@ -60,28 +60,27 @@ This is achieved with function `FindSeed`, the argument `gem` stands for gene ex
 
 For reproducibility `set.seed` has been used to set R's pseudo-random number generator. It should also be noted that the for `gem` the data matrix can not contain all the genes, since `FindSeed` involves the calculation of correlation matrices which are not computationally efficient to compute if they involve greater than ~1000 genes.
 
-```{r, cache=TRUE, results='hide' ,eval=FALSE, cache=TRUE}
+```{r, cache=TRUE, results='hide'}
 set.seed(102)
 CCLE.seed <- FindSeed(gem = CCLE.mito,
                       seed.size = 10,
                       iterations = 10000)
 ```
 
-`FindSeed` has two additional options, `initial.seed` allows the user to specify the initial subsample to be tested, by default the initial sample subset is randomly chosen. The second is `full.detail` which by default is set to `FALSE`, when set to `TRUE` this returns a `data.frame` containing the initial subsample list and how it evolves over the iterations.
+`FindSeed` has one more additional options, `initial.seed` allows the user to specify the initial subsample to be tested, by default the initial sample subset is randomly chosen. 
 
+There is a function `CorScoreCalc` that can calculate the correlation score used in FindSeed, though in general you should not need to use it, unless you wish to manually check the chosen seed is an improvement on one that is randomly generated.
 
-There is a function that can calculate the correlation score used in FindSeed, though in general you should not need to use it, unless you wish to manually check the chosen seed is an improvement on one that is randomly generated.
-
-```{r ,eval=FALSE}
+```{r, cache = TRUE}
 set.seed(103)
 random.seed <- sample(seq(length = dim(CCLE.mito)[2]), 10)
 CorScoreCalc(CCLE.mito,random.seed)
 CorScoreCalc(CCLE.mito,CCLE.seed)
 ```
 
-The results of `FindSeed` can also be visualised by examining the associated correlation matrix, and viewing the result as a heatmap. Again it is easy to see the difference between the random subsample and the one outputted from FindSeed.
+The results of `FindSeed` can also be visualised by examining the associated correlation matrix, and viewing the result as a heatmap. Again it is easy to see the difference between the random subsample and the one outputted from `FindSeed`.
 
-```{r, cache=TRUE,dev='png' ,eval=FALSE}
+```{r, cache=TRUE, dev='png'}
 CCLE.random.cor <- cor(t(CCLE.mito[,random.seed]))
 heatmap.2(CCLE.random.cor,trace = "none")
 
@@ -97,15 +96,17 @@ Note that when the genes are represented as the rows in a matrix, that matrix ne
 
 As can be clearly seen from the heat map, not all the mitochondrial genes are equally strongly correlated to each other. There is a function in `MCbiclust` which automatically selects those genes that are most strongly associated with the pattern. This function is `HclustGenesHiCor` and it works by using hierarchical clustering to select the genes into n different groups, and then discarding any of these groups that fails to have a correlation score greater than the correlation score from all the genes together.
 
-```{r,cache=TRUE,dev='png' ,eval=FALSE}
-CCLE.hicor.genes <- HclustGenesHiCor(CCLE.mito,CCLE.seed,cuts = 8)
-CCLE.mito.cor2 <- cor(t(CCLE.mito[as.numeric(CCLE.hicor.genes),CCLE.seed]))
+```{r,cache=TRUE,dev='png'}
+CCLE.hicor.genes <- as.numeric(HclustGenesHiCor(CCLE.mito,
+                                                CCLE.seed,
+                                                cuts = 8))
+CCLE.mito.cor2 <- cor(t(CCLE.mito[CCLE.hicor.genes, CCLE.seed]))
 CCLE.heat <- heatmap.2(CCLE.mito.cor2,trace = "none")
 ```
 
 There are two groups of genes, strongly correlated to themselves and anti-correlated to each other.
 
-```{r ,eval=FALSE}
+```{r, cache = TRUE}
 CCLE.groups <- list(labels(CCLE.heat$rowDendrogram[[1]]),
                     labels(CCLE.heat$rowDendrogram[[2]]))
 ```
@@ -118,7 +119,7 @@ All genes can be measured by how they match to this pattern in two steps. The fi
 
 The second function `CalcCorVector` calculates the correlation vector by calculating the correlation of the average expression value found in the first step to every gene measured in the data set. This value is called the correlation vector.
 
-```{r,cache=TRUE ,eval=FALSE}
+```{r, cache=TRUE}
 CCLE.cor.vec <- CVEval(gem.part = CCLE.mito,
                         gem.all = CCLE_data[,-c(1,2)],
                         seed = CCLE.seed, splits = 10)
@@ -128,7 +129,7 @@ CCLE.cor.vec <- CVEval(gem.part = CCLE.mito,
 
 Using the calculated correlation vector, it is a relatively simple task to perform gene set enrichment. This can be done on any platform (e.g. DAVID, gprofiler, etc.) but MCbiclust comes with an inbuilt function for calculating GO enrichment values using the Mann-Whitney non-parametric test.
 
-```{r,cache=TRUE ,eval=FALSE}
+```{r, cache=TRUE}
 GSE.MW <- GOEnrichmentAnalysis(gene.names = as.character(CCLE_data[,2]),
                                gene.values = CCLE.cor.vec,
                                sig.rate = 0.05)
@@ -136,8 +137,8 @@ GSE.MW <- GOEnrichmentAnalysis(gene.names = as.character(CCLE_data[,2]),
 
 There are 1082 significant terms and the top 10 most significant can be viewed below:
 
-```{r, results = "asis",echo=FALSE ,eval=FALSE}
-knitr::kable(GSE.MW[1:10,])
+```{r, results = "asis", cache = TRUE}
+pander::pandoc.table(GSE.MW[1:10,])
 ```
 
 ## Sample ordering
@@ -146,9 +147,9 @@ Already all the genes in the data set have had the correlation calculated to the
 
 `SampleSort` is the function in `MCbiclust` that completes this procedure, it has $4$ main inputs, the first is the gene expression matrix with all the samples and the gene set of interest. `seed` is the initial subsample found with `FindSeed`. For increasing what can be a very slow computation, the code can be run on multiple cores, with the number of cores selected from the argument `num.cores` and instead of sorting the entire length, only the first `sort.length` samples need to be ordered.
 
-```{r,cache=TRUE ,eval=FALSE}
+```{r, results='hide', eval=FALSE}
 CCLE.samp.sort <- SampleSort(CCLE.mito[as.numeric(CCLE.hicor.genes),],
-                             seed = CCLE.seed,num.cores = 3)
+                             seed = CCLE.seed, num.cores = 4)
 ```
 
 ## PCA and ggplot2
@@ -166,7 +167,8 @@ PC1 captures the highest variance within the data, so if PCA is run on the found
 
 ```{r,cache=TRUE ,eval=FALSE}
 top.mat <- CCLE.mito[as.numeric(CCLE.hicor.genes),]
-pc1.vec <- PC1VecFun(top.gem = top.mat, seed.sort = CCLE.samp.sort, n = 10)
+pc1.vec <- PC1VecFun(top.gem = top.mat,
+                     seed.sort = CCLE.samp.sort, n = 10)
 ```
 
 
@@ -175,8 +177,10 @@ As an alternative to calculating PC1, the user may want to calculate the average
 Either the two groups of mitochondrial genes strongly correlated to themselves and anti-correlated to each other could be used, or the top $n$ correlating and anti-correlating genes in the correlation vector, or those genes in the correlation vector above a particular threshold.
 
 ```{r,cache=TRUE ,eval=FALSE}
-av.genes.group1 <- colMeans(CCLE.mito[CCLE.groups[[1]], CCLE.samp.sort])
-av.genes.group2 <- colMeans(CCLE.mito[CCLE.groups[[2]], CCLE.samp.sort])
+av.genes.group1 <- colMeans(CCLE.mito[CCLE.groups[[1]],
+                                      CCLE.samp.sort])
+av.genes.group2 <- colMeans(CCLE.mito[CCLE.groups[[2]],
+                                      CCLE.samp.sort])
 
 top.1000 <- order(CCLE.cor.vec, decreasing = T)[seq(1000)]
 bottom.1000 <- order(CCLE.cor.vec, decreasing = F)[seq(1000)]
@@ -196,7 +200,8 @@ Once the samples have been ordered and PC1 and the average gene sets calculated 
 This is done here using the `ggplot2` package, a plotting package for R by Hadley Wickam.
 
 ```{r ,eval=FALSE}
-CCLE.df <- data.frame(CCLE.name = colnames(CCLE_data)[-c(1,2)][CCLE.samp.sort],
+CCLE.names <- colnames(CCLE_data)[-c(1,2)][CCLE.samp.sort]
+CCLE.df <- data.frame(CCLE.name = CCLE.names,
                       PC1 = pc1.vec,
                       Average.Group1 = av.genes.group1,
                       Average.Group2 = av.genes.group2,
@@ -228,7 +233,7 @@ fork.status[fork.class$Lower] <- "Lower"
 This fork information can now be added to the plot.
 
 ```{r, eval=FALSE}
-CCLE.df <- data.frame(CCLE.name = colnames(CCLE_data)[-c(1,2)][CCLE.samp.sort],
+CCLE.df <- data.frame(CCLE.name = CCLE.names,
                       PC1 = pc1.vec,
                       Order = seq(length = length(pc1.vec)),
                       Fork = fork.status)
@@ -240,12 +245,11 @@ ggplot(CCLE.df, aes(Order,PC1)) +
 This is still however not very enlightening, and in the next sections additional information will be added to these plots.
 
 
-## Comparing results with sample/copynumber data
+## Comparing results with sample data
 
 This section will deal with two addition data sets both of which are available in the MCbiclust package.
 
 1. CCLE sample information, a data set containing information for every sample in the data set, including gender of the patient the cell line was derived from, as well as the primary site it came from.
-1. A data set of the log ratio copynumber for samples in the CCLE data set. Using this we data we can check if there are any regions of significantly different copy number between the two found groups.
 
 This section is meant as an example of the type of analysis that can be done with additional data set. Each new data set may have different additional data available with it and may be in formats that need some extra work to become compatible with the results from the `MCbiclust` analysis. 
 
@@ -269,7 +273,8 @@ CCLE.data.names[seq(10)]
 In this case some samples have an additional "X" not present in some CCLE_samples data so it is necessary to add it for consistency.
 
 ```{r ,eval=FALSE}
-CCLE.samples.names[c(1:15)] <- paste("X",CCLE.samples.names[c(1:15)], sep="")
+CCLE.samples.names[c(1:15)] <- paste("X",CCLE.samples.names[c(1:15)],
+                                     sep="")
 CCLE_samples$CCLE.name <- CCLE.samples.names
 ```
 
@@ -292,12 +297,21 @@ Since in this case the data is categorical, it can be tested for significance us
 library(MASS)
 
 # create contingency tables
-ctable.site <- table(CCLE.df.samples$Fork, CCLE.df.samples$Site.Primary,
-                     exclude = c("autonomic_ganglia", "biliary_tract",
-                                 "liver","oesophagus","pancreas",
-                                 "prostate","salivary_gland","small_intestine",
-                                 "stomach","thyroid"))
-ctable.gender <- table(CCLE.df.samples$Fork, CCLE.df.samples$Gender,
+ctable.site <- table(CCLE.df.samples$Fork,
+                     CCLE.df.samples$Site.Primary,
+                     exclude = c("autonomic_ganglia",
+                                 "biliary_tract",
+                                 "liver",
+                                 "oesophagus",
+                                 "pancreas",
+                                 "prostate",
+                                 "salivary_gland",
+                                 "small_intestine",
+                                 "stomach",
+                                 "thyroid"))
+
+ctable.gender <- table(CCLE.df.samples$Fork,
+                       CCLE.df.samples$Gender,
                        exclude = "U")
 
 chisq.test(ctable.site)
@@ -333,11 +347,14 @@ CCLE.cor.vec.multi <- list()
 
 for(i in seq(100)){
   CCLE.gene.vec <- GeneVecFun(CCLE.mito, CCLE.multi.seed[[i]], 10)
+  CCLE.gem1 <- CCLE_data[,-c(1,2)][,CCLE.multi.seed[[i]]]
   CCLE.cor.vec.multi[[i]] <- CalcCorVector(gene.vec = CCLE.gene.vec,
-                                           gem = CCLE_data[,-c(1,2)][,CCLE.multi.seed[[i]]])
+                                           gem = CCLE.gem1)
 }
 
-multi.run.cor.vec.mat <- matrix(0,length(CCLE.cor.vec.multi[[1]]),length(CCLE.cor.vec.multi))
+len.a <- length(CCLE.cor.vec.multi[[1]])
+len.b <- length(CCLE.cor.vec.multi)
+multi.run.cor.vec.mat <- matrix(0,len.a,len.b)
 for(i in 1:100){
   multi.run.cor.vec.mat[,i] <- CCLE.cor.vec.multi[[i]]
 }
@@ -348,14 +365,18 @@ rm(CCLE.cor.vec.multi)
 A correlation matrix can be formed from the correlation vectors, and in this way they can be viewed as a heatmap.
 
 ```{r,dev='png' ,eval=FALSE}
-routput.corvec.matrix.cor.heat <- heatmap.2(abs(cor((multi.run.cor.vec.mat))),trace="none",
-                                            distfun = function(c){as.dist(1 - abs(c))})
+CV.cor.mat1 <- abs(cor((multi.run.cor.vec.mat)))
+cor.dist <- function(c){as.dist(1 - abs(c))}
+
+routput.corvec.matrix.cor.heat <- heatmap.2(CV.cor.mat1,
+                                            trace="none",
+                                            distfun = cor.dist)
 ```
 
 It needs to be known how many distinct patterns have been found, this is done with clustering and particular silhouette coefficients to judge what number of clusters is optimum within the data. Function `SilhouetteClustGroups` achieves this and uses hierarchical clustering to split the patterns into clusters, for comparison a randomly generated correlation vector is also added to allow for the possibility that all patterns found are best grouped into a single cluster.
 
 ```{r ,eval=FALSE}
-multi.clust.groups <- SilhouetteClustGroups(cor.vec.mat = multi.run.cor.vec.mat,
+multi.clust.groups <- SilhouetteClustGroups(multi.run.cor.vec.mat,
                                             max.clusters = 20,
                                             plots = T)
 ```
@@ -364,8 +385,9 @@ Here only one cluster was found, and we can visualise this pattern (and any addi
 
 ```{r,dev='png' ,eval=FALSE}
 microarray.genes <- as.character(CCLE_data[,2])
+av.corvec.fun <- function(x) rowMeans(multi.run.cor.vec.mat[,x]
 average.corvec <- lapply(X = multi.clust.groups,
-                         FUN = function(x) rowMeans(multi.run.cor.vec.mat[,x]))
+                         FUN = av.corvec.fun)
 
 CVPlot(cv.df = as.data.frame(average.corvec),
         geneset.loc = mito.loc,
@@ -376,18 +398,23 @@ CVPlot(cv.df = as.data.frame(average.corvec),
 As before can also calculate the gene set enrichment.
 
 ```{r,cache=TRUE ,eval=FALSE}
+GOfun <- function(x) GOEnrichmentAnalysis(gene.names = microarray.genes,
+                                          gene.values = x,
+                                          sig.rate = 0.05))
+
+
 corvec.gsea <- lapply(X = average.corvec,
-                      FUN = function(x) GOEnrichmentAnalysis(gene.names = microarray.genes,
-                                                             gene.values = x,
-                                                             sig.rate = 0.05))
+                      FUN = GOfun)
                 
 ```
 
 Instead of using `SampleSort` a special sorting function for this case is used, `MultiSampleSort`. This works very similarly to `SampleSort` but selects the top genes in the average correlation vector and selects the initial seed with the highest correlation score corresponding to those genes.  
 
 ```{r,cache=TRUE ,eval=FALSE}
-CCLE.samp.multi.sort <-  MultiSampleSort(CCLE_data[,-c(1,2)], average.corvec, 750,
-                            multi.clust.groups, CCLE.multi.seed,2,50)
+CCLE.samp.multi.sort <-  MultiSampleSort(CCLE_data[,-c(1,2)],
+                                         average.corvec, 750,
+                                         multi.clust.groups,
+                                         CCLE.multi.seed,2,50)
 ```
 
 # Session Info {-}
