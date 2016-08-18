@@ -4,11 +4,10 @@
 #' @param seed.size Size of sample seed
 #' @param iterations Number of iterations
 #' @param initial.seed Initial seed used, if NULL randomly chosen
-#' @param full.detail True or False of additional output
 #' @return Highly correlated seed
 #' @export
 
-FindSeed <- function (gem, seed.size, iterations, initial.seed = NULL, full.detail = FALSE){
+FindSeed <- function (gem, seed.size, iterations, initial.seed = NULL){
   
   print(c("Iteration", "Cor Score"))
   sample.list <- list()
@@ -28,10 +27,7 @@ FindSeed <- function (gem, seed.size, iterations, initial.seed = NULL, full.deta
   test.cor <- cor(gem.t[seed, ])
   }
   test.cor.score <- mean(abs(test.cor))
-  if(full.detail == TRUE){
-    sample.list[[1]] <- c(0, test.cor.score, seed)
-    sample.rank <- 1
-  }
+  
   rv <- sample(seq(length=seed.size), iterations, replace = TRUE)
   # Randomly deselect one sample, replace with randomly chosen non-selected sample
   # if new seed has higher correlation score, keep new seed, if not keep.
@@ -59,21 +55,12 @@ FindSeed <- function (gem, seed.size, iterations, initial.seed = NULL, full.deta
               seed <- c(seed[pre.replace],seed2[seed.size],seed[post.replace])
               }
             test.cor.score <- test.cor.score2
-            if(full.detail == TRUE){
-              sample.rank <- sample.rank + 1
-              sample.list[[sample.rank]] <- c(i, test.cor.score, seed)
-            }
+           
         }
         if (i%%100 == 0) {
           print(c(i, test.cor.score))
         }
     }
-    if(full.detail == TRUE){   
-      df.out <- as.data.frame(t(matrix(unlist(sample.list), 12)))
-      colnames(df.out) <- c("Iteration", "Correlation Score", paste("Seed", c(1:10), sep=""))
-      return(df.out)
-    }
-    else{
+
       return(seed)
-    }
 }

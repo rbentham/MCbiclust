@@ -20,7 +20,8 @@ Depends:
 Suggests:
     gplots,
     knitr,
-    rmarkdown
+    rmarkdown,
+    BiocStyle
 License: GPL-2
 RoxygenNote: 5.0.1
 VignetteBuilder: knitr
