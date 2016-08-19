@@ -23,5 +23,6 @@ Suggests:
     rmarkdown,
     BiocStyle
 License: GPL-2
+biocViews: Clustering, Microarray, StatisticalMethod, Software, RNASeq
 RoxygenNote: 5.0.1
 VignetteBuilder: knitr

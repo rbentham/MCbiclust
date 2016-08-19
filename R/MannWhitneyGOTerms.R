@@ -5,13 +5,12 @@
 #' @return p-value for each GO Term
 
 MannWhitneyGOTerms <- function(genes, gene.values){
-  go.pvalues <- seq(length = length(GO_term_genes)) 
-  for(i in seq(length = length(go.pvalues))){
-    a <- which(genes %in% GO_term_genes[[i]])
-    if(length(a) > 10){
-      go.pvalues[i] <- wilcox.test(gene.values[a],gene.values)$p.value}
-    else{
-      go.pvalues[i] <- NA}
-  }
+  
+  mannfun1 <- function(x){
+    a <- which(genes %in% GO_term_genes[[x]])
+    return(ifelse(length(a) > 10, wilcox.test(gene.values[a],gene.values)$p.value,
+           NA))}
+ 
+  go.pvalues <- sapply(seq(length = length(GO_term_genes)), FUN = mannfun1)
   return((go.pvalues))
 }

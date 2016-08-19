@@ -7,10 +7,10 @@
 #' @export
 
 GeneVecFun <- function(gem,seed,splits){
-  test.list <- list()
-  for(i in 2:splits){
-    test.list[[i-1]] <- GeneVecFunCalc(gem,seed,i)
-  }
+  
+  test.list <- lapply(X = c(2:splits),
+                      FUN = function(x) GeneVecFun(gem, seed, x))
+
   test4 <- which.max(sapply(test.list,max))
   test1 <- cutree(hclust(dist(cor(t(gem[,seed])))),k = (test4 + 1))
   test2 <- lapply(seq(length = (test4 + 1)),FUN = function(x) which(test1 == x))

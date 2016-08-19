@@ -32,10 +32,10 @@ GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate){
   p.value <- pvalues[sig.p][ordering.p]
   adj.p.value <- adj.pvalues[sig.p][ordering.p]
   
-  phenotype <- rep(-1,length(sig.p))
-  for(i in seq(length = length(sig.p))){
-    if(g.av.value[i] > 0) phenotype[i] <- 1
-  }
+  av.gene.values <- mean(gene.values)
+  
+  phenofun <- function(x) return(ifelse(g.av.value[x] > av.gene.values,1,-1))
+  phenotype <- sapply(seq(length = length(sig.p)),FUN = phenofun)
   
   return(cbind(GO_term_matrix[sig.p[ordering.p],], num.genes,
                g.in.genelist, adj.p.value, g.av.value))
