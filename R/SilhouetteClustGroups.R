@@ -29,7 +29,7 @@ SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE, seed
     return(mean(si2[,3]))
   }
   
-  sil.value <- sapply(seq(length = (max.clusters  - 1)), FUN = silfun1)
+  sil.value <- sapply(c(2:max.clusters), FUN = silfun1)
   
   if(plots == T) print(plot(seq(length = 19)+1, sil.value, xlab="Number of clusters",ylab="Mean silhoette width"))
   
