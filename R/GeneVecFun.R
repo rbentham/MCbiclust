@@ -9,7 +9,7 @@
 GeneVecFun <- function(gem,seed,splits){
   
   test.list <- lapply(X = c(2:splits),
-                      FUN = function(x) GeneVecFun(gem, seed, x))
+                      FUN = function(x) GeneVecFunCalc(gem, seed, x))
 
   test4 <- which.max(sapply(test.list,max))
   test1 <- cutree(hclust(dist(cor(t(gem[,seed])))),k = (test4 + 1))
