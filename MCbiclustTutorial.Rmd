@@ -2,9 +2,9 @@
 title: "MCbiclust Tutorial"
 author: "Robert Bentham"
 date: "23 September 2015"
-output: 
+output:
   pdf_document:
-    toc: true
+    toc: yes
 ---
 
 \newpage

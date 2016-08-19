@@ -4,12 +4,12 @@ author:
  - name: "Robert Bentham"
    affiliation: "Cell and Developmental Biology, University College London"
    email: "robert.bentham.11@ucl.ac.uk"
-date: "`r Sys.Date()`"
+date: "2016-08-18"
 output: 
   BiocStyle::pdf_document2:
     toc_newpage: TRUE
 vignette: >
-  %\VignetteIndexEntry{MCBiclust}
+  %\VignetteIndexEntry{MCbiclust 0.1}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 abstract: MCbiclust is a R package for running massively correlating biclustering analysis. MCbiclust aims to find large scale biclusters with selected features being highly correlated with each other over a subset of samples. MCbiclust was particularly designed for the application of studying gene expression data, finding and understanding biclusters that are related to large scale co-regulation of genes.
@@ -138,7 +138,7 @@ GSE.MW <- GOEnrichmentAnalysis(gene.names = as.character(CCLE_data[,2]),
 There are 1082 significant terms and the top 10 most significant can be viewed below:
 
 ```{r, results = "asis", cache = TRUE}
-pander::pandoc.table(GSE.MW[1:10,])
+pander::pandoc.table(GSE.MW[1:10,],row.names = FALSE)
 ```
 
 ## Sample ordering
@@ -150,6 +150,10 @@ Already all the genes in the data set have had the correlation calculated to the
 ```{r, results='hide', eval=FALSE}
 CCLE.samp.sort <- SampleSort(CCLE.mito[as.numeric(CCLE.hicor.genes),],
                              seed = CCLE.seed, num.cores = 4)
+```
+
+```{r, results='hide', eval=FALSE, echo=FALSE}
+save(CCLE.samp.sort,file = "~/Documents/PhD/")
 ```
 
 ## PCA and ggplot2
@@ -169,6 +173,14 @@ PC1 captures the highest variance within the data, so if PCA is run on the found
 top.mat <- CCLE.mito[as.numeric(CCLE.hicor.genes),]
 pc1.vec <- PC1VecFun(top.gem = top.mat,
                      seed.sort = CCLE.samp.sort, n = 10)
+
+CCLE.bic <- ThresholdBic(cor.vec = CCLE.cor.vec,
+                         sort.order = CCLE.samp.sort,
+                         pc1 = pc1.vec,samp.sig = 0.05)
+
+pc1.vec <- PC1Align(gem = CCLE.data[,-c(1,2)], PC1 = pc1.vec,
+                    CV = CCLE.cor.vec, bic = CCLE.bic)
+
 ```
 
 
