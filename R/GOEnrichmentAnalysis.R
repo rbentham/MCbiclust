@@ -28,17 +28,17 @@ GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate){
   ordering.p <- order(adj.pvalues[sig.p])
   num.genes <- as.numeric(unlist(lapply(GO_term_genes[sig.p],length)))[ordering.p]
   g.in.genelist <- as.numeric(lapply(GO_term_genes[sig.p],GenelistNum))[ordering.p]
-  g.av.value <- as.numeric(lapply(lapply(GO_term_genes[sig.p],GenelistLoc),GenelistMean))[ordering.p]
+  CV.av.value <- as.numeric(lapply(lapply(GO_term_genes[sig.p],GenelistLoc),GenelistMean))[ordering.p]
   p.value <- pvalues[sig.p][ordering.p]
   adj.p.value <- adj.pvalues[sig.p][ordering.p]
   
   av.gene.values <- mean(gene.values)
   
-  phenofun <- function(x) return(ifelse(g.av.value[x] > av.gene.values,1,-1))
+  phenofun <- function(x) return(ifelse(CV.av.value[x] > av.gene.values,1,-1))
   phenotype <- sapply(seq(length = length(sig.p)),FUN = phenofun)
   
   return(cbind(GO_term_matrix[sig.p[ordering.p],], num.genes,
-               g.in.genelist, adj.p.value, g.av.value))
+               g.in.genelist, adj.p.value, CV.av.value, phenotype))
 
 
 }
