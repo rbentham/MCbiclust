@@ -12,9 +12,9 @@
 PC1Align <- function(gem, PC1, CV, sort.order, bic){
   
   max.cv.loc <- which.max(CV)
-  number.samps <- seq(length = bic[[2]])
+  number.samps <- seq(length = length(bic[[2]]))
   gem1 <- gem[max.cv.loc, sort.order[number.samps]]
-  cor.test <- cor(gem1, PC1[number.samps])
+  cor.test <- cor(as.numeric(gem1), PC1[number.samps])
   
   if(cor.test < 0){
     PC1 <- -PC1

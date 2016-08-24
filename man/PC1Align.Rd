@@ -4,7 +4,7 @@
 \alias{PC1Align}
 \title{Make sure PC1 and Correlation Vector are aligned}
 \usage{
-PC1Align(gem, PC1, CV, bic)
+PC1Align(gem, PC1, CV, sort.order, bic)
 }
 \arguments{
 \item{gem}{Gene expression matrix}
@@ -12,6 +12,8 @@ PC1Align(gem, PC1, CV, bic)
 \item{PC1}{First principal component}
 
 \item{CV}{Correlation vector}
+
+\item{sort.order}{Order of samples}
 
 \item{bic}{bicluster}
 }
