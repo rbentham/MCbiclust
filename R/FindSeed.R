@@ -4,12 +4,14 @@
 #' @param seed.size Size of sample seed
 #' @param iterations Number of iterations
 #' @param initial.seed Initial seed used, if NULL randomly chosen
+#' @param messages frequency of progress messages
 #' @return Highly correlated seed
+#' @example example_code/example_GOEnrichment.R
 #' @export
 
-FindSeed <- function (gem, seed.size, iterations, initial.seed = NULL){
+FindSeed <- function (gem, seed.size, iterations, initial.seed = NULL, messages = 100){
   
-  print(c("Iteration", "Cor Score"))
+  message("Iteration\tCorrelation Score")
   sample.list <- list()
   sample.size <- dim(gem)[2]
   if (length(initial.seed) == seed.size){
@@ -57,8 +59,8 @@ FindSeed <- function (gem, seed.size, iterations, initial.seed = NULL){
             test.cor.score <- test.cor.score2
            
         }
-        if (i%%100 == 0) {
-          print(c(i, test.cor.score))
+        if (i%%messages == 0) {
+          message(paste(i,"\t\t",format(test.cor.score,digits = 5)))
         }
     }
 

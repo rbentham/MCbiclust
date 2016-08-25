@@ -6,6 +6,7 @@
 #' @param sort.order Order of samples
 #' @param bic bicluster
 #' @return Aligned PC1 vector
+#' @example example_code/example_pc1.R
 #' @export
 
 

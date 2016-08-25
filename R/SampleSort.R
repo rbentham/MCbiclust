@@ -5,6 +5,7 @@
 #' @param num.cores Number of cores used in parallel evaluation
 #' @param sort.length Number of samples to be sorted
 #' @return Order of samples by strength to correlation pattern
+#' @example example_code/example_pc1.R
 #' @export
 
 SampleSort <- function(gem,seed,num.cores = NULL,sort.length = NULL){

@@ -4,6 +4,7 @@
 #' @param sort.order Order of samples
 #' @param pc1 PC1 values for samples
 #' @return Genes and samples in bicluster
+#' @example example_code/example_pc1.R
 #' @export
 
 ThresholdBic <- function(cor.vec,sort.order,pc1,samp.sig = 0){
@@ -22,7 +23,11 @@ ThresholdBic <- function(cor.vec,sort.order,pc1,samp.sig = 0){
   pc1.max <- quantile(rev(pc1)[seq(ceiling(length(pc1) / 10))],probs = 1 - (samp.sig/2))
   first.no.samp <- which(pc1 > pc1.min & pc1 < pc1.max)[1]
   
-  bic.samps <- sort.order[seq(length = (first.no.samp -1))]
+  if(length(first.no.samp) > 0){
+    bic.samps <- sort.order[seq(length = (first.no.samp -1))]
+  }else{
+    bic.samps <- NA
+  }
 
   return(list(bic.genes, bic.samps))
 }

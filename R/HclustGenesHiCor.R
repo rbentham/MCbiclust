@@ -4,6 +4,7 @@
 #' @param seed Seed of highly correlating samples
 #' @param cuts Number of groups to cut dendogram into
 #' @return Numeric vector of most highly correlated genes
+#' @example example_code/example_corscore.R
 #' @export
 
 HclustGenesHiCor <- function(gem,seed,cuts){

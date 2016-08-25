@@ -3,9 +3,9 @@
 #' @param gene.names Names of the genes
 #' @param gene.values Values associated with the genes 
 #' @param sig.rate Level of significance
-#' @param output.type Alternative output
 
 #' @return Significant gene sets
+#' @example example_code/example_GOEnrichment.R
 #' @export
 
 GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate){

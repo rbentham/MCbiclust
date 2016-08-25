@@ -4,7 +4,6 @@
 #' @param seed Seed of highly correlating samples
 #' @param splits Maximum number of cuts from hierarchical clustering
 #' @return Average expression vector that matches pattern in seed
-#' @export
 
 GeneVecFun <- function(gem,seed,splits){
   

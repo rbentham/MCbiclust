@@ -4,6 +4,7 @@
 #' @param seed.sort Ordering of samples according to strength of correlation
 #' @param n Number of samples to use in calculation of PC1
 #' @return PC1 value for each sample
+#' @example example_code/example_pc1.R
 #' @export
 
 

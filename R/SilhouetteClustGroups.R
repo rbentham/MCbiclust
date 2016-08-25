@@ -5,12 +5,16 @@
 #' @param plots True or False for whether to show silhouette plots
 #' @param seed1 Value used to set random seed
 #' @param rand.vec True or False for whether to add random correlation vector used for comparison
-
 #' @return The distinct clusters of correlation vectors
+#' @example example_code/example_sil.R
 #' @export
 
 
 SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE, seed1 = 100, rand.vec = TRUE){
+  
+  if(max.clusters >= dim(cor.vec.mat)[2]){
+    max.clusters <- dim(cor.vec.mat)[2] - 1
+  }
   
   if(rand.vec == TRUE){
     set.seed(seed1)
@@ -31,7 +35,7 @@ SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE, seed
   
   sil.value <- sapply(c(2:max.clusters), FUN = silfun1)
   
-  if(plots == T) print(plot(seq(length = 19)+1, sil.value, xlab="Number of clusters",ylab="Mean silhoette width"))
+  if(plots == T) print(plot(seq(length = max.clusters-1)+1, sil.value, xlab="Number of clusters",ylab="Mean silhoette width"))
   
   k1 <- which.max(sil.value) + 1
   si2 <- silhouette(x = cutree(cor.hclust,k = k1), dist = cor.dist)

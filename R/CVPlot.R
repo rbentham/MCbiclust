@@ -6,6 +6,7 @@
 #' @param alpha2 Transparency level of gene set genes
 #' @param cnames Character vector containing names for the correlation vector
 #' @return A plot of the correlation vectors
+#' @example example_code/example_cvplot.R
 #' @export
 
 
