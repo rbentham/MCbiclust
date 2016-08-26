@@ -1,3 +1,4 @@
+MultiSampleSort.R
 FindSeedGroups.R
 CalcCorScoreVec.R
 CalcCorVector.R
@@ -5,4 +6,3 @@ SeedGenerator.R
 SampleSortGroups.R
 PointScoreCalc.R
 FSGZeroRowUpdate.R
-MultiSampleSort.R
