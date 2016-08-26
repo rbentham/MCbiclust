@@ -9,7 +9,8 @@
 #' @export
 
 SampleSort <- function(gem,seed,num.cores = NULL,sort.length = NULL){
-  require(compiler)
+  #require(compiler)
+  message("Sort Length \t Cor Score")
   
   seed1 <- seed
   sample.size <- dim(gem)[2]
@@ -38,8 +39,8 @@ for(j in seq.vec){
   
   tcv.max[j + 1] <- max(test.cor.values)
   seed1 <- c(seed1, next.seed[which(test.cor.values==tcv.max[j + 1])[1]])
-  if(j %% 10 == 0){
-    print(c(tcv.max[j+1], seed1[length(seed1)],j))}
+  if(length(seed1) %% 10 == 0){
+    message(paste(length(seed1),"\t\t", format(tcv.max[j+1],digits = 3)))}
 }  
 
 return(seed1)
