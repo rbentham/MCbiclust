@@ -1,4 +1,4 @@
-#' SampleSort for multiple patterns
+#' Preparation for SampleSort for multiple patterns
 #' 
 #' @param gem Gene expression matrix
 #' @param av.corvec List of average correlation vector 
@@ -8,31 +8,28 @@
 #' @param num.cores Number of cores for use in parallel evaluation
 #' @param sort.length Number of samples to be sorted
 #' @return Order of samples by strength to correlation pattern
+#' @example example_code/example_sil.R
 #' @export
 
-MultiSampleSort <- function(gem, av.corvec, top.genes.num, groups, initial.seeds,
-                            num.cores,sort.length = NULL){
+MultiSampleSortPrep <- function(gem, av.corvec, top.genes.num, groups, initial.seeds){
   
   top.genes <- lapply(X = av.corvec,
                       FUN = function(x) order(abs(x),decreasing = T)[seq(length = top.genes.num)])
   
   top.seed.score <- lapply(groups, FUN = function(x) seq(length = length(x)))
   
-  for(j in seq(length = length(top.seed.score))){
-    for(i in seq(length = length(top.seed.score[[j]]))){
-      l1 <- top.genes[[j]]
-      l2 <- initial.seeds[groups[[j]]][[i]]
-      top.seed.score[[j]][i]<-mean(abs(cor(t(as.matrix(gem)[l1,l2]))))
-    }
-  }
+  top.seed.fun1 <- function(y) sapply(seq(length = length(groups[[y]])),
+                                          FUN = function(x){
+                                            l1 <- top.genes[[y]]
+                                            l2 <- initial.seeds[groups[[y]]][[x]]
+                                            return(mean(abs(cor(t(as.matrix(gem)[l1,l2])))))
+                                            })
+  
+  top.seed.score <- lapply(seq(length = length(groups)),FUN = top.seed.fun1)
   
   top.seed <- lapply(seq(length = length(av.corvec)),
                      FUN = function(x) initial.seeds[groups[[x]]][[which.max(top.seed.score[[x]])[1]]])
   top.mat <- lapply(top.genes, FUN = function(x) as.matrix(gem)[x,])
   
-  multi.samp.sort <- lapply(seq(length = length(groups)),
-                            FUN = function(x) SampleSort(top.mat[[x]],
-                                                         seed = top.seed[[x]],num.cores = num.cores,
-                                                         sort.length = sort.length))
-  return(list(top.seed,top.genes,multi.samp.sort))
+  return(list(top.seed,top.mat))
 }

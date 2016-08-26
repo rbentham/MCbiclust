@@ -54,5 +54,22 @@ CCLE.cor.mat <- as.matrix(as.data.frame(CCLE.cor.vec))
 CCLE.clust.groups <- SilhouetteClustGroups(cor.vec.mat = CCLE.cor.mat,
                       plots = T,
                       max.clusters = 10)
+
+av.corvec.fun <- function(x) rowMeans(CCLE.cor.mat[,x])
+CCLE.average.corvec <- lapply(X = CCLE.clust.groups,
+                         FUN = av.corvec.fun)
+
+multi.sort.prep <- MultiSampleSortPrep(gem = CCLE.data,av.corvec = CCLE.average.corvec,
+                                       top.genes.num = 1000,
+                                       groups =CCLE.clust.groups,
+                                       initial.seeds =CCLE.seed)  
+
+multi.sort <- list()        
+for(i in seq(length = length(CCLE.clust.groups))){
+multi.sort[[i]] <- SampleSort(multi.sort.prep[[2]][[i]],
+                              seed = multi.sort.prep[[1]][[i]],
+                              sort.length = 20)
+}
+
 }
 
