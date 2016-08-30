@@ -16,7 +16,10 @@ Depends:
     stats,
     GGally,
     ggplot2,
-    scales
+    scales,
+    GO.db,
+    org.Hs.eg.db,
+    AnnotationDbi
 Suggests:
     gplots,
     knitr,
@@ -27,3 +30,4 @@ License: GPL-2
 biocViews: Clustering, Microarray, StatisticalMethod, Software, RNASeq
 RoxygenNote: 5.0.1
 VignetteBuilder: knitr
+LazyData:true

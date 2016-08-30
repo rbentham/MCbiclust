@@ -9,8 +9,10 @@
 #' @export
 
 GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate){
-  data(GO_term_matrix)
-  data(GO_term_genes)
+  GO.data <-GoDataLoad()
+  
+  GO_term_matrix <- GO.data[[1]]
+  GO_term_genes <- GO.data[[2]]
 
   pvalues <- MannWhitneyGOTerms(gene.names,gene.values)
   adj.pvalues <- p.adjust(pvalues)
