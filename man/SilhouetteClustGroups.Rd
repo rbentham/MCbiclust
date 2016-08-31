@@ -66,8 +66,8 @@ multi.sort.prep <- MultiSampleSortPrep(gem = CCLE.data,av.corvec = CCLE.average.
 
 multi.sort <- list()        
 for(i in seq(length = length(CCLE.clust.groups))){
-multi.sort[[i]] <- SampleSort(multi.sort.prep[[2]][[i]],
-                              seed = multi.sort.prep[[1]][[i]],
+multi.sort[[i]] <- SampleSort(multi.sort.prep[[1]][[i]],
+                              seed = multi.sort.prep[[2]][[i]],
                               sort.length = 20)
 }
 

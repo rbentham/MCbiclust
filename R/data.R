@@ -1,21 +1,3 @@
-#' Log ratio copynumber of CCLE data
-#'
-#' A dataset containing the log ratio copynumber for over 20000 genes and nearly 1000 samples. 
-#' Availiable from the broad institute: http://www.broadinstitute.org/ccle/data/browseData
-#' Filename: CCLE_copynumber_byGene_2012-04-06.txt  
-#'
-#' @format A data frame with 23224 rows and 976 variables:
-#' \itemize{
-#'   \item geneName: HGNC approved gene name
-#'   \item NumChr: Chromosome number
-#'   \item txStart: Start position on chromosome
-#'   \item txEnd: End position on chromosome
-#'   \item X1321N1_CENTRAL_NERVOUS_SYSTEM: Log ratio copynumber on sample X1321N1_CENTRAL_NERVOUS_SYSTEM
-#'   \item X143B_BONE: Log ratio copynumber on sample X143B_BONE
-#'   \item ...
-#' }
-"CCLE_copy"
-
 #' Clinical information for CCLE data
 #'
 #' A dataset containing clinical information for the CCLE samples. 
@@ -41,21 +23,6 @@
 #' }
 "CCLE_samples"
 
-#' Expression levels of CCLE data
-#'
-#' A dataset containing the gene-centric RMA-normalized mRNA expression data for nearly 20000 genes and nearly 1000 samples. 
-#' Availiable from the broad institute: http://www.broadinstitute.org/ccle/data/browseData
-#' Filename: CCLE_Expression_Entrez_2012-04-06.gct.gz  
-#'
-#' @format A data frame with 18988 rows and 969 variables:
-#' \itemize{
-#'   \item Name: Affy probe name
-#'   \item Description: HGNC approved gene name
-#'   \item X1321N1_CENTRAL_NERVOUS_SYSTEM: mRNA expression on sample X1321N1_CENTRAL_NERVOUS_SYSTEM
-#'   \item X143B_BONE: mRNA expressionr on sample X143B_BONE
-#'   \item ...
-#' }
-"CCLE_copy"
 
 #' Subset of expression levels of CCLE data
 #'
@@ -80,26 +47,3 @@
 #'
 #' @format A Character vector of the HGNC approved gene names:
 "Mitochondrial_genes"
-
-#' List of HGNC gene names in GO terms
-#'
-#'
-#' @format A list of GO terms with corresponding gene names:
-"GO_term_genes"
-
-#' List of entrez gene names in GO terms
-#'
-#'
-#' @format A list of GO terms with corresponding entrez gene names:
-"GO_term_EG"
-
-#' GO terms ID and description
-#'
-#' A dataset containing over 18000 GO terms with their ID number
-#' 
-#' @format A data frame with 18826 rows and 2 variables:
-#'  \itemize{
-#'   \item GOID: GO ID number
-#'   \item TERM: GO Term description
-#' }
-"GO_term_matrix"
