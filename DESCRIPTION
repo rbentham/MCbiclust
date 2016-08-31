@@ -19,7 +19,9 @@ Depends:
     scales,
     GO.db,
     org.Hs.eg.db,
-    AnnotationDbi
+    AnnotationDbi,
+    GenomicRanges,
+    BiocGenerics
 Suggests:
     gplots,
     knitr,

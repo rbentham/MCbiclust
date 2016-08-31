@@ -31,5 +31,5 @@ MultiSampleSortPrep <- function(gem, av.corvec, top.genes.num, groups, initial.s
                      FUN = function(x) initial.seeds[groups[[x]]][[which.max(top.seed.score[[x]])[1]]])
   top.mat <- lapply(top.genes, FUN = function(x) as.matrix(gem)[x,])
   
-  return(list(top.seed,top.mat))
+  return(list(top.mat, top.seed))
 }
