@@ -29,7 +29,7 @@ library(MCbiclust)
 
 MCbiclust also makes sure that the packages BiocParallel, cluster, stats, GGally, ggplot2 and scales are all installed. It is also advised that the packages ggplot2 and gplots are separately installed and loaded.
 
-```{r, results = "hide",warning = FALSE,message=FALSE, cache=TRUE}
+```{r, results = "hide",warning = FALSE,message=FALSE}
 library(ggplot2)
 library(gplots)
 ```
@@ -40,14 +40,14 @@ library(gplots)
 
 For this example analysis we will be seeking to find biclusters related to mitochondrial function in the cancer cell line encyclopedia (@barretina2012cancer). For this two datasets are needed, both of which are available on the MCbiclust package. The first in `CCLE_small` that contains a subset of the gene expression values found in the entire CCLE data set (the full dataset is avaliable at https://portals.broadinstitute.org/ccle/home), the second, `Mitochondrial_genes`, is a list of mitochondrial genes that can be found from MitoCarta1.0 (@pagliarini2008mitochondrial).
 
-```{r, cache=TRUE}
+```{r}
 data(CCLE_small)
 data(Mitochondrial_genes)
 ```
 
 It is a simple procedure to create a new matrix `CCLE.mito` only containing the mitochondrial genes. While there are $1023$ known mitochondrial genes, not all of these are measured in `CCLE_data`. The data frame `CCLE_data` also contains columns with the probe and gene names these are removed to form the data frame `CCLE.data`.
 
-```{r, cache=TRUE}
+```{r}
 mito.loc <- which(row.names(CCLE_small) %in% Mitochondrial_genes)
 CCLE.mito <- CCLE_small[mito.loc,]
 ```
@@ -82,7 +82,7 @@ This is achieved with function `FindSeed`, initially a random subset of samples 
 
 For reproducibility `set.seed` has been used to set R's pseudo-random number generator. It should also be noted that the for `gem` the data matrix can not contain all the genes, since `FindSeed` involves the calculation of correlation matrices which are not computationally efficient to compute if they involve greater than ~1000 genes.
 
-```{r, cache=TRUE}
+```{r}
 set.seed(102)
 CCLE.seed <- FindSeed(gem = CCLE.mito,
                       seed.size = 10,
@@ -103,7 +103,7 @@ CorScoreCalc(CCLE.mito,CCLE.seed)
 
 The results of `FindSeed` can also be visualised by examining the associated correlation matrix, and viewing the result as a heatmap. Again it is easy to see the difference between the random subsample and the one outputted from `FindSeed`.
 
-```{r, cache=TRUE, dev='png'}
+```{r, dev='png'}
 CCLE.random.cor <- cor(t(CCLE.mito[,random.seed]))
 heatmap.2(CCLE.random.cor,trace = "none")
 
@@ -146,7 +146,7 @@ All genes can be measured by how they match to this pattern by calculating what 
 
 This process is all encapsulated in the function `CVEval` which takes 4 arguements. `gem.part` is the gene expression matrix for the chosen gene set of interest, e.g. mitochondrial genes, `gem.all` is the entire gene expression matrix, `seed` is the output from `FindSeed` and `splits` is the number of groups to split the chosen gene set into in order to select the best group.
 
-```{r, cache=TRUE}
+```{r}
 CCLE.cor.vec <- CVEval(gem.part = CCLE.mito,
                         gem.all = CCLE_small,
                         seed = CCLE.seed, splits = 10)
@@ -180,7 +180,7 @@ The output is a table with 7 columns:
 
 1. `phenotype`: +1 if `CV.av.value` is greater than the overall CV average, -1 if the `CV.av.value` is less then the overall CV average.
 
-```{r, cache=TRUE}
+```{r}
 GSE.MW <- GOEnrichmentAnalysis(gene.names = row.names(CCLE_small),
                                gene.values = CCLE.cor.vec,
                                sig.rate = 0.05)
@@ -391,7 +391,7 @@ ggplot(CCLE.df.samples, aes(Order,PC1)) +
 
 In this case the figure is slightly confusing due to the number of factors. We can however rename factors that appear less than 30 times in total as "Other".
 
-```{r, eval=TRUE, cache=TRUE}
+```{r, eval=TRUE}
 rare.sites <- names(which(summary(CCLE.df.samples$Site.Primary) < 15))
 CCLE.df.samples$Site.Primary2 <- as.character(CCLE.df.samples$Site.Primary)
 
@@ -448,7 +448,7 @@ for(i in seq(100)){
 
 The associated correlation vector must also be calculated for each run and these correlation vectors can be put into a matrix.
 
-```{r, cache=TRUE}
+```{r}
 CCLE.cor.vec.multi <- list()
 
 for(i in seq(100)){
@@ -471,7 +471,7 @@ rm(CCLE.cor.vec.multi)
 
 A correlation matrix can be formed from the correlation vectors, and in this way they can be viewed as a heatmap.
 
-```{r,dev='png', cache=TRUE}
+```{r,dev='png'}
 CV.cor.mat1 <- abs(cor((multi.run.cor.vec.mat)))
 cor.dist <- function(c){as.dist(1 - abs(c))}
 
@@ -482,7 +482,7 @@ routput.corvec.matrix.cor.heat <- heatmap.2(CV.cor.mat1,
 
 It needs to be known how many distinct patterns have been found, this is done with clustering and particular silhouette coefficients to judge what number of clusters is optimum within the data. Function `SilhouetteClustGroups` achieves this and uses hierarchical clustering to split the patterns into clusters, for comparison a randomly generated correlation vector is also added to allow for the possibility that all patterns found are best grouped into a single cluster.
 
-```{r, cache=TRUE}
+```{r}
 multi.clust.groups <- SilhouetteClustGroups(multi.run.cor.vec.mat,
                                             max.clusters = 20,
                                             plots = T,rand.vec = FALSE)
@@ -490,7 +490,7 @@ multi.clust.groups <- SilhouetteClustGroups(multi.run.cor.vec.mat,
 
 Here two clusters were found, and we can visualise this pattern (and any additional others found) with the function `CVPlot`, which highlights a chosen gene set, in this case the mitochondrial genes.
 
-```{r,dev='png' , cache=TRUE}
+```{r,dev='png' }
 gene.names <- row.names(CCLE_small)
 av.corvec.fun <- function(x) rowMeans(multi.run.cor.vec.mat[,x])
 average.corvec <- lapply(X = multi.clust.groups,
@@ -504,7 +504,7 @@ CVPlot(cv.df = as.data.frame(average.corvec),
 
 As before can also calculate the gene set enrichment.
 
-```{r,cache=TRUE , cache=TRUE}
+```{r,cache=TRUE }
 GOfun <- function(x) GOEnrichmentAnalysis(gene.names = gene.names,
                                           gene.values = x,
                                           sig.rate = 0.05)
@@ -545,7 +545,7 @@ These two biclusters can now be analysed in the same way as the single bicluster
 
 One final thing that can be done is to compare all 3 correlation vectors found
 
-```{r, cache=TRUE, dev="png"}
+```{r, dev="png"}
 cv.df <- as.data.frame(average.corvec)
 cv.df$Mito1 <- CCLE.cor.vec
 
