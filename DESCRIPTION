@@ -18,8 +18,6 @@ Depends:
 Imports:
     GO.db,
     org.Hs.eg.db,
-    GenomicRanges,
-    BiocGenerics,
     GGally,
     ggplot2,
     scales,
