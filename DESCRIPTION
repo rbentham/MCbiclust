@@ -28,7 +28,11 @@ Suggests:
     knitr,
     rmarkdown,
     BiocStyle,
-    gProfileR
+    gProfileR,
+    MASS,
+    dplyr,
+    pander,
+    devtools
 License: GPL-2
 biocViews: Clustering, Microarray, StatisticalMethod, Software, RNASeq
 RoxygenNote: 5.0.1

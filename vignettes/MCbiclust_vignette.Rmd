@@ -32,6 +32,10 @@ MCbiclust also makes sure that the packages BiocParallel, cluster, stats, GGally
 ```{r, results = "hide",warning = FALSE,message=FALSE}
 library(ggplot2)
 library(gplots)
+library(dplyr)
+library(gProfileR)
+library(MASS)
+library(devtools)
 ```
 
 # Example of a single run
@@ -199,7 +203,6 @@ Since `CCLE_small` is half made up of mitochondrial genes and we were seeking fo
 An alternative to using the `GOEnrichmentAnalysis` function would be to use a separate gene set enrichment method such as `gprofiler`, this can be done by for instance selecting the top 200 genes with positive CV values:
 
 ```{r, results = "asis", cache = TRUE}
-library(gProfileR)
 top200 <- row.names(CCLE_small)[order(CCLE.cor.vec,
                                              decreasing = T)[seq(200)]]
 
@@ -382,7 +385,6 @@ CCLE_small_samples <- CCLE_samples[CCLE.data.names,]
 Using the `dplyr` library, it is possible to join this new data set to the one we made for plotting the values of PC1 in the previous section. This can be easily done as both datasets share a column - the name of the samples. Once this is done, it is again simple to produce additional plots.
 
 ```{r, warning=FALSE,message=FALSE ,eval=TRUE}
-library(dplyr)
 CCLE.df.samples <- inner_join(CCLE.df,CCLE_samples,by="CCLE.name")
 
 ggplot(CCLE.df.samples, aes(Order,PC1)) +
