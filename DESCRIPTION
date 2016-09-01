@@ -12,16 +12,19 @@ Description: Custom made algorithm and associated methods for finding,
     strength correlation matrix containing m samples from the data set.
 Depends:
     BiocParallel,
-    cluster,
-    stats,
+    graphics,
+    utils,
+    AnnotationDbi
+Imports:
+    GO.db,
+    org.Hs.eg.db,
+    GenomicRanges,
+    BiocGenerics,
     GGally,
     ggplot2,
     scales,
-    GO.db,
-    org.Hs.eg.db,
-    AnnotationDbi,
-    GenomicRanges,
-    BiocGenerics
+    cluster,
+    stats
 Suggests:
     gplots,
     knitr,

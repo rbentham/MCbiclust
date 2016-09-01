@@ -22,13 +22,11 @@ Correlation vector
 Calculate correlation vector
 }
 \examples{
-data(CCLE_data)
+data(CCLE_small)
 data(Mitochondrial_genes)
 
-CCLE.data <- CCLE_data[,-c(1,2)]
-mito.loc <- which(as.character(CCLE_data[,2]) \%in\% Mitochondrial_genes)
-CCLE.mito <- CCLE_data[mito.loc,-c(1,2)]
-row.names(CCLE.mito) <- CCLE_data[mito.loc,2]
+mito.loc <- which(row.names(CCLE_small) \%in\% Mitochondrial_genes)
+CCLE.mito <- CCLE_small[mito.loc,]
 
 set.seed(101)
 CCLE.seed <- FindSeed(gem = CCLE.mito,
@@ -37,10 +35,10 @@ CCLE.seed <- FindSeed(gem = CCLE.mito,
                       messages = 100)
 
 CCLE.cor.vec <- CVEval(gem.part = CCLE.mito,
-                       gem.all = CCLE.data,
+                       gem.all = CCLE_small,
                        seed = CCLE.seed, splits = 10)
 
-GEA <- GOEnrichmentAnalysis(gene.names = CCLE_data[,2],
+GEA <- GOEnrichmentAnalysis(gene.names = row.names(CCLE_small),
                             gene.values = CCLE.cor.vec,
                             sig.rate = 0.05)
 
