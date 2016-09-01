@@ -10,7 +10,7 @@ CCLE.seed <- FindSeed(gem = CCLE.mito,
                       iterations = 100,
                       messages = 1000)
 
-CCLE.sort <- SampleSort(gem = CCLE.mito,seed = CCLE.seed,sort.length = 20)
+CCLE.sort <- SampleSort(gem = CCLE.mito,seed = CCLE.seed,sort.length = 11)
 
 # Full ordering can be loaded here:
 data("Vignette_sort")

@@ -33,14 +33,14 @@ CCLE.mito <- CCLE_small[mito.loc,]
 CCLE.seed <- list()
 CCLE.cor.vec <- list()
 
-for(i in 1:10){
+for(i in 1:5){
 set.seed(i)
 CCLE.seed[[i]] <- FindSeed(gem = CCLE.mito,
                       seed.size = 10,
                       iterations = 100,
                       messages = 100)}
 
-for(i in 1:10){
+for(i in 1:5){
   CCLE.cor.vec[[i]] <-  CVEval(gem.part = CCLE.mito,
                                          gem.all = CCLE_small,
                                          seed = CCLE.seed[[i]],
@@ -59,13 +59,13 @@ CCLE.average.corvec <- lapply(X = CCLE.clust.groups,
 multi.sort.prep <- MultiSampleSortPrep(gem = CCLE_small,av.corvec = CCLE.average.corvec,
                                        top.genes.num = 750,
                                        groups =CCLE.clust.groups,
-                                       initial.seeds =CCLE.seed)  
+                                       initial.seeds = CCLE.seed)  
 
 multi.sort <- list()        
 for(i in seq(length = length(CCLE.clust.groups))){
 multi.sort[[i]] <- SampleSort(multi.sort.prep[[1]][[i]],
                               seed = multi.sort.prep[[2]][[i]],
-                              sort.length = 20)
+                              sort.length = 11)
 }
 
 }

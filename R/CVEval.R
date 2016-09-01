@@ -5,7 +5,7 @@
 #' @param seed Seed of highly correlating samples
 #' @param splits Number of cuts from hierarchical clustering
 #' @return Correlation vector
-#' @example example_code/example_GOEnrichment.R
+#' @example example_code/example_pc1.R
 #' @export
 
 CVEval <- function(gem.part, gem.all, seed, splits){

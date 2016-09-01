@@ -14,7 +14,8 @@ CCLE.cor.vec <- CVEval(gem.part = CCLE.mito,
                        gem.all = CCLE_small,
                        seed = CCLE.seed, splits = 10)
 
-GEA <- GOEnrichmentAnalysis(gene.names = row.names(CCLE_small),
-                            gene.values = CCLE.cor.vec,
-                            sig.rate = 0.05)
+# Significant GO terms can be calculated as follows:
+# GEA <- GOEnrichmentAnalysis(gene.names = row.names(CCLE_small),
+#                            gene.values = CCLE.cor.vec,
+#                            sig.rate = 0.05)
 
