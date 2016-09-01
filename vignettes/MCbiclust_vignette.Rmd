@@ -528,8 +528,12 @@ multi.prep <- MultiSampleSortPrep(gem = CCLE_small,
 ```
 
 ```{r, eval=FALSE}
-CCLE.samp.multi.sort[[1]] <- SampleSort(gem = multi.prep[[1]][[1]],seed = multi.prep[[2]][[1]],num.cores = 4)
-CCLE.samp.multi.sort[[2]] <- SampleSort(gem = multi.prep[[1]][[1]],seed = multi.prep[[2]][[1]],num.cores = 4)     
+CCLE.samp.multi.sort[[1]] <- SampleSort(gem = multi.prep[[1]][[1]],
+                                        seed = multi.prep[[2]][[1]],
+                                        num.cores = 4)
+CCLE.samp.multi.sort[[2]] <- SampleSort(gem = multi.prep[[1]][[1]],
+                                        seed = multi.prep[[2]][[1]],
+                                        num.cores = 4)     
 ```
 
 Note as before that these are long calculations, the precalculated orderings are however given in the `Vignette_sort` data file.
