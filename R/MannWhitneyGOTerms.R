@@ -2,6 +2,7 @@
 #' 
 #' @param genes Gene names
 #' @param gene.values Gene values
+#' @param GO_term_genes Genes in each GO term
 #' @return p-value for each GO Term
 
 MannWhitneyGOTerms <- function(genes, gene.values,GO_term_genes){

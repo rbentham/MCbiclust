@@ -2,6 +2,7 @@
 #' 
 #' @param cv.df A dataframe containing the correlation vectors of one or more patterns.
 #' @param geneset.loc A gene set of interest (e.g. mitochondrial) to be plotted separately from rest of genes.
+#' @param geneset.name Name of geneset (e.g. mitochondrial genes)
 #' @param alpha1 Transparency level of non-gene set genes
 #' @param alpha2 Transparency level of gene set genes
 #' @param cnames Character vector containing names for the correlation vector
@@ -10,7 +11,7 @@
 #' @export
 
 
-CVPlot <- function(cv.df,geneset.loc,geneset.name,alpha1 = 0.005,alpha2 = 0.1,cnames=NULL){
+CVPlot <- function(cv.df,geneset.loc, geneset.name,alpha1 = 0.005,alpha2 = 0.1,cnames=NULL){
   if(is.character(geneset.name)==F){
     stop("geneset.name must be a single character value")
   }

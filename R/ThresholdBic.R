@@ -3,6 +3,7 @@
 #' @param cor.vec Correlation vector
 #' @param sort.order Order of samples
 #' @param pc1 PC1 values for samples
+#' @param samp.sig Value between 0 and 1 determining number of samples in bicluster
 #' @return Genes and samples in bicluster
 #' @example example_code/example_pc1.R
 #' @export

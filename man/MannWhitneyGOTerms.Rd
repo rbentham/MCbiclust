@@ -4,12 +4,14 @@
 \alias{MannWhitneyGOTerms}
 \title{Runs Mann-Whitney test for all GO terms}
 \usage{
-MannWhitneyGOTerms(genes, gene.values)
+MannWhitneyGOTerms(genes, gene.values, GO_term_genes)
 }
 \arguments{
 \item{genes}{Gene names}
 
 \item{gene.values}{Gene values}
+
+\item{GO_term_genes}{Genes in each GO term}
 }
 \value{
 p-value for each GO Term

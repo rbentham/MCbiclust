@@ -12,6 +12,8 @@ ThresholdBic(cor.vec, sort.order, pc1, samp.sig = 0)
 \item{sort.order}{Order of samples}
 
 \item{pc1}{PC1 values for samples}
+
+\item{samp.sig}{Value between 0 and 1 determining number of samples in bicluster}
 }
 \value{
 Genes and samples in bicluster

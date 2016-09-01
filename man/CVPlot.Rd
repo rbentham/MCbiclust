@@ -12,6 +12,8 @@ CVPlot(cv.df, geneset.loc, geneset.name, alpha1 = 0.005, alpha2 = 0.1,
 
 \item{geneset.loc}{A gene set of interest (e.g. mitochondrial) to be plotted separately from rest of genes.}
 
+\item{geneset.name}{Name of geneset (e.g. mitochondrial genes)}
+
 \item{alpha1}{Transparency level of non-gene set genes}
 
 \item{alpha2}{Transparency level of gene set genes}

@@ -16,10 +16,6 @@ MultiSampleSortPrep(gem, av.corvec, top.genes.num, groups, initial.seeds)
 \item{groups}{List showing what runs belong to which correlation vector group}
 
 \item{initial.seeds}{List of sample seeds from all runs}
-
-\item{num.cores}{Number of cores for use in parallel evaluation}
-
-\item{sort.length}{Number of samples to be sorted}
 }
 \value{
 Order of samples by strength to correlation pattern

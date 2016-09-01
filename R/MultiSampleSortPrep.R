@@ -5,8 +5,6 @@
 #' @param top.genes.num Number of the top genes in correlation vector to use for sorting samples
 #' @param groups List showing what runs belong to which correlation vector group
 #' @param initial.seeds List of sample seeds from all runs
-#' @param num.cores Number of cores for use in parallel evaluation
-#' @param sort.length Number of samples to be sorted
 #' @return Order of samples by strength to correlation pattern
 #' @example example_code/example_sil.R
 #' @export
