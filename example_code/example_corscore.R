@@ -1,10 +1,8 @@
 data(CCLE_data)
 data(Mitochondrial_genes)
 
-CCLE.data <- CCLE_data[,-c(1,2)]
-mito.loc <- which(as.character(CCLE_data[,2]) %in% Mitochondrial_genes)
-CCLE.mito <- CCLE_data[mito.loc,-c(1,2)]
-row.names(CCLE.mito) <- CCLE_data[mito.loc,2]
+mito.loc <- which(row.names(CCLE_small) %in% Mitochondrial_genes)
+CCLE.mito <- CCLE_small[mito.loc,]
 
 random.seed <- sample(seq(length = dim(CCLE.mito)[2]),10)
 CCLE.seed <- FindSeed(gem = CCLE.mito,
