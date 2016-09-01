@@ -4,7 +4,7 @@
 #' @param gene.values Gene values
 #' @return p-value for each GO Term
 
-MannWhitneyGOTerms <- function(genes, gene.values){
+MannWhitneyGOTerms <- function(genes, gene.values,GO_term_genes){
   
   mannfun1 <- function(x){
     a <- which(genes %in% GO_term_genes[[x]])

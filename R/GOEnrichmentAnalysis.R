@@ -14,7 +14,7 @@ GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate){
   GO_term_matrix <- GO.data[[1]]
   GO_term_genes <- GO.data[[2]]
 
-  pvalues <- MannWhitneyGOTerms(gene.names,gene.values)
+  pvalues <- MannWhitneyGOTerms(gene.names,gene.values,GO_term_genes)
   adj.pvalues <- p.adjust(pvalues)
 
   GenelistNum <- function(y){
