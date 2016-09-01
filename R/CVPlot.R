@@ -31,7 +31,7 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name,alpha1 = 0.005,alpha2 = 0.1,c
   
   if(dim(cv.df)[2] == 2){
     a1 <- colnames(cv.df)[1]
-    p <- eval(parse(text=paste("ggplot2::ggplot(cv.df,aes(x =",a1,",col=Status))")))
+    p <- eval(parse(text=paste("ggplot2::ggplot(cv.df,ggplot2::aes(x =",a1,",col=Status))")))
     return(p + ggplot2::geom_density() )
   }
   
@@ -44,7 +44,7 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name,alpha1 = 0.005,alpha2 = 0.1,c
   H_plot_fun <- function(a,b){
     a1 <- colnames(cv.df)[a]
     b1 <- colnames(cv.df)[b]
-    p <- eval(parse(text=paste("ggplot2::ggplot(cv.df[-geneset.loc,],aes(x =",a1,",y =",b1,"))")))
+    p <- eval(parse(text=paste("ggplot2::ggplot(cv.df[-geneset.loc,],ggplot2::aes(x =",a1,",y =",b1,"))")))
     return(p + ggplot2::geom_point(size = 2,alpha = alpha1,col=col_cv[2]))
   }
   
@@ -62,7 +62,7 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name,alpha1 = 0.005,alpha2 = 0.1,c
   H_m_plot_fun <- function(a,b){
     a1 <- colnames(cv.df)[a]
     b1 <- colnames(cv.df)[b]
-    p <- eval(parse(text=paste("ggplot2::ggplot(cv.df[geneset.loc,],aes(x =",a1,",y =",b1,"))")))
+    p <- eval(parse(text=paste("ggplot2::ggplot(cv.df[geneset.loc,],ggplot2::aes(x =",a1,",y =",b1,"))")))
     return(p + ggplot2::geom_point(size = 2,alpha = alpha2,col=col_cv[1]))
   }
   
@@ -79,7 +79,7 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name,alpha1 = 0.005,alpha2 = 0.1,c
   
   H_d_plot_fun <- function(a,l1=F){
     a1 <- colnames(cv.df)[a]
-    p <- eval(parse(text=paste("ggplot2::ggplot(cv.df,aes(x =",a1,",col=Status))")))
+    p <- eval(parse(text=paste("ggplot2::ggplot(cv.df,ggplot2::aes(x =",a1,",col=Status))")))
     if(l1 == F){
       return(p + ggplot2::geom_density() + ggplot2::theme(legend.position="none"))}
     else{
