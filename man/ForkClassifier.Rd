@@ -27,7 +27,7 @@ CCLE.mito <- CCLE_small[mito.loc,]
 set.seed(102)
 CCLE.seed <- FindSeed(gem = CCLE.mito,
                       seed.size = 10,
-                      iterations = 10000,
+                      iterations = 100,
                       messages = 1000)
 
 CCLE.sort <- SampleSort(gem = CCLE.mito,seed = CCLE.seed,sort.length = 20)

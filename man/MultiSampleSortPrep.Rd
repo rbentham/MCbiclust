@@ -49,7 +49,7 @@ for(i in 1:10){
 CCLE.cor.mat <- as.matrix(as.data.frame(CCLE.cor.vec))
 
 CCLE.clust.groups <- SilhouetteClustGroups(cor.vec.mat = CCLE.cor.mat,
-                      plots = T,
+                      plots = TRUE,
                       max.clusters = 10)
 
 av.corvec.fun <- function(x) rowMeans(CCLE.cor.mat[,x])

@@ -6,7 +6,7 @@
 #' @param initial.seed Initial seed used, if NULL randomly chosen
 #' @param messages frequency of progress messages
 #' @return Highly correlated seed
-#' @example example_code/example_GOEnrichment.R
+#' @example example_code/example_corscore.R
 #' @export
 
 FindSeed <- function (gem, seed.size, iterations, initial.seed = NULL, messages = 100){
