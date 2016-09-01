@@ -18,7 +18,7 @@ The correlation score
 Calculate correlation score
 }
 \examples{
-data(CCLE_data)
+data(CCLE_small)
 data(Mitochondrial_genes)
 
 mito.loc <- which(row.names(CCLE_small) \%in\% Mitochondrial_genes)

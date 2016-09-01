@@ -24,7 +24,7 @@ Highly correlated seed
 Find highly correlated seed of samples for gene expression matrix
 }
 \examples{
-data(CCLE_data)
+data(CCLE_small)
 data(Mitochondrial_genes)
 
 mito.loc <- which(row.names(CCLE_small) \%in\% Mitochondrial_genes)

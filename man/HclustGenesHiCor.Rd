@@ -20,7 +20,7 @@ Numeric vector of most highly correlated genes
 Find the most highly correlated genes using hierarchical clustering
 }
 \examples{
-data(CCLE_data)
+data(CCLE_small)
 data(Mitochondrial_genes)
 
 mito.loc <- which(row.names(CCLE_small) \%in\% Mitochondrial_genes)
