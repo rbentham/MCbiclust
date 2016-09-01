@@ -2,8 +2,8 @@
 #' 
 #' @param pc1 PC1 values of samples
 #' @param samp.num Number of samples in the bicluster
-
 #' @return Classification of each sample
+#' @example example_code/example_pc1.R
 #' @export
 
 ForkClassifier <- function(pc1,samp.num){
