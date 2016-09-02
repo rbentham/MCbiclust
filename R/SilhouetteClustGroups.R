@@ -10,7 +10,9 @@
 #' @export
 
 
-SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE, seed1 = 100, rand.vec = TRUE){
+SilhouetteClustGroups <- function(cor.vec.mat, max.clusters,
+                                  plots = FALSE, seed1 = 100,
+                                  rand.vec = TRUE){
   
   if(max.clusters >= dim(cor.vec.mat)[2]){
     max.clusters <- dim(cor.vec.mat)[2] - 1
@@ -35,7 +37,9 @@ SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE, seed
   
   sil.value <- sapply(c(2:max.clusters), FUN = silfun1)
   
-  if(plots == TRUE) print(plot(seq(length = max.clusters-1)+1, sil.value, xlab="Number of clusters",ylab="Mean silhoette width"))
+  if(plots == TRUE) print(plot(seq(length = max.clusters-1)+1,
+                               sil.value, xlab="Number of clusters",
+                               ylab="Mean silhoette width"))
   
   k1 <- which.max(sil.value) + 1
   si2 <- silhouette(x = cutree(cor.hclust,k = k1), dist = cor.dist)
@@ -43,11 +47,13 @@ SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE, seed
   if(plots == TRUE) print(plot(si2,col="red",main=""))
   
   cluster.groups <- lapply(seq(k1),
-                           FUN=function(x) which(cutree(cor.hclust,k = k1) == x))
+                           FUN=function(x) which(cutree(cor.hclust,
+                                                        k = k1) == x))
   
   if(rand.vec == TRUE){
     cor.vec.minus.fun <- function(x){length(which(x==cor.vec.mat.add))}
-    cor.vec.minus <- which(unlist(lapply(cluster.groups,FUN = cor.vec.minus.fun))==1)
+    cor.vec.minus <- which(unlist(lapply(cluster.groups,
+                                         FUN = cor.vec.minus.fun))==1)
   
     cluster.groups <- cluster.groups[-cor.vec.minus]
   }

@@ -9,7 +9,8 @@
 #' @example example_code/example_corscore.R
 #' @export
 
-FindSeed <- function (gem, seed.size, iterations, initial.seed = NULL, messages = 100){
+FindSeed <- function (gem, seed.size, iterations,
+                      initial.seed = NULL, messages = 100){
   
   message("Iteration\tCorrelation Score")
   sample.list <- list()
@@ -31,8 +32,7 @@ FindSeed <- function (gem, seed.size, iterations, initial.seed = NULL, messages 
   test.cor.score <- mean(abs(test.cor))
   
   rv <- sample(seq(length=seed.size), iterations, replace = TRUE)
-  # Randomly deselect one sample, replace with randomly chosen non-selected sample
-  # if new seed has higher correlation score, keep new seed, if not keep.
+  
   for (i in seq(length = iterations)) {
     seed2 <- seed[-rv[i]]
     avoid.samples <- seed2
@@ -54,7 +54,8 @@ FindSeed <- function (gem, seed.size, iterations, initial.seed = NULL, messages 
             } else{
               pre.replace <- c(1:(taken.out-1))
               post.replace <- c((taken.out+1):seed.size)
-              seed <- c(seed[pre.replace],seed2[seed.size],seed[post.replace])
+              seed <- c(seed[pre.replace],seed2[seed.size],
+                        seed[post.replace])
               }
             test.cor.score <- test.cor.score2
            

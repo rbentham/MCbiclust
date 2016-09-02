@@ -11,14 +11,16 @@
 #' @export
 
 
-CVPlot <- function(cv.df,geneset.loc, geneset.name,alpha1 = 0.005,alpha2 = 0.1,cnames=NULL){
+CVPlot <- function(cv.df,geneset.loc, geneset.name, alpha1 = 0.005,
+                   alpha2 = 0.1, cnames=NULL){
   if(is.character(geneset.name)==FALSE){
     stop("geneset.name must be a single character value")
   }
   
   cv.num <- dim(cv.df)[2]
   if(length(cnames) != cv.num){
-    colnames(cv.df)[seq(cv.num)] <- paste(rep("CV",cv.num),seq(cv.num),sep = "")}
+    colnames(cv.df)[seq(cv.num)] <- paste(rep("CV",cv.num),
+                                          seq(cv.num),sep = "")}
   else{
     colnames(cv.df) <- cnames
   }
@@ -35,7 +37,8 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name,alpha1 = 0.005,alpha2 = 0.1,c
     return(p + geom_density() )
   }
   
-  custom_cv_plot <- ggpairs(cv.df[,-status.loc],upper = "blank",lower = "blank",
+  custom_cv_plot <- ggpairs(cv.df[,-status.loc],upper = "blank",
+                            lower = "blank",
                             title = "",axisLabels ="show", legends=TRUE)
   
   col_cv <- hue_pal(h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
@@ -44,7 +47,8 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name,alpha1 = 0.005,alpha2 = 0.1,c
   H_plot_fun <- function(a,b){
     a1 <- colnames(cv.df)[a]
     b1 <- colnames(cv.df)[b]
-    p <- eval(parse(text=paste("ggplot(cv.df[-geneset.loc,],aes(x =",a1,",y =",b1,"))")))
+    p <- eval(parse(text=paste("ggplot(cv.df[-geneset.loc,],
+                               aes(x =",a1,",y =",b1,"))")))
     return(p + geom_point(size = 2,alpha = alpha1,col=col_cv[2]))
   }
   
@@ -57,12 +61,14 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name,alpha1 = 0.005,alpha2 = 0.1,c
   p_H_plots <- lapply(c(1:dim(H_combn)[2]),H_plot_fun2)
   
   for(i in 1:dim(H_combn)[2]){
-    custom_cv_plot <- putPlot(custom_cv_plot,p_H_plots[[i]],H_combn[2,i],H_combn[1,i])}
+    custom_cv_plot <- putPlot(custom_cv_plot,p_H_plots[[i]],
+                              H_combn[2,i],H_combn[1,i])}
   
   H_m_plot_fun <- function(a,b){
     a1 <- colnames(cv.df)[a]
     b1 <- colnames(cv.df)[b]
-    p <- eval(parse(text=paste("ggplot(cv.df[geneset.loc,],aes(x =",a1,",y =",b1,"))")))
+    p <- eval(parse(text=paste("ggplot(cv.df[geneset.loc,],
+                               aes(x =",a1,",y =",b1,"))")))
     return(p + geom_point(size = 2,alpha = alpha2,col=col_cv[1]))
   }
   
@@ -74,7 +80,8 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name,alpha1 = 0.005,alpha2 = 0.1,c
   p_mH_plots <- lapply(c(1:dim(H_combn)[2]),H_m_plot_fun2)
   
   for(i in 1:dim(H_combn)[2]){
-    custom_cv_plot <- putPlot(custom_cv_plot,p_mH_plots[[i]],H_combn[1,i],H_combn[2,i])}
+    custom_cv_plot <- putPlot(custom_cv_plot,p_mH_plots[[i]],
+                              H_combn[1,i],H_combn[2,i])}
   
   
   H_d_plot_fun <- function(a,l1=FALSE){
@@ -90,7 +97,8 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name,alpha1 = 0.005,alpha2 = 0.1,c
   for(i in 1:(cv.num-1)){
     custom_cv_plot <- putPlot(custom_cv_plot,H_d_plot_fun(i),i,i)}
   
-  custom_cv_plot <- putPlot(custom_cv_plot,H_d_plot_fun(cv.num,l1=FALSE),cv.num,cv.num)
+  custom_cv_plot <- putPlot(custom_cv_plot,H_d_plot_fun(cv.num,l1=FALSE),
+                            cv.num,cv.num)
   
   return(custom_cv_plot)
 }

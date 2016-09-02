@@ -15,7 +15,8 @@ HclustGenesHiCor <- function(gem,seed,cuts){
   gem.hclust <- hclust(dist(cor(t(gem[,seed]))))
   gem.cuts <- cutree(gem.hclust, k=cuts)
   
-  hclust.genes.list <- lapply(seq(length = cuts), function(x) which(gem.cuts == x))
+  hclust.genes.list <- lapply(seq(length = cuts),
+                              function(x) which(gem.cuts == x))
  
   temp.fun <- function(i) CorScoreCalc(gem[hclust.genes.list[[i]],],seed)
   hi.cor.values <- sapply(X=seq(length = cuts),temp.fun)

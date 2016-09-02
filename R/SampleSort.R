@@ -28,7 +28,8 @@ SampleSort <- function(gem,seed,num.cores = NULL,sort.length = NULL){
 for(j in seq.vec){
   next.seed <- seq(length = sample.size)[-seed1]
   len1 <- length(next.seed)
-  multi.core.list <- lapply(seq(length = len1), function(x)c(seed1, next.seed[x]))
+  multi.core.list <- lapply(seq(length = len1), function(x)c(seed1,
+                                                             next.seed[x]))
   
   if(length(num.cores)==0){
     test.cor.values <- unlist(bplapply(multi.core.list, FUN=temp.fun1,

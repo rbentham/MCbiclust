@@ -9,7 +9,8 @@ MannWhitneyGOTerms <- function(genes, gene.values,GO_term_genes){
   
   mannfun1 <- function(x){
     a <- which(genes %in% GO_term_genes[[x]])
-    return(ifelse(length(a) > 10, wilcox.test(gene.values[a],gene.values)$p.value,
+    return(ifelse(length(a) > 10, wilcox.test(gene.values[a],
+                                              gene.values)$p.value,
            NA))}
  
   go.pvalues <- sapply(seq(length = length(GO_term_genes)), FUN = mannfun1)

@@ -30,7 +30,8 @@ av.corvec.fun <- function(x) rowMeans(CCLE.cor.mat[,x])
 CCLE.average.corvec <- lapply(X = CCLE.clust.groups,
                          FUN = av.corvec.fun)
 
-multi.sort.prep <- MultiSampleSortPrep(gem = CCLE_small,av.corvec = CCLE.average.corvec,
+multi.sort.prep <- MultiSampleSortPrep(gem = CCLE_small,
+                                       av.corvec = CCLE.average.corvec,
                                        top.genes.num = 750,
                                        groups =CCLE.clust.groups,
                                        initial.seeds = CCLE.seed)  
