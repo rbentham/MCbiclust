@@ -40,7 +40,7 @@ SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE, seed
   k1 <- which.max(sil.value) + 1
   si2 <- cluster::silhouette(x = cutree(cor.hclust,k = k1), dist = cor.dist)
   
-  if(plots == T) print(plot(si2,col="red",main=""))
+  if(plots == TRUE) print(plot(si2,col="red",main=""))
   
   cluster.groups <- lapply(seq(k1),
                            FUN=function(x) which(cutree(cor.hclust,k = k1) == x))

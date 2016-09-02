@@ -12,7 +12,7 @@
 
 
 CVPlot <- function(cv.df,geneset.loc, geneset.name,alpha1 = 0.005,alpha2 = 0.1,cnames=NULL){
-  if(is.character(geneset.name)==F){
+  if(is.character(geneset.name)==FALSE){
     stop("geneset.name must be a single character value")
   }
   
@@ -77,10 +77,10 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name,alpha1 = 0.005,alpha2 = 0.1,c
     custom_cv_plot <- GGally::putPlot(custom_cv_plot,p_mH_plots[[i]],H_combn[1,i],H_combn[2,i])}
   
   
-  H_d_plot_fun <- function(a,l1=F){
+  H_d_plot_fun <- function(a,l1=FALSE){
     a1 <- colnames(cv.df)[a]
     p <- eval(parse(text=paste("ggplot2::ggplot(cv.df,ggplot2::aes(x =",a1,",col=Status))")))
-    if(l1 == F){
+    if(l1 == FALSE){
       return(p + ggplot2::geom_density() + ggplot2::theme(legend.position="none"))}
     else{
       return(p + ggplot2::geom_density())}

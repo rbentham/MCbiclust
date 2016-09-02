@@ -35,7 +35,7 @@ Suggests:
     pander,
     devtools
 License: GPL-2
-biocViews: Clustering, Microarray, StatisticalMethod, Software, RNASeq
+biocViews: Clustering, Microarray, StatisticalMethod, Software, RNASeq, GeneExpression
 RoxygenNote: 5.0.1
 VignetteBuilder: knitr
 LazyData:true
