@@ -204,7 +204,7 @@ An alternative to using the `GOEnrichmentAnalysis` function would be to use a se
 
 ```{r, results = "asis", cache = TRUE}
 top200 <- row.names(CCLE_small)[order(CCLE.cor.vec,
-                                             decreasing = T)[seq(200)]]
+                                             decreasing = TRUE)[seq(200)]]
 
 top200.gprof <- gprofiler(top200)
 dim(top200.gprof)
@@ -487,7 +487,7 @@ It needs to be known how many distinct patterns have been found, this is done wi
 ```{r}
 multi.clust.groups <- SilhouetteClustGroups(multi.run.cor.vec.mat,
                                             max.clusters = 20,
-                                            plots = T,rand.vec = FALSE)
+                                            plots = TRUE,rand.vec = FALSE)
 ```
 
 Here two clusters were found, and we can visualise this pattern (and any additional others found) with the function `CVPlot`, which highlights a chosen gene set, in this case the mitochondrial genes.

@@ -36,7 +36,7 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name,alpha1 = 0.005,alpha2 = 0.1,c
   }
   
   custom_cv_plot <- GGally::ggpairs(cv.df[,-status.loc],upper = "blank",lower = "blank",
-                            title = "",axisLabels ="show", legends=T)
+                            title = "",axisLabels ="show", legends=TRUE)
   
   col_cv <- scales::hue_pal(h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
                             direction = 1)(2)
@@ -90,7 +90,7 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name,alpha1 = 0.005,alpha2 = 0.1,c
   for(i in 1:(cv.num-1)){
     custom_cv_plot <- GGally::putPlot(custom_cv_plot,H_d_plot_fun(i),i,i)}
   
-  custom_cv_plot <- GGally::putPlot(custom_cv_plot,H_d_plot_fun(cv.num,l1=F),cv.num,cv.num)
+  custom_cv_plot <- GGally::putPlot(custom_cv_plot,H_d_plot_fun(cv.num,l1=FALSE),cv.num,cv.num)
   
   return(custom_cv_plot)
 }

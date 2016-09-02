@@ -2,8 +2,8 @@ Package: MCbiclust
 Type: Package
 Title: Massive correlating biclusters for gene expression data and associated
     methods
-Version: 0.1.0
-Date: 2016-08-01
+Version: 1.0.0
+Date: 2016-09-02
 Author: Robert Bentham
 Maintainer: Robert Bentham <robert.bentham.11@ucl.ac.uk>
 Description: Custom made algorithm and associated methods for finding,
@@ -11,18 +11,19 @@ Description: Custom made algorithm and associated methods for finding,
     Algorithm is based on with a supplied gene set of size n, finding the maximum
     strength correlation matrix containing m samples from the data set.
 Depends:
+    R (>= 3.3.0)
+Imports:
     BiocParallel,
     graphics,
     utils,
-    AnnotationDbi
-Imports:
+    stats,
+    AnnotationDbi,
     GO.db,
     org.Hs.eg.db,
     GGally,
     ggplot2,
     scales,
-    cluster,
-    stats
+    cluster
 Suggests:
     gplots,
     knitr,
