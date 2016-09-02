@@ -20,6 +20,7 @@
 #'   \item Name: Sample name identifier
 #' }
 #' @source \url{http://www.broadinstitute.org/ccle/data/browseData} Filename: CCLE_sample_info_file_2012-04-06.txt 
+#' @value NA
 "CCLE_samples"
 
 
@@ -35,6 +36,7 @@
 #'   \item ...
 #' }
 #'  @source \url{http://www.broadinstitute.org/ccle/data/browseData} Filename: CCLE_Expression_Entrez_2012-04-06.gct.gz
+#' @value NA
 "CCLE_small"
 
 
@@ -45,6 +47,7 @@
 #'
 #' @format A Character vector of the HGNC approved gene names
 #' @source \url{https://www.broadinstitute.org/publications/broad807s} 
+#' @value NA
 "Mitochondrial_genes"
 
 #' List of samples pre-sorted for vignette
@@ -52,5 +55,6 @@
 #' Different sortings of CCLE_small calcualted in the Vignette.
 #' 
 #' @format A list of the different sample sortings calculated in the vignette:
+#' @value NA
 "Vignette_sort"
 

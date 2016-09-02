@@ -29,7 +29,7 @@ SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE, seed
   cor.hclust <- hclust(cor.dist)
   
   silfun1 <- function(x){
-    si2 <- cluster::silhouette(x = cutree(cor.hclust,k = x),dist = cor.dist)
+    si2 <- silhouette(x = cutree(cor.hclust,k = x),dist = cor.dist)
     return(mean(si2[,3]))
   }
   
@@ -38,7 +38,7 @@ SilhouetteClustGroups <- function(cor.vec.mat, max.clusters, plots = FALSE, seed
   if(plots == TRUE) print(plot(seq(length = max.clusters-1)+1, sil.value, xlab="Number of clusters",ylab="Mean silhoette width"))
   
   k1 <- which.max(sil.value) + 1
-  si2 <- cluster::silhouette(x = cutree(cor.hclust,k = k1), dist = cor.dist)
+  si2 <- silhouette(x = cutree(cor.hclust,k = k1), dist = cor.dist)
   
   if(plots == TRUE) print(plot(si2,col="red",main=""))
   
