@@ -12,17 +12,18 @@
 MultiSampleSortPrep <- function(gem, av.corvec, top.genes.num,
                                 groups, initial.seeds){
   
-  t.fun <- function(x){
-    return(order(abs(x),decreasing = TRUE)[seq(length = top.genes.num)])
-  }
+    t.fun <- function(x){
+        return(order(abs(x),decreasing = TRUE)[seq(length = top.genes.num)])
+    }
   
-  top.genes <- lapply(X = av.corvec,
-                      FUN = t.fun)
+    top.genes <- lapply(X = av.corvec,
+                        FUN = t.fun)
   
-  top.seed.score <- lapply(groups, FUN = function(x) seq(length = length(x)))
+    top.seed.score <- lapply(groups,
+                             FUN = function(x) seq(length = length(x)))
   
-  top.seed.fun1 <- function(y) sapply(seq(length = length(groups[[y]])),
-                                          FUN = function(x){
+    top.seed.fun1 <- function(y) sapply(seq(length = length(groups[[y]])),
+                                        FUN = function(x){
                                             l1 <- top.genes[[y]]
                                             a <- groups[[y]]
                                             l2 <- initial.seeds[a][[x]]
@@ -30,16 +31,16 @@ MultiSampleSortPrep <- function(gem, av.corvec, top.genes.num,
                                             return(mean(abs(cor(t(b)))))
                                             })
   
-  top.seed.score <- lapply(seq(length = length(groups)),FUN = top.seed.fun1)
+    top.seed.score <- lapply(seq(length = length(groups)),FUN = top.seed.fun1)
   
   
-  t.fun2 <- function(x){
-    a <- initial.seeds[groups[[x]]][[which.max(top.seed.score[[x]])[1]]]
-    return(a)
-  }
-  top.seed <- lapply(seq(length = length(av.corvec)),
+    t.fun2 <- function(x){
+        a <- initial.seeds[groups[[x]]][[which.max(top.seed.score[[x]])[1]]]
+        return(a)
+    }
+    top.seed <- lapply(seq(length = length(av.corvec)),
                      FUN = t.fun2)
-  top.mat <- lapply(top.genes, FUN = function(x) as.matrix(gem)[x,])
+    top.mat <- lapply(top.genes, FUN = function(x) as.matrix(gem)[x,])
   
-  return(list(top.mat, top.seed))
+    return(list(top.mat, top.seed))
 }

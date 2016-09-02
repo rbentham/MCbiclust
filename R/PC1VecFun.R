@@ -9,17 +9,17 @@
 
 
 PC1VecFun <- function(top.gem,seed.sort,n){
-  pca.matrix <- top.gem[,seed.sort[seq(length = n)]]
-  pca.results <- prcomp(t(pca.matrix),center=TRUE)
-  pca.loadings <- pca.results$rotation
+    pca.matrix <- top.gem[,seed.sort[seq(length = n)]]
+    pca.results <- prcomp(t(pca.matrix),center=TRUE)
+    pca.loadings <- pca.results$rotation
   
-  hi.cor.matrix <- top.gem[,seed.sort]
+    hi.cor.matrix <- top.gem[,seed.sort]
   
-  pc1fun1 <- function(x){
-    return(lsfit(as.matrix(pca.loadings),
-          as.matrix(hi.cor.matrix[,x]))$coef[2])}
+    pc1fun1 <- function(x){
+        return(lsfit(as.matrix(pca.loadings),
+                     as.matrix(hi.cor.matrix[,x]))$coef[2])}
   
-  pc1.vec <- sapply(seq(length = length(seed.sort)), FUN = pc1fun1)
+    pc1.vec <- sapply(seq(length = length(seed.sort)), FUN = pc1fun1)
   
-  return(pc1.vec)
+    return(pc1.vec)
 }

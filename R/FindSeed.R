@@ -12,58 +12,58 @@
 FindSeed <- function (gem, seed.size, iterations,
                       initial.seed = NULL, messages = 100){
   
-  message("Iteration\tCorrelation Score")
-  sample.list <- list()
-  sample.size <- dim(gem)[2]
-  if (length(initial.seed) == seed.size){
-  seed <- initial.seed
-  } else {
-  seed <- sample(seq(length=sample.size), seed.size)
+    message("Iteration\tCorrelation Score")
+    sample.list <- list()
+    sample.size <- dim(gem)[2]
+    if (length(initial.seed) == seed.size){
+        seed <- initial.seed
+    } else {
+        seed <- sample(seq(length=sample.size), seed.size)
     }
-  gem.t <- t(gem)
-  zero.rows <- which(apply(X = gem[, seed],MARGIN = 1,FUN = sd) == 0)
+    gem.t <- t(gem)
+    zero.rows <- which(apply(X = gem[, seed],MARGIN = 1,FUN = sd) == 0)
 
-  if (length(zero.rows) != 0) {
-    test.cor <- cor(gem.t[seed, -zero.rows])
-  }
-  else {
-  test.cor <- cor(gem.t[seed, ])
-  }
-  test.cor.score <- mean(abs(test.cor))
+    if (length(zero.rows) != 0) {
+        test.cor <- cor(gem.t[seed, -zero.rows])
+    }
+    else {
+        test.cor <- cor(gem.t[seed, ])
+    }
+    test.cor.score <- mean(abs(test.cor))
   
-  rv <- sample(seq(length=seed.size), iterations, replace = TRUE)
+    rv <- sample(seq(length=seed.size), iterations, replace = TRUE)
   
-  for (i in seq(length = iterations)) {
-    seed2 <- seed[-rv[i]]
-    avoid.samples <- seed2
-    seed2 <- c(seed2, sample(seq(length = sample.size)[-avoid.samples],1))
+    for (i in seq(length = iterations)) {
+        seed2 <- seed[-rv[i]]
+        avoid.samples <- seed2
+        seed2 <- c(seed2, sample(seq(length = sample.size)[-avoid.samples],1))
         zero.rows <- which(apply(X = gem[, seed2],MARGIN = 1,FUN = sd) == 0)
         if (length(zero.rows) != 0) {
-          test.cor <- cor(gem.t[seed2, -zero.rows])
+            test.cor <- cor(gem.t[seed2, -zero.rows])
         }
         else {
-          test.cor <- cor(gem.t[seed2, ])
+            test.cor <- cor(gem.t[seed2, ])
         }
         test.cor.score2 <- mean(abs(test.cor))
         if (test.cor.score2 > test.cor.score) {
             taken.out <- rv[i]
             if(taken.out == 1){
-              seed <- c(seed2[seed.size], seed[-1])
+                seed <- c(seed2[seed.size], seed[-1])
             } else if(taken.out == seed.size){
-              seed <- c(seed[-seed.size], seed2[seed.size])
+                  seed <- c(seed[-seed.size], seed2[seed.size])
             } else{
-              pre.replace <- c(1:(taken.out-1))
-              post.replace <- c((taken.out+1):seed.size)
-              seed <- c(seed[pre.replace],seed2[seed.size],
-                        seed[post.replace])
-              }
+                  pre.replace <- c(1:(taken.out-1))
+                  post.replace <- c((taken.out+1):seed.size)
+                  seed <- c(seed[pre.replace],seed2[seed.size],
+                            seed[post.replace])
+                  }
             test.cor.score <- test.cor.score2
            
         }
         if (i%%messages == 0) {
-          message(paste(i,"\t\t",format(test.cor.score,digits = 5)))
+            message(paste(i,"\t\t",format(test.cor.score,digits = 5)))
         }
     }
 
-      return(seed)
+    return(seed)
 }
