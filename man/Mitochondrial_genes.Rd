@@ -4,7 +4,10 @@
 \name{Mitochondrial_genes}
 \alias{Mitochondrial_genes}
 \title{List of known mitochondrial genes}
-\format{A Character vector of the HGNC approved gene names:}
+\format{A Character vector of the HGNC approved gene names}
+\source{
+\url{https://www.broadinstitute.org/publications/broad807s}
+}
 \usage{
 Mitochondrial_genes
 }

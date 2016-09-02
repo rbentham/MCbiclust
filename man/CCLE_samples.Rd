@@ -21,13 +21,14 @@
   \item Hybrid.Capture.Sequencing: Hybrid capture sequencing used.
   \item Name: Sample name identifier
 }}
+\source{
+\url{http://www.broadinstitute.org/ccle/data/browseData} Filename: CCLE_sample_info_file_2012-04-06.txt
+}
 \usage{
 CCLE_samples
 }
 \description{
-A dataset containing clinical information for the CCLE samples. 
-Availiable from the broad institute: http://www.broadinstitute.org/ccle/data/browseData
-Filename: CCLE_sample_info_file_2012-04-06.txt
+A dataset containing clinical information for the CCLE samples.
 }
 \keyword{datasets}
 
