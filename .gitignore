@@ -2,7 +2,6 @@
 .Rhistory
 .RData
 MCbiclust_tutorial.Rdata
-data/
 MCbiclustTutorial_cache/
 MCbiclustTutorial_files/
 MCbiclust_GO.gmt
