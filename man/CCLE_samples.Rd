@@ -27,6 +27,9 @@
 \usage{
 CCLE_samples
 }
+\value{
+NA
+}
 \description{
 A dataset containing clinical information for the CCLE samples.
 }

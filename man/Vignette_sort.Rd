@@ -8,6 +8,9 @@
 \usage{
 Vignette_sort
 }
+\value{
+NA
+}
 \description{
 Different sortings of CCLE_small calcualted in the Vignette.
 }

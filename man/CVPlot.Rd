@@ -37,17 +37,17 @@ CCLE.seed <- list()
 CCLE.cor.vec <- list()
 
 for(i in 1:3){
-  set.seed(i)
-  CCLE.seed[[i]] <- FindSeed(gem = CCLE.mito,
-                             seed.size = 10,
-                             iterations = 100,
-                             messages = 100)}
+    set.seed(i)
+    CCLE.seed[[i]] <- FindSeed(gem = CCLE.mito,
+                               seed.size = 10,
+                               iterations = 100,
+                               messages = 100)}
 
 for(i in 1:3){
-  CCLE.cor.vec[[i]] <-  CVEval(gem.part = CCLE.mito,
-                               gem.all = CCLE_small,
-                               seed = CCLE.seed[[i]],
-                               splits = 10)}
+    CCLE.cor.vec[[i]] <-  CVEval(gem.part = CCLE.mito,
+                                 gem.all = CCLE_small,
+                                 seed = CCLE.seed[[i]],
+                                splits = 10)}
 
 
 

@@ -14,6 +14,9 @@
 \usage{
 CCLE_small
 }
+\value{
+NA
+}
 \description{
 A dataset containing the gene-centric RMA-normalized mRNA expression data for nearly 1000 genes and 500 samples taken as a random subset of the complete CCLE data. 
 1000 genes were selected randomly such that 500 were mitochondrial and 500 non-mitochondrial.

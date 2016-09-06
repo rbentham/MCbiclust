@@ -5,7 +5,7 @@
 GoDataLoad <- function(){
     xx <- as.list(org.Hs.eg.db::org.Hs.egGO2ALLEGS)
     GO_term_list <- names(xx)
-    GO_term_matrix <- (select(GO.db, GO_term_list, c("TERM","ONTOLOGY")))
+    GO_term_matrix <- AnnotationDbi::select(GO.db::GO.db, GO_term_list, c("TERM","ONTOLOGY"))
   
     GO_gene_get<-function(y){
         return(as.character(unlist(mget(y,org.Hs.egSYMBOL))))}
