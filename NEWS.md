@@ -6,4 +6,18 @@
 
 * Added data files to github.
 
+# MCbiclust 0.99.2
+
+* Updated Namespace
+
+
+# MCbiclust 0.99.3
+
+* Compressed data and slightly altered vignette
+
+# MCbiclust 0.99.4
+
+* Updated NEWS.md
+
+
 
