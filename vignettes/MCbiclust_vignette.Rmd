@@ -1,5 +1,5 @@
 ---
-title: "MCbiclust 0.99.3"
+title: "MCbiclust 0.99.4"
 author: 
  - name: "Robert Bentham"
    affiliation: "Cell and Developmental Biology, University College London"
@@ -9,12 +9,12 @@ output:
   BiocStyle::pdf_document2:
     toc_newpage: TRUE
 vignette: >
-  %\VignetteIndexEntry{MCbiclust 0.99.3}
+  %\VignetteIndexEntry{MCbiclust 0.99.4}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 abstract: MCbiclust is a R package for running massively correlating biclustering analysis. MCbiclust aims to find large scale biclusters with selected features being highly correlated with each other over a subset of samples. MCbiclust was particularly designed for the application of studying gene expression data, finding and understanding biclusters that are related to large scale co-regulation of genes.
 package: |
-  MCbiclust 0.99.3 
+  MCbiclust 0.99.4
 
   Report issues on https://github.com/rbentham/MCbiclust/issues
 bibliography: bibvignette.bib
