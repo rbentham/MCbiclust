@@ -553,6 +553,6 @@ toLatex(sessionInfo())
 
 
 
-\bibliography{bibvignette.bib}
+\bibliography{bibvignette}
 
 \end{document}

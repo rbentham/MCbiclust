@@ -23,3 +23,7 @@
 
 * Vignette now written in Sweave
 
+# MCbiclust 0.99.6
+
+* Small bug in Sweave document
+
