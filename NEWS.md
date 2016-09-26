@@ -19,5 +19,7 @@
 
 * Updated NEWS.md
 
+# MCbiclust 0.99.5
 
+* Vignette now written in Sweave
 

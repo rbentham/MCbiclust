@@ -1,62 +1,64 @@
----
-title: "MCbiclust 0.99.4"
-author: 
- - name: "Robert Bentham"
-   affiliation: "Cell and Developmental Biology, University College London"
-   email: "robert.bentham.11@ucl.ac.uk"
-date: "2016-09-07"
-output: 
-  BiocStyle::pdf_document2:
-    toc_newpage: TRUE
-vignette: >
-  %\VignetteIndexEntry{MCbiclust 0.99.4}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
-abstract: MCbiclust is a R package for running massively correlating biclustering analysis. MCbiclust aims to find large scale biclusters with selected features being highly correlated with each other over a subset of samples. MCbiclust was particularly designed for the application of studying gene expression data, finding and understanding biclusters that are related to large scale co-regulation of genes.
-package: |
-  MCbiclust 0.99.4
 
-  Report issues on https://github.com/rbentham/MCbiclust/issues
-bibliography: bibvignette.bib
----
+%\VignetteIndexEntry{Bioconductor LaTeX Style}
+%\VignettePackage{BiocStyle}
+%\VignetteEngine{utils::Sweave}
 
-# Getting started
+\documentclass{article}
+<<style-Sweave, eval=TRUE, echo=FALSE, results=tex>>=
+BiocStyle::latex()
+@
+\usepackage{url}
+
+\title{Robert Bentham}
+\author{MCbiclust 0.99.5}
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\maketitle
+
+\tableofcontents
+
+\section{Introduction}
+MCbiclust is a R package for running massively correlating biclustering analysis. MCbiclust aims to find large scale biclusters with selected features being highly correlated with each other over a subset of samples. MCbiclust was particularly designed for the application of studying gene expression data, finding and understanding biclusters that are related to large scale co-regulation of genes.
+
+Report issues on https://github.com/rbentham/MCbiclust/issues
+\section{Getting Started}
+
 Once installed MCbiclust can be loaded with the following command:
-
-```{r, results = "hide",warning = FALSE, message=FALSE}
+<<eval=TRUE>>=
 library(MCbiclust)
-```
+@
 
 MCbiclust also makes sure that the packages BiocParallel, cluster, stats, GGally, ggplot2 and scales are all installed. It is also advised that the packages ggplot2 and gplots are separately installed and loaded.
 
-```{r, results = "hide",warning = FALSE,message=FALSE}
+<<>>=
 library(ggplot2)
 library(gplots)
 library(dplyr)
 library(gProfileR)
 library(MASS)
 library(devtools)
-```
+@
 
-# Example of a single run
 
-## Loading Cancer Cell Line Encyclopedia (CCLE) and MitoCarta data sets
+\section{Example of a single run}
+\subsection{Loading Cancer Cell Line Encyclopedia (CCLE) and MitoCarta data sets}
 
-For this example analysis we will be seeking to find biclusters related to mitochondrial function in the cancer cell line encyclopedia (@barretina2012cancer). For this two datasets are needed, both of which are available on the MCbiclust package. The first in `CCLE_small` that contains a subset of the gene expression values found in the entire CCLE data set (the full dataset is avaliable at https://portals.broadinstitute.org/ccle/home), the second, `Mitochondrial_genes`, is a list of mitochondrial genes that can be found from MitoCarta1.0 (@pagliarini2008mitochondrial).
+For this example analysis we will be seeking to find biclusters related to mitochondrial function in the cancer cell line encyclopedia \cite{barretina2012cancer}. For this two datasets are needed, both of which are available on the MCbiclust package. The first in CCLE$\_$small that contains a subset of the gene expression values found in the entire CCLE data set (the full dataset is avaliable at \url{https://portals.broadinstitute.org/ccle/home}, the second, Mitochondrial$\_$genes, is a list of mitochondrial genes that can be found from MitoCarta1.0 \cite{pagliarini2008mitochondrial}.
 
-```{r}
+<<>>=
 data(CCLE_small)
 data(Mitochondrial_genes)
-```
+@
 
-It is a simple procedure to create a new matrix `CCLE.mito` only containing the mitochondrial genes. While there are $1023$ known mitochondrial genes, not all of these are measured in `CCLE_data`. The data frame `CCLE_data` also contains columns with the probe and gene names these are removed to form the data frame `CCLE.data`.
+It is a simple procedure to create a new matrix CCLE.mito only containing the mitochondrial genes. While there are $1023$ known mitochondrial genes, not all of these are measured in CCLE$\_$data. The data frame CCLE$\_$data also contains columns with the probe and gene names these are removed to form the data frame CCLE.data.
 
-```{r}
+<<>>=
 mito.loc <- which(row.names(CCLE_small) %in% Mitochondrial_genes)
 CCLE.mito <- CCLE_small[mito.loc,]
-```
+@
 
-## Finding a bicluster seed
+\subsection{Finding a bicluster seed}
 
 The first step in using MCbiclust is to find a subset of samples that have the most highly correlating genes in the chosen gene expression matrix. This is done by, calculating the associated correlation matrix and then calculating the absolute mean of the correlations, as a correlation score.
 
@@ -84,167 +86,159 @@ As $\alpha_I^J$ is calculating using the absolute values of $C_{i,k}^J$, these p
 
 This is achieved with function `FindSeed`, initially a random subset of samples is chosen and then at each iteration one sample is removed and replaced and if this results in a higher $\alpha_I^J$ value than this new subset is chosen. In this function the argument `gem` stands for gene expression matrix, `seed.size` indicates the size of the subset of samples that is sought. `iterations` indicates how many iterations of the algorithm to carry out before stopping. In general the higher the iterations the more optimal the solution in terms of maximising the strength of the correlation.
 
-For reproducibility `set.seed` has been used to set R's pseudo-random number generator. It should also be noted that the for `gem` the data matrix can not contain all the genes, since `FindSeed` involves the calculation of correlation matrices which are not computationally efficient to compute if they involve greater than ~1000 genes.
+For reproducibility \Rfunction{set.seed} has been used to set R's pseudo-random number generator. It should also be noted that the for `gem` the data matrix can not contain all the genes, since \Rfunction{FindSeed} involves the calculation of correlation matrices which are not computationally efficient to compute if they involve greater than ~1000 genes.
 
-```{r}
+<<>>=
 set.seed(102)
 CCLE.seed <- FindSeed(gem = CCLE.mito,
                       seed.size = 10,
                       iterations = 10000,
                       messages = 1000)
-```
+@
 
-`FindSeed` has one more additional options, `initial.seed` allows the user to specify the initial subsample to be tested, by default the initial sample subset is randomly chosen. 
+\Rfunction{FindSeed} has one more additional options, `initial.seed` allows the user to specify the initial subsample to be tested, by default the initial sample subset is randomly chosen. 
 
-There is a function `CorScoreCalc` that can calculate the correlation score $\alpha_I^J$ directly, in general however you should not need to use it, unless you wish to manually check the chosen seed is an improvement on one that is randomly generated.
+There is a function \Rfunction{CorScoreCalc} that can calculate the correlation score $\alpha_I^J$ directly, in general however you should not need to use it, unless you wish to manually check the chosen seed is an improvement on one that is randomly generated.
 
-```{r, cache = TRUE}
+<<>>=
 set.seed(103)
 random.seed <- sample(seq(length = dim(CCLE.mito)[2]), 10)
 CorScoreCalc(CCLE.mito,random.seed)
 CorScoreCalc(CCLE.mito,CCLE.seed)
-```
+@
 
-The results of `FindSeed` can also be visualised by examining the associated correlation matrix, and viewing the result as a heatmap. Again it is easy to see the difference between the random subsample and the one outputted from `FindSeed`.
+The results of \Rfunction{FindSeed} can also be visualised by examining the associated correlation matrix, and viewing the result as a heatmap. Again it is easy to see the difference between the random subsample and the one outputted from \Rfunction{FindSeed}.
 
-```{r, dev='png'}
+<<fig=TRUE, width=5, height=4>>=
 CCLE.random.cor <- cor(t(CCLE.mito[,random.seed]))
 heatmap.2(CCLE.random.cor,trace = "none")
+@
 
+<<fig=TRUE, width=5, height=4>>=
 CCLE.mito.cor <- cor(t(CCLE.mito[,CCLE.seed]))
 heatmap.2(CCLE.mito.cor,trace = "none")
-```
+@
 
 Note that when the genes are represented as the rows in a matrix, that matrix needs to be transposed before the calculation of the correlation matrix. 
 
-`heatmap.2` is a function from the `gplots` R package. 
+\Rfunction{heatmap.2} is a function from the `gplots` R package. 
 
-## Selecting highly correlated genes
-
-As can be clearly seen from the heat map, not all the mitochondrial genes are equally strongly correlated to each other. There is a function in `MCbiclust` which automatically selects those genes that are most strongly associated with the pattern. This function is `HclustGenesHiCor` and it works by using hierarchical clustering to select the genes into n different groups, and then discarding any of these groups that fail to have a correlation score greater than the correlation score from all the genes together.
-
-```{r,cache=TRUE,dev='png'}
+\subsection{Selecting highly correlated genes}
+As can be clearly seen from the heat map, not all the mitochondrial genes are equally strongly correlated to each other. There is a function in `MCbiclust` which automatically selects those genes that are most strongly associated with the pattern. This function is \Rfunction{HclustGenesHiCor} and it works by using hierarchical clustering to select the genes into n different groups, and then discarding any of these groups that fail to have a correlation score greater than the correlation score from all the genes together.
+<<fig=TRUE,  width=5, height=4>>=
 CCLE.hicor.genes <- as.numeric(HclustGenesHiCor(CCLE.mito,
                                                 CCLE.seed,
                                                 cuts = 8))
 CCLE.mito.cor2 <- cor(t(CCLE.mito[CCLE.hicor.genes, CCLE.seed]))
 CCLE.heat <- heatmap.2(CCLE.mito.cor2,trace = "none")
-```
+@
 
 There are two groups of genes, strongly correlated to themselves and anti-correlated to each other. These can be extracted from the dendrogram:
-
-```{r, cache = TRUE}
+<<>>=
 CCLE.groups <- list(labels(CCLE.heat$rowDendrogram[[1]]),
                     labels(CCLE.heat$rowDendrogram[[2]]))
-```
+@
 
-## Calculate the correlation vector
 
+\subsection{Calculate the correlation vector}
 In this example a distinct correlation pattern was found. However this was only examined for genes involved in mitochondrial function. Non-mitochondrial genes are likely also involved in this pattern and it is important to identify them.
 
 All genes can be measured by how they match to this pattern by calculating what is called a correlation vector (CV). This is done in two steps:
+\begin{enumerate}
+\item The pattern is summarised  by finding a subset of genes which all strongly correlate with each other, and calculating their average expression value. This is done by clustering the genes using hierarchical clustering and selecting the best group judged by that groups correlation score multiplied by the square root of the number of genes. This multiplication is done to remove the bias of selecting a group containing very few genes.
 
-1. The pattern is summarised  by finding a subset of genes which all strongly correlate with each other, and calculating their average expression value. This is done by clustering the genes using hierarchical clustering and selecting the best group judged by that groups correlation score multiplied by the square root of the number of genes. This multiplication is done to remove the bias of selecting a group containing very few genes.
+\item The correlation vector is calculated by finding the correlation of every gene to the average expression value of the chosen best group.
 
-1. The correlation vector is calculated by finding the correlation of every gene to the average expression value of the chosen best group.
+\end{enumerate}
+This process is all encapsulated in the function `CVEval` which takes 4 arguements. `gem.part` is the gene expression matrix for the chosen gene set of interest, e.g. mitochondrial genes, `gem.all` is the entire gene expression matrix, `seed` is the output from \Rfunction{FindSeed} and `splits` is the number of groups to split the chosen gene set into in order to select the best group.
 
-This process is all encapsulated in the function `CVEval` which takes 4 arguements. `gem.part` is the gene expression matrix for the chosen gene set of interest, e.g. mitochondrial genes, `gem.all` is the entire gene expression matrix, `seed` is the output from `FindSeed` and `splits` is the number of groups to split the chosen gene set into in order to select the best group.
-
-```{r}
+<<>>=
 CCLE.cor.vec <- CVEval(gem.part = CCLE.mito,
                         gem.all = CCLE_small,
                         seed = CCLE.seed, splits = 10)
-```
+@
 
-## Gene Set Enrichment
 
+\subsection{Gene Set Enrichment}
 Using the calculated correlation vector, it is a relatively simple task to perform gene set enrichment. This can be done on any platform (e.g. DAVID, gprofiler, etc.) but MCbiclust comes with an inbuilt function for calculating GO enrichment values using the Mann-Whitney non-parametric test.
 
-This is achieved with the `GOEnrichmentAnalysis` function which takes three inputs:
+This is achieved with the \Rfunction{GOEnrichmentAnalysis} function which takes three inputs:
 
-1. `gene.names`: The names of the genes in standard format.
+\begin{enumerate}
+\item `gene.names`: The names of the genes in standard format.
 
-1. `gene.values`: The correlation vector.
+\item `gene.values`: The correlation vector.
 
-1. `sig.rate`: The value below which adjusted p-values are decided to be significant.
-
+\item `sig.rate`: The value below which adjusted p-values are decided to be significant.
+\end{enumerate}
 The output is a table with 7 columns:
+\begin{enumerate}
+  \item  `GOID`: ID for GO term.
+\item  `TERM`: Name of GO term.
+\item  `num.genes`: Number of genes in GO term.
+\item  `g.in.genelist`: Number of genes in GO term that were measured in the gene expression matrix.
+\item  `adj.p.value`: Adjusted p-value from Mann-Whitney test.
+\item  `CV.av.value`: Average value of CV for genes in GO term.
+\item  `phenotype`: +1 if `CV.av.value` is greater than the overall CV average, -1 if the `CV.av.value` is less then the overall CV average.
+\end{enumerate}
 
-1. `GOID`: ID for GO term.
-
-1. `TERM`: Name of GO term.
-
-1. `num.genes`: Number of genes in GO term.
-
-1. `g.in.genelist`: Number of genes in GO term that were measured in the gene expression matrix.
-
-1. `adj.p.value`: Adjusted p-value from Mann-Whitney test.
-
-1. `CV.av.value`: Average value of CV for genes in GO term.
-
-1. `phenotype`: +1 if `CV.av.value` is greater than the overall CV average, -1 if the `CV.av.value` is less then the overall CV average.
-
-```{r}
+<<>>=
 GSE.MW <- GOEnrichmentAnalysis(gene.names = row.names(CCLE_small),
                                gene.values = CCLE.cor.vec,
                                sig.rate = 0.05)
-```
+@
 
 There are 82 significant terms and the top 10 most significant can be viewed below:
-
-```{r, results = "asis", cache = TRUE}
-
+<<>>=
 row.names(GSE.MW) <- NULL
 pander::pandoc.table(GSE.MW[1:10,],row.names = FALSE)
-```
+@
 
-Since `CCLE_small` is half made up of mitochondrial genes and we were seeking for mitochondrial related biclusters it is not surprising that mitochondrial terms dominate the gene set enrichment. If `MCbiclust` was run on the full CCLE gene expression data set it would be expected to see many more significant non-mitochondrial related terms.
+Since `CCLE$\_$small` is half made up of mitochondrial genes and we were seeking for mitochondrial related biclusters it is not surprising that mitochondrial terms dominate the gene set enrichment. If `MCbiclust` was run on the full CCLE gene expression data set it would be expected to see many more significant non-mitochondrial related terms.
 
-An alternative to using the `GOEnrichmentAnalysis` function would be to use a separate gene set enrichment method such as `gprofiler`, this can be done by for instance selecting the top 200 genes with positive CV values:
+An alternative to using the \Rfunction{GOEnrichmentAnalysis} function would be to use a separate gene set enrichment method such as \Rfunction{gprofiler}, this can be done by for instance selecting the top 200 genes with positive CV values:
 
-```{r, results = "asis", cache = TRUE}
+<<>>=
 top200 <- row.names(CCLE_small)[order(CCLE.cor.vec,
                                              decreasing = TRUE)[seq(200)]]
 
-top200.gprof <- gprofiler(top200)
-dim(top200.gprof)
-```
+#top200.gprof <- gprofiler(top200)
+#dim(top200.gprof)
+@
 
-```{r, results = "asis", cache = TRUE}
-pander::pandoc.table(top200.gprof[seq(10),-c(1,2,7,8,11,14)],
-                     row.names = FALSE)
-```
+<<>>=
+#pander::pandoc.table(top200.gprof[seq(10),-c(1,2,7,8,11,14)],
+#                     row.names = FALSE)
+@
 
-## Sample ordering
+\subsection{Sample ordering}
+Already all the genes in the data set have had the correlation calculated to the pattern found. One more task that can be readily done is to order the samples according to the strength of correlation. Function \Rfunction{FindSeed} found the initial $n$ samples that had a very strong correlation with the gene set of interest, the $n+1$ sample is to be selected as that sample which best maintains the correlation strength, this process can be simply repeated until all or the desired number of samples are ordered.
 
-Already all the genes in the data set have had the correlation calculated to the pattern found. One more task that can be readily done is to order the samples according to the strength of correlation. Function `FindSeed` found the initial $n$ samples that had a very strong correlation with the gene set of interest, the $n+1$ sample is to be selected as that sample which best maintains the correlation strength, this process can be simply repeated until all or the desired number of samples are ordered.
+\Rfunction{SampleSort} is the function in `MCbiclust` that completes this procedure, it has $4$ main inputs:
 
-`SampleSort` is the function in `MCbiclust` that completes this procedure, it has $4$ main inputs:
+\begin{enumerate}
+\item `gem`: the gene expression matrix with all the samples and the gene set of interest.
+\item `seed`: the initial subsample found with `FindSeed`.
+\item ` num.cores`: Used for setting the number of cores used in calculation, important to use to increase the speed of what is a slow calculation.
+\item `sort.length`: Sets the number of samples to be ordered.
+\end{enumerate}
 
-1. `gem`: the gene expression matrix with all the samples and the gene set of interest.
-
-1. `seed`: the initial subsample found with `FindSeed`.
-
-1. ` num.cores`: Used for setting the number of cores used in calculation, important to use to increase the speed of what is a slow calculation.
-
-1. `sort.length`: Sets the number of samples to be ordered.
-
-
-```{r, results='hide', eval=FALSE, cache = TRUE}
+<<eval=FALSE>>=
 CCLE.samp.sort <- SampleSort(CCLE.mito[as.numeric(CCLE.hicor.genes),],
                              seed = CCLE.seed, num.cores = 4)
-```
+@
 
-Note as before that these are long calculations, the precalculated orderings are however given in the `Vignette_sort` data file.
+Note as before that these are long calculations, the precalculated orderings are however given in the `Vignette$\_$sort` data file.
 
-```{r, results='hide', eval=TRUE, echo=TRUE, cache = TRUE}
+<<>>=
 data("Vignette_sort")
 CCLE.samp.sort <- Vignette_sort[[1]]
-```
+@
 
-Note that SampleSort even on multiple cores is a very computationally expensive function and requires time to run. For a large dataset such as the CCLE data it is advisable to either calculate a partial ordering, which can be done with the `sort.length` arguement or submit the job of sorting the samples to a high performance computing facility.
+Note that \Rfunction{SampleSort} even on multiple cores is a very computationally expensive function and requires time to run. For a large dataset such as the CCLE data it is advisable to either calculate a partial ordering, which can be done with the `sort.length` arguement or submit the job of sorting the samples to a high performance computing facility.
 
-## PCA
+
+\subsection{PCA}
 
 Once the samples have been sorted it is possible to summarise the correlation pattern found using principal component analysis (PCA). 
 
@@ -252,77 +246,69 @@ PCA is a method of dimensional reduction, and converts a data set to a new set o
 
 PC1 captures the highest variance within the data, so if PCA is run on the found bicluster with very strong correlations between the genes, PC1 will be a variable that summarises this correlation. 
 
-`PC1VecFun` is a function that calculates the PC1 values for all sorted samples. It takes three inputs:
+\Rfunction{PC1VecFun} is a function that calculates the PC1 values for all sorted samples. It takes three inputs:
 
-1.`top.gem` is the gene expression matrix with only the most highly correlated genes but with all the sample data.
+\begin{enumerate}
+\item `top.gem` is the gene expression matrix with only the most highly correlated genes but with all the sample data.
+\item `seed.sort` is the sorting of the data samples found with function \Rfunction{SampleSort}
+\item `n` is the number of samples used for initially calculating the weighting of PC1. If set to $10$, the first $10$ samples are used to calculate the weighting of PC1 and then the value of PC1 is calculated for all samples in the ordering.
+\end{enumerate}
 
-1. `seed.sort` is the sorting of the data samples found with function `SampleSort`
-
-1. `n` is the number of samples used for initially calculating the weighting of PC1. If set to $10$, the first $10$ samples are used to calculate the weighting of PC1 and then the value of PC1 is calculated for all samples in the ordering.
-
-```{r,cache=TRUE ,eval=TRUE}
+<<>>=
 top.mat <- CCLE.mito[as.numeric(CCLE.hicor.genes),]
 
 pc1.vec <- PC1VecFun(top.gem = top.mat,
                      seed.sort = CCLE.samp.sort, n = 10)
-```
+@
 
-## Thresholding the bicluster and aligning PC1
-
-So far MCbiclust outputs a ranked list of genes and samples. In many cases it is however necessary to determine which genes and samples are within the bicluster and which are not. This is done with the `ThresholdBic` function, which takes $4$ arguements:
-
-1. `cor.vec`: The correlation vector, output of `CVeval`.
-
-1. `sort.order`: The sorted samples, output of `SampleSort`.
-
-1. `pc1`: The PC1 vector, output of `PC1VecFun`
-
-1. `samp.sig`: A numeric value between 0 and 1 that detemines the number of samples in the bicluster.
+\subsection{Thresholding the bicluster and aligning PC1}
+So far MCbiclust outputs a ranked list of genes and samples. In many cases it is however necessary to determine which genes and samples are within the bicluster and which are not. This is done with the \Rfunction{ThresholdBic} function, which takes $4$ arguements:
+\begin{enumerate}
+\item `cor.vec`: The correlation vector, output of `CVeval`.
+\item `sort.order`: The sorted samples, output of `SampleSort`.
+\item `pc1`: The PC1 vector, output of `PC1VecFun`
+\item `samp.sig`: A numeric value between 0 and 1 that detemines the number of samples in the bicluster.
+\end{enumerate}
 
 The genes in the bicluster are determined using kmeans clustering, and dividing the genes into two clusters based on the absolute value of the correlation vector, choosing one correlated and one uncorrelated groups.
 
-The samples are however chosen based on the last 10% of the ranked samples, these samples are assumed to not belong to the bicluster and the first sample with a PC1 value between the $0 + samp.sig/2$ and $1 - samp.sig/2$ quantiles, and every sample after that is not in the bicluster.
+The samples are however chosen based on the last 10\% of the ranked samples, these samples are assumed to not belong to the bicluster and the first sample with a PC1 value between the $0 + samp.sig/2$ and $1 - samp.sig/2$ quantiles, and every sample after that is not in the bicluster.
 
-
-```{r,cache=TRUE ,eval=TRUE}
+<<>>=
 CCLE.bic <- ThresholdBic(cor.vec = CCLE.cor.vec,
                          sort.order = CCLE.samp.sort,
                          pc1 = pc1.vec, samp.sig = 0.05)
-```
+@
 
 Once this thresholded bicluster has been found it is important to properly align the PC1 vector and the correlation vector such that samples with a high PC1 values are those samples with up-regulated genes that have positive CV values. This is not strictly necessary to do, but makes the interpretation of MCbiclust simpler.
 
-This is done with function `PC1Align` which if necessary times the pc1.vec by -1 to ensure that the correlation vector and PC1 vector are "aligned".
+This is done with function \Rfunction{PC1Align} which if necessary times the pc1.vec by -1 to ensure that the correlation vector and PC1 vector are "aligned".
 
-```{r,cache=TRUE ,eval=TRUE}
+<<>>=
 pc1.vec <- PC1Align(gem = CCLE_small, PC1 = pc1.vec,
                     sort.order = CCLE.samp.sort,
                     CV = CCLE.cor.vec, bic = CCLE.bic)
+@
 
-```
 
-## Alternative to PCA
-
+\subsection{Alternative to PCA}
 As an alternative to calculating PC1, the user may want to calculate the average expression value of certain gene sets. This gives a better idea of the type of regulation occurring in the correlation pattern, as an abstract notion of a principal component does not have to be understood.
 
-```{r,cache=TRUE ,eval=TRUE}
+<<>>=
 av.genes.group1 <- colMeans(CCLE.mito[CCLE.groups[[1]],
                                       CCLE.samp.sort])
 av.genes.group2 <- colMeans(CCLE.mito[CCLE.groups[[2]],
                                       CCLE.samp.sort])
-```
+@
 
-
-## Plotting the forks
-
+\subsection{Plotting the forks}
 Once the samples have been ordered and PC1 and the average gene sets calculated it is a simple procedure to produce plots of these against the ordered samples.
 
-One final additional thing that can be done is to classify the samples into belonging to the bicluster or not, and additionally whether a sample belongs to the Upper or Lower fork. This can be done with the function `ForkClassifier`
+One final additional thing that can be done is to classify the samples into belonging to the bicluster or not, and additionally whether a sample belongs to the Upper or Lower fork. This can be done with the function \Rfunction{ForkClassifier}
 
 To produce the plots of the forks the `ggplot2` package is used.
 
-```{r ,eval=TRUE}
-
+<<>>=
 CCLE.names <- colnames(CCLE_small)[CCLE.samp.sort]
 fork.status <- ForkClassifier(pc1.vec, samp.num = length(CCLE.bic[[2]]))
 
@@ -332,68 +318,71 @@ CCLE.df <- data.frame(CCLE.name = CCLE.names,
                       Average.Group1 = av.genes.group1,
                       Average.Group2 = av.genes.group2,
                       Order = seq(length = length(pc1.vec)))
+@
 
+<<fig=TRUE, width=7, height=4>>=
 ggplot(CCLE.df, aes(Order,PC1)) +
   geom_point(aes(colour = Fork)) + ylab("PC1")
+@
 
+<<fig=TRUE,  width=7, height=4>>=
 ggplot(CCLE.df, aes(Order,Average.Group1)) +
   geom_point(aes(colour = Fork)) + ylab("Average Group 1")
+@
 
+<<fig=TRUE, width=7, height=4>>=
 ggplot(CCLE.df, aes(Order,Average.Group2)) +
   geom_point(aes(colour = Fork)) + ylab("Average Group 2")
-```
+@
 
 This by itself however is not particularly enlightening and to get additional information out of these plots supplementary information needs to be examined.
 
-## Comparing results with sample data
 
+\subsection{Comparing results with sample data}
 This section will deal with an addition data sets both of which are available in the MCbiclust package.
-
-* CCLE sample information, a data set containing information for every sample in the data set, including gender of the patient the cell line was derived from, as well as the primary site it came from.
+\begin{itemize}
+  \item CCLE sample information, a data set containing information for every sample in the data set, including gender of the patient the cell line was derived from, as well as the primary site it came from.
+\end{itemize}
 
 This section is meant as an example of the type of analysis that can be done with additional data set. Each new data set may have different additional data available with it and may be in formats that need some extra work to become compatible with the results from the `MCbiclust` analysis. 
 
-### CCLE sample data
-
+\subsubsection{CCLE sample data}
 This data set is available within the `MCbiclust` package.
 
-```{r ,eval=TRUE}
+<<>>=
 data(CCLE_samples)
-```
+@
 
-In this case some samples have an additional "X" not present in some CCLE_samples data so it is necessary to add it for consistency.
+In this case some samples have an additional "X" not present in some CCLE$\_$samples data so it is necessary to add it for consistency.
 
-```{r ,eval=TRUE}
+<<>>=
 CCLE.samples.names <- as.character(CCLE_samples[,1])
 CCLE.samples.names[c(1:15)] <- paste("X",CCLE.samples.names[c(1:15)],
                                      sep="")
 CCLE_samples$CCLE.name <- CCLE.samples.names
-```
+@
 
 The first step is to compare the column names of both data sets and to make sure we are dealing with the same correctly labeled samples.
 
-```{r ,eval=TRUE}
-
+<<>>=
 rownames(CCLE_samples) <- as.character(CCLE_samples[,1])
 
 CCLE.data.names <- colnames(CCLE_small)
 CCLE_small_samples <- CCLE_samples[CCLE.data.names,]
-
-```
-
+@
 
 Using the `dplyr` library, it is possible to join this new data set to the one we made for plotting the values of PC1 in the previous section. This can be easily done as both datasets share a column - the name of the samples. Once this is done, it is again simple to produce additional plots.
 
-```{r, warning=FALSE,message=FALSE ,eval=TRUE}
+<<fig=TRUE,  width=7, height=4>>=
 CCLE.df.samples <- inner_join(CCLE.df,CCLE_samples,by="CCLE.name")
 
 ggplot(CCLE.df.samples, aes(Order,PC1)) +
   geom_point(aes(colour=factor(Site.Primary))) + ylab("PC1")
-```
+@
 
 In this case the figure is slightly confusing due to the number of factors. We can however rename factors that appear less than 30 times in total as "Other".
 
-```{r, eval=TRUE}
+<<fig=TRUE, width=7, height=4>>=
 rare.sites <- names(which(summary(CCLE.df.samples$Site.Primary) < 15))
 CCLE.df.samples$Site.Primary2 <- as.character(CCLE.df.samples$Site.Primary)
 
@@ -402,17 +391,16 @@ CCLE.df.samples$Site.Primary2[rare.sites.loc] <- "Other"
 
 ggplot(CCLE.df.samples, aes(Order,PC1)) +
   geom_point(aes(colour=factor(Site.Primary2))) + ylab("PC1")
-```
+@
 
-
-```{r, warning=FALSE,message=FALSE ,eval=TRUE}
+<<fig=TRUE, width=7, height=4>>=
 ggplot(CCLE.df.samples, aes(Order,PC1)) +
   geom_point(aes(colour=factor(Gender))) + ylab("PC1")
-```
+@
 
 Since in this case the data is categorical, it can be tested for significance using Pearson's chi squared test.
 
-```{r,cache=TRUE, eval=TRUE}
+<<>>=
 library(MASS)
 
 # create contingency tables
@@ -425,16 +413,14 @@ ctable.gender <- table(CCLE.df.samples$Fork,
 
 chisq.test(ctable.site)
 chisq.test(ctable.gender)
-```
+@
 
 As was easily apparent from examining the plots, the primary site the cell line is derived from is highly significant, while gender is not.
 
-
-# Dealing with multiple runs
+\section{Dealing with multiple runs}
 
 `MCbiclust` is a stochastic method so for best results it needs to be run multiple times, in practice this means using high-performance computing the run the algorithm on a computer cluster which will be dealt with in a later section. Here however the task of dealing with the results will be looked at. The algorithm will be run $100$ times with only $500$ iterations each. Typically more iterations are required, but for this demonstration it will be sufficient.
-
-```{r,cache=TRUE, results='hide', message=FALSE}
+<<>>=
 CCLE.multi.seed <- list()
 initial.seed1 <- list()
 
@@ -446,11 +432,10 @@ for(i in seq(100)){
                                    iterations = 500,
                                    initial.seed = initial.seed1[[i]])
 }
-```
+@
 
 The associated correlation vector must also be calculated for each run and these correlation vectors can be put into a matrix.
-
-```{r}
+<<>>=
 CCLE.cor.vec.multi <- list()
 
 for(i in seq(100)){
@@ -468,31 +453,30 @@ for(i in 1:100){
   multi.run.cor.vec.mat[,i] <- CCLE.cor.vec.multi[[i]]
 }
 rm(CCLE.cor.vec.multi)
-
-```
+@
 
 A correlation matrix can be formed from the correlation vectors, and in this way they can be viewed as a heatmap.
 
-```{r,dev='png'}
+<<fig=TRUE,  width=5, height=4>>=
 CV.cor.mat1 <- abs(cor((multi.run.cor.vec.mat)))
 cor.dist <- function(c){as.dist(1 - abs(c))}
 
 routput.corvec.matrix.cor.heat <- heatmap.2(CV.cor.mat1,
                                             trace="none",
                                             distfun = cor.dist)
-```
+@
 
-It needs to be known how many distinct patterns have been found, this is done with clustering and particular silhouette coefficients to judge what number of clusters is optimum within the data. Function `SilhouetteClustGroups` achieves this and uses hierarchical clustering to split the patterns into clusters, for comparison a randomly generated correlation vector is also added to allow for the possibility that all patterns found are best grouped into a single cluster.
+It needs to be known how many distinct patterns have been found, this is done with clustering and particular silhouette coefficients to judge what number of clusters is optimum within the data. Function \Rfunction{SilhouetteClustGroups} achieves this and uses hierarchical clustering to split the patterns into clusters, for comparison a randomly generated correlation vector is also added to allow for the possibility that all patterns found are best grouped into a single cluster.
 
-```{r}
+<<fig=TRUE, width=5, height=4>>=
 multi.clust.groups <- SilhouetteClustGroups(multi.run.cor.vec.mat,
                                             max.clusters = 20,
                                             plots = TRUE,rand.vec = FALSE)
-```
+@
 
-Here two clusters were found, and we can visualise this pattern (and any additional others found) with the function `CVPlot`, which highlights a chosen gene set, in this case the mitochondrial genes.
+Here two clusters were found, and we can visualise this pattern (and any additional others found) with the function \Rfunction{CVPlot}, which highlights a chosen gene set, in this case the mitochondrial genes.
 
-```{r,dev='png' }
+<<fig=TRUE, width=5, height=5>>=
 gene.names <- row.names(CCLE_small)
 av.corvec.fun <- function(x) rowMeans(multi.run.cor.vec.mat[,x])
 average.corvec <- lapply(X = multi.clust.groups,
@@ -502,11 +486,11 @@ CVPlot(cv.df = as.data.frame(average.corvec),
         geneset.loc = mito.loc,
         geneset.name = "Mitochondrial",
         alpha1 = 0.1)
-```
+@
 
 As before can also calculate the gene set enrichment.
 
-```{r,cache=TRUE }
+<<>>=
 GOfun <- function(x) GOEnrichmentAnalysis(gene.names = gene.names,
                                           gene.values = x,
                                           sig.rate = 0.05)
@@ -514,44 +498,43 @@ GOfun <- function(x) GOEnrichmentAnalysis(gene.names = gene.names,
 
 corvec.gsea <- lapply(X = average.corvec,
                       FUN = GOfun)
-                
-```
+@
 
-Before using `SampleSort` a special prep function, `MultiSampleSortPrep` is used to generate the gene expression matrix and top seed for each found bicluster. The gene expression matrix is composed of the top $n$ genes in the correlation vector, and the seed is chosen as the calculated seed that has the maximum correlation score. 
+Before using \Rfunction{SampleSort} a special prep function, \Rfunction{MultiSampleSortPrep} is used to generate the gene expression matrix and top seed for each found bicluster. The gene expression matrix is composed of the top $n$ genes in the correlation vector, and the seed is chosen as the calculated seed that has the maximum correlation score. 
 
-```{r,cache=TRUE ,eval=TRUE}
+<<>>=
 CCLE.samp.multi.sort <- list()
 multi.prep <- MultiSampleSortPrep(gem = CCLE_small,
                                   av.corvec = average.corvec,
                                   top.genes.num = 750,
                                   groups = multi.clust.groups,
                                   initial.seeds =  CCLE.multi.seed)
+@
 
-```
 
-```{r, eval=FALSE}
+<<eval=FALSE>>=
 CCLE.samp.multi.sort[[1]] <- SampleSort(gem = multi.prep[[1]][[1]],
                                         seed = multi.prep[[2]][[1]],
                                         num.cores = 4)
 CCLE.samp.multi.sort[[2]] <- SampleSort(gem = multi.prep[[1]][[1]],
                                         seed = multi.prep[[2]][[1]],
-                                        num.cores = 4)     
-```
+                                        num.cores = 4)   
+@
 
-Note as before that these are long calculations, the precalculated orderings are however given in the `Vignette_sort` data file.
+Note as before that these are long calculations, the precalculated orderings are however given in the `Vignette$\_$sort` data file.
 
-```{r, results='hide', eval=TRUE, echo=TRUE, cache = TRUE}
+<<>>=
 data("Vignette_sort")
 CCLE.samp.multi.sort <- list()
 CCLE.samp.multi.sort[[1]] <- Vignette_sort[[2]][[1]]
 CCLE.samp.multi.sort[[2]] <- Vignette_sort[[2]][[2]]
-```
+@
 
 These two biclusters can now be analysed in the same way as the single bicluster before.
 
 One final thing that can be done is to compare all 3 correlation vectors found
 
-```{r, dev="png"}
+<<fig=TRUE, width=5, height=5>>=
 cv.df <- as.data.frame(average.corvec)
 cv.df$Mito1 <- CCLE.cor.vec
 
@@ -559,15 +542,17 @@ CVPlot(cv.df,cnames = c("R1","R2","M1"),
         geneset.loc = mito.loc,
         geneset.name = "Mitochondrial",
         alpha1 = 0.1)
-
-```
+@
 
 It is immediately apparent that the one of the biclusters found from the random gene set is very similar to that of the mitochondrial based bicluster.
 
-# Session Info {-}
+\section{Session Info}
+<<results=tex>>=
+toLatex(sessionInfo())
+@
 
-```{r session_info, include=TRUE, echo=TRUE, results='markup'}
-devtools::session_info()
-```
 
-# References {-}
+
+\bibliography{bibvignette.bib}
+
+\end{document}
