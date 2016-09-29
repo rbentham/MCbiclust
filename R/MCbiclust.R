@@ -1,5 +1,5 @@
 #' @import stats
-#' @importFrom BiocParallel bplapply MulticoreParam
+#' @importFrom BiocParallel bplapply MulticoreParam bpstart bpstop
 #' @importFrom graphics plot
 #' @importFrom utils combn
 #' @importFrom GO.db GO.db

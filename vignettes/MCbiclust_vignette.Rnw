@@ -10,7 +10,7 @@ BiocStyle::latex()
 \usepackage{url}
 
 \title{Robert Bentham}
-\author{MCbiclust 0.99.7}
+\author{MCbiclust 0.99.8}
 \begin{document}
 \SweaveOpts{concordance=TRUE}
 

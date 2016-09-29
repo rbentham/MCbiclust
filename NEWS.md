@@ -31,3 +31,7 @@
 
 * SampleSort now creates fewer zombie processes
 
+# MCbiclust 0.99.8
+
+* Import extra BiocParallel functions
+
