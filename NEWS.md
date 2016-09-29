@@ -39,3 +39,8 @@
 
 * Update Namespace
 
+# MCbiclust 0.99.10
+
+* SnowParam used instead of MulticoreParam
+
+
