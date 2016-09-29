@@ -24,24 +24,27 @@ SampleSort <- function(gem,seed,num.cores = NULL,sort.length = NULL){
     tcv.max <- seq(length = length(seq.vec) + 1)
     tcv.max[1] <- CorScoreCalc(gem, seed)
     temp.fun1 <- function(x) CorScoreCalc(gem,x)
+    
+    if(length(num.cores)==0){
+      param = bpstart(MulticoreParam())
+    }else{
+      param = bpstart(MulticoreParam(workers = num.cores))
+    }
+    
     for(j in seq.vec){
         next.seed <- seq(length = sample.size)[-seed1]
         len1 <- length(next.seed)
         multi.core.list <- lapply(seq(length = len1), function(x)c(seed1,
                                                                    next.seed[x]))
   
-    if(length(num.cores)==0){
         test.cor.values <- unlist(bplapply(multi.core.list, FUN=temp.fun1,
-                                           BPPARAM = MulticoreParam()))
-    }else{
-        test.cor.values <- unlist(bplapply(multi.core.list, FUN=temp.fun1,
-                                           BPPARAM = MulticoreParam(workers = num.cores)))}
-  
-    tcv.max[j + 1] <- max(test.cor.values)
-    seed1 <- c(seed1, next.seed[which(test.cor.values==tcv.max[j + 1])[1]])
-    if(length(seed1) %% 10 == 0){
-        message(paste(length(seed1),"\t\t", format(tcv.max[j+1],digits = 3)))}
-    }  
+                                           BPPARAM = param))
 
+        tcv.max[j + 1] <- max(test.cor.values)
+        seed1 <- c(seed1, next.seed[which(test.cor.values==tcv.max[j + 1])[1]])
+        if(length(seed1) %% 10 == 0){
+            message(paste(length(seed1),"\t\t", format(tcv.max[j+1],digits = 3)))}
+        }  
+    bpstop(param)
     return(seed1)
 }

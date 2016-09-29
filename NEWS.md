@@ -27,3 +27,7 @@
 
 * Small bug in Sweave document
 
+# MCbiclust 0.99.7
+
+* SampleSort now creates fewer zombie processes
+
