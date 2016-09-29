@@ -26,9 +26,9 @@ SampleSort <- function(gem,seed,num.cores = NULL,sort.length = NULL){
     temp.fun1 <- function(x) CorScoreCalc(gem,x)
     
     if(length(num.cores)==0){
-      param = bpstart(MulticoreParam())
+      param = bpstart(SnowParam())
     }else{
-      param = bpstart(MulticoreParam(workers = num.cores))
+      param = bpstart(SnowParam(workers = num.cores))
     }
     
     for(j in seq.vec){
