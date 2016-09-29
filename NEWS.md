@@ -35,3 +35,7 @@
 
 * Import extra BiocParallel functions
 
+# MCbiclust 0.99.9
+
+* Update Namespace
+
