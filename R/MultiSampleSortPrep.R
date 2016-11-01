@@ -13,16 +13,16 @@ MultiSampleSortPrep <- function(gem, av.corvec, top.genes.num,
                                 groups, initial.seeds){
   
     t.fun <- function(x){
-        return(order(abs(x),decreasing = TRUE)[seq(length = top.genes.num)])
+        return(order(abs(x),decreasing = TRUE)[seq_len(top.genes.num)])
     }
   
     top.genes <- lapply(X = av.corvec,
                         FUN = t.fun)
   
     top.seed.score <- lapply(groups,
-                             FUN = function(x) seq(length = length(x)))
+                             FUN = function(x) seq_len(length(x)))
   
-    top.seed.fun1 <- function(y) sapply(seq(length = length(groups[[y]])),
+    top.seed.fun1 <- function(y) sapply(seq_len(length(groups[[y]])),
                                         FUN = function(x){
                                             l1 <- top.genes[[y]]
                                             a <- groups[[y]]
@@ -31,14 +31,14 @@ MultiSampleSortPrep <- function(gem, av.corvec, top.genes.num,
                                             return(mean(abs(cor(t(b)))))
                                             })
   
-    top.seed.score <- lapply(seq(length = length(groups)),FUN = top.seed.fun1)
+    top.seed.score <- lapply(seq_len(length(groups)),FUN = top.seed.fun1)
   
   
     t.fun2 <- function(x){
         a <- initial.seeds[groups[[x]]][[which.max(top.seed.score[[x]])[1]]]
         return(a)
     }
-    top.seed <- lapply(seq(length = length(av.corvec)),
+    top.seed <- lapply(seq_len(length(av.corvec)),
                      FUN = t.fun2)
     top.mat <- lapply(top.genes, FUN = function(x) as.matrix(gem)[x,])
   

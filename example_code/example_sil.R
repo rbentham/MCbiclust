@@ -37,7 +37,7 @@ multi.sort.prep <- MultiSampleSortPrep(gem = CCLE_small,
                                        initial.seeds = CCLE.seed)  
 
 multi.sort <- list()        
-for(i in seq(length = length(CCLE.clust.groups))){
+for(i in seq_len(length(CCLE.clust.groups))){
     multi.sort[[i]] <- SampleSort(multi.sort.prep[[1]][[i]],
                                   seed = multi.sort.prep[[2]][[i]],
                                   sort.length = 11)

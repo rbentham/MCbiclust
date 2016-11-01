@@ -41,7 +41,7 @@ GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate){
   
     phenofun <- function(x) return(ifelse(CV.av.value[x] > 
                                             av.gene.values,1,-1))
-    phenotype <- sapply(seq(length = length(sig.p)),FUN = phenofun)
+    phenotype <- sapply(seq_len(length(sig.p)),FUN = phenofun)
   
     return(cbind(GO_term_matrix[sig.p[ordering.p],], num.genes,
                  g.in.genelist, adj.p.value, CV.av.value, phenotype))

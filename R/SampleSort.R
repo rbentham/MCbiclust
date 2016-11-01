@@ -20,8 +20,8 @@ SampleSort <- function(gem,seed,num.cores = NULL,sort.length = NULL){
         order.size <- sort.length
     }
   
-    seq.vec <- seq(length = (order.size - length(seed)))  
-    tcv.max <- seq(length = length(seq.vec) + 1)
+    seq.vec <- seq_len(order.size - length(seed))  
+    tcv.max <- seq_len(length(seq.vec) + 1)
     tcv.max[1] <- CorScoreCalc(gem, seed)
     temp.fun1 <- function(x) CorScoreCalc(gem,x)
     
@@ -32,9 +32,9 @@ SampleSort <- function(gem,seed,num.cores = NULL,sort.length = NULL){
     }
     
     for(j in seq.vec){
-        next.seed <- seq(length = sample.size)[-seed1]
+        next.seed <- seq_len(sample.size)[-seed1]
         len1 <- length(next.seed)
-        multi.core.list <- lapply(seq(length = len1), function(x)c(seed1,
+        multi.core.list <- lapply(seq_len(len1), function(x)c(seed1,
                                                                    next.seed[x]))
   
         test.cor.values <- unlist(bplapply(multi.core.list, FUN=temp.fun1,

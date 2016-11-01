@@ -18,7 +18,7 @@ FindSeed <- function (gem, seed.size, iterations,
     if (length(initial.seed) == seed.size){
         seed <- initial.seed
     } else {
-        seed <- sample(seq(length=sample.size), seed.size)
+        seed <- sample(seq_len(sample.size), seed.size)
     }
     gem.t <- t(gem)
     zero.rows <- which(apply(X = gem[, seed],MARGIN = 1,FUN = sd) == 0)
@@ -31,12 +31,12 @@ FindSeed <- function (gem, seed.size, iterations,
     }
     test.cor.score <- mean(abs(test.cor))
   
-    rv <- sample(seq(length=seed.size), iterations, replace = TRUE)
+    rv <- sample(seq_len(seed.size), iterations, replace = TRUE)
   
-    for (i in seq(length = iterations)) {
+    for (i in seq_len(iterations)) {
         seed2 <- seed[-rv[i]]
         avoid.samples <- seed2
-        seed2 <- c(seed2, sample(seq(length = sample.size)[-avoid.samples],1))
+        seed2 <- c(seed2, sample(seq_len(sample.size)[-avoid.samples],1))
         zero.rows <- which(apply(X = gem[, seed2],MARGIN = 1,FUN = sd) == 0)
         if (length(zero.rows) != 0) {
             test.cor <- cor(gem.t[seed2, -zero.rows])

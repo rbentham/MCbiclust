@@ -43,4 +43,7 @@
 
 * SnowParam used instead of MulticoreParam
 
+# MCbiclust 0.99.11
+
+* seq to seq_len
 

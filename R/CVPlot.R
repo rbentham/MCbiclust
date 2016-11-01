@@ -19,8 +19,8 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name, alpha1 = 0.005,
   
     cv.num <- dim(cv.df)[2]
     if(length(cnames) != cv.num){
-        colnames(cv.df)[seq(cv.num)] <- paste(rep("CV",cv.num),
-                                              seq(cv.num),sep = "")}
+        colnames(cv.df)[seq_len(cv.num)] <- paste(rep("CV",cv.num),
+                                              seq_len(cv.num),sep = "")}
     else{
         colnames(cv.df) <- cnames
     }

@@ -37,7 +37,7 @@ SilhouetteClustGroups <- function(cor.vec.mat, max.clusters,
   
     sil.value <- sapply(c(2:max.clusters), FUN = silfun1)
   
-    if(plots == TRUE) print(plot(seq(length = max.clusters-1)+1,
+    if(plots == TRUE) print(plot(seq_len(max.clusters-1)+1,
                                  sil.value, xlab="Number of clusters",
                                  ylab="Mean silhoette width"))
   
@@ -46,7 +46,7 @@ SilhouetteClustGroups <- function(cor.vec.mat, max.clusters,
   
     if(plots == TRUE) print(plot(si2,col="red",main=""))
   
-    cluster.groups <- lapply(seq(k1),
+    cluster.groups <- lapply(seq_len(k1),
                              FUN=function(x) which(cutree(cor.hclust,
                                                           k = k1) == x))
   
