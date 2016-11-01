@@ -7,13 +7,13 @@
 
 GeneVecFun <- function(gem,seed,splits){
   
-    test.list <- lapply(X = c(2:splits),
+    test.list <- lapply(X = seq_len(splits)[-1],
                         FUN = function(x) GeneVecFunCalc(gem, seed, x))
     
     test4 <- which.max(sapply(test.list,max))
     test1 <- cutree(hclust(dist(cor(t(gem[,seed])))),k = (test4 + 1))
     test2 <- lapply(seq_len((test4 + 1)),
-                    FUN = function(x) which(test1 == x))
+                    FUN = function(x) (test1 == x))
     
     temp.fun <- function(x) CorScoreCalc(gem[test2[[x]],],seed) * 
       sqrt(length(test2[[x]]))

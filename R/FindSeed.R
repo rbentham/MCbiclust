@@ -21,10 +21,10 @@ FindSeed <- function (gem, seed.size, iterations,
         seed <- sample(seq_len(sample.size), seed.size)
     }
     gem.t <- t(gem)
-    zero.rows <- which(apply(X = gem[, seed],MARGIN = 1,FUN = sd) == 0)
+    zero.rows <- (apply(X = gem[, seed],MARGIN = 1,FUN = sd) == 0)
 
-    if (length(zero.rows) != 0) {
-        test.cor <- cor(gem.t[seed, -zero.rows])
+    if (sum(zero.rows,na.rm = TRUE) != 0) {
+        test.cor <- cor(gem.t[seed, !zero.rows])
     }
     else {
         test.cor <- cor(gem.t[seed, ])
@@ -37,9 +37,9 @@ FindSeed <- function (gem, seed.size, iterations,
         seed2 <- seed[-rv[i]]
         avoid.samples <- seed2
         seed2 <- c(seed2, sample(seq_len(sample.size)[-avoid.samples],1))
-        zero.rows <- which(apply(X = gem[, seed2],MARGIN = 1,FUN = sd) == 0)
-        if (length(zero.rows) != 0) {
-            test.cor <- cor(gem.t[seed2, -zero.rows])
+        zero.rows <- (apply(X = gem[, seed2],MARGIN = 1,FUN = sd) == 0)
+        if (sum(zero.rows,na.rm = TRUE) != 0) {
+            test.cor <- cor(gem.t[seed2, !zero.rows])
         }
         else {
             test.cor <- cor(gem.t[seed2, ])
@@ -52,8 +52,8 @@ FindSeed <- function (gem, seed.size, iterations,
             } else if(taken.out == seed.size){
                   seed <- c(seed[-seed.size], seed2[seed.size])
             } else{
-                  pre.replace <- c(1:(taken.out-1))
-                  post.replace <- c((taken.out+1):seed.size)
+                  pre.replace <- seq_len(taken.out-1)
+                  post.replace <- seq_len(seed.size)[-seq_len(taken.out)]
                   seed <- c(seed[pre.replace],seed2[seed.size],
                             seed[post.replace])
                   }

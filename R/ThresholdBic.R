@@ -11,8 +11,8 @@
 ThresholdBic <- function(cor.vec,sort.order,pc1,samp.sig = 0){
   
     cor.vec.kmeans <- kmeans(abs(cor.vec),centers = 2)
-    genes.group1.loc <- which(cor.vec.kmeans$cluster == 1)
-    genes.group2.loc <- which(cor.vec.kmeans$cluster == 2)
+    genes.group1.loc <- (cor.vec.kmeans$cluster == 1)
+    genes.group2.loc <- (cor.vec.kmeans$cluster == 2)
   
     if(mean(abs(cor.vec)[genes.group1.loc]) > 
        mean(abs(cor.vec)[genes.group2.loc])){

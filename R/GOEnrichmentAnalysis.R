@@ -18,15 +18,15 @@ GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate){
     adj.pvalues <- p.adjust(pvalues)
 
     GenelistNum <- function(y){
-        return(length(which(gene.names %in% y)))
+        return(sum(gene.names %in% y, na.rm = T))
     }
     GenelistLoc <- function(y){
-        return((which(gene.names %in% y)))
+        return(gene.names %in% y)
     }
     GenelistMean <- function(y){
         return(mean(gene.values[y]))
     }
-    sig.p <- which((adj.pvalues) < sig.rate)
+    sig.p <- ((adj.pvalues) < sig.rate)
     ordering.p <- order(adj.pvalues[sig.p])
     num.genes <- as.numeric(unlist(lapply(GO_term_genes[sig.p],
                                           length)))[ordering.p]

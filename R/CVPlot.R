@@ -29,7 +29,7 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name, alpha1 = 0.005,
     mito_status[geneset.loc] <- geneset.name
     cv.df$Status <- mito_status
   
-    status.loc <- which(colnames(cv.df) == "Status")
+    status.loc <- (colnames(cv.df) == "Status")
   
     if(dim(cv.df)[2] == 2){
         a1 <- colnames(cv.df)[1]
@@ -37,7 +37,7 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name, alpha1 = 0.005,
         return(p + geom_density() )
     }
   
-    custom_cv_plot <- ggpairs(cv.df[,-status.loc],upper = "blank",
+    custom_cv_plot <- ggpairs(cv.df[,!status.loc],upper = "blank",
                               lower = "blank",
                               title = "",axisLabels ="show", legends=TRUE)
   
@@ -58,9 +58,9 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name, alpha1 = 0.005,
         p1 <- H_plot_fun(H_combn[1,i],H_combn[2,i])
         return(p1)
     }
-    p_H_plots <- lapply(c(1:dim(H_combn)[2]),H_plot_fun2)
+    p_H_plots <- lapply(seq_len(dim(H_combn)[2]),H_plot_fun2)
   
-    for(i in 1:dim(H_combn)[2]){
+    for(i in seq_len(dim(H_combn)[2])){
         custom_cv_plot <- putPlot(custom_cv_plot,p_H_plots[[i]],
                                   H_combn[2,i],H_combn[1,i])}
   
@@ -77,9 +77,9 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name, alpha1 = 0.005,
         return(p1)
     }
   
-    p_mH_plots <- lapply(c(1:dim(H_combn)[2]),H_m_plot_fun2)
+    p_mH_plots <- lapply(seq_len(dim(H_combn)[2]),H_m_plot_fun2)
   
-    for(i in 1:dim(H_combn)[2]){
+    for(i in seq_len(dim(H_combn)[2])){
         custom_cv_plot <- putPlot(custom_cv_plot,p_mH_plots[[i]],
                                   H_combn[1,i],H_combn[2,i])}
   
@@ -94,7 +94,7 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name, alpha1 = 0.005,
     }
   
   
-    for(i in 1:(cv.num-1)){
+    for(i in seq_len(cv.num-1)){
         custom_cv_plot <- putPlot(custom_cv_plot,H_d_plot_fun(i),i,i)}
   
     custom_cv_plot <- putPlot(custom_cv_plot,H_d_plot_fun(cv.num,l1=FALSE),

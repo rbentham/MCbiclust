@@ -47,3 +47,7 @@
 
 * seq to seq_len
 
+# MCbiclust 0.99.12
+
+* Removed unnecessary use of which
+

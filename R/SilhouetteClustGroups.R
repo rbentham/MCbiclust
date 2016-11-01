@@ -35,7 +35,7 @@ SilhouetteClustGroups <- function(cor.vec.mat, max.clusters,
         return(mean(si2[,3]))
     }
   
-    sil.value <- sapply(c(2:max.clusters), FUN = silfun1)
+    sil.value <- sapply(seq_len(max.clusters)[-1], FUN = silfun1)
   
     if(plots == TRUE) print(plot(seq_len(max.clusters-1)+1,
                                  sil.value, xlab="Number of clusters",
@@ -47,15 +47,15 @@ SilhouetteClustGroups <- function(cor.vec.mat, max.clusters,
     if(plots == TRUE) print(plot(si2,col="red",main=""))
   
     cluster.groups <- lapply(seq_len(k1),
-                             FUN=function(x) which(cutree(cor.hclust,
+                             FUN=function(x) (cutree(cor.hclust,
                                                           k = k1) == x))
   
     if(rand.vec == TRUE){
         cor.vec.minus.fun <- function(x){
-            return(length(which(x==cor.vec.mat.add)))}
-        cor.vec.minus <- which(unlist(lapply(cluster.groups,
-                                             FUN = cor.vec.minus.fun))==1)
-        cluster.groups <- cluster.groups[-cor.vec.minus]
+            return(sum(x==cor.vec.mat.add,na.rm = TRUE))}
+        cor.vec.minus <- unlist(lapply(cluster.groups,
+                                             FUN = cor.vec.minus.fun)) == 1
+        cluster.groups <- cluster.groups[!(cor.vec.minus)]
     }
     return(cluster.groups)
 }

@@ -1,7 +1,7 @@
 data(CCLE_small)
 data(Mitochondrial_genes)
 
-mito.loc <- which(row.names(CCLE_small) %in% Mitochondrial_genes)
+mito.loc <- (row.names(CCLE_small) %in% Mitochondrial_genes)
 CCLE.mito <- CCLE_small[mito.loc,]
 
 CCLE.seed <- list()
