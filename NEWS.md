@@ -51,3 +51,7 @@
 
 * Removed unnecessary use of which
 
+# MCbiclust 0.99.13
+
+* Fixed bug in HclustGenesHiCor
+
