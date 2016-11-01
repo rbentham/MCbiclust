@@ -55,3 +55,7 @@
 
 * Fixed bug in HclustGenesHiCor
 
+# MCbiclust 0.99.14
+
+* Fixed bug in GOEnrichmentAnalysis
+
