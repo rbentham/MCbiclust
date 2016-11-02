@@ -9,9 +9,13 @@ MannWhitneyGOTerms <- function(genes, gene.values,GO_term_genes){
   
     mannfun1 <- function(x){
         a <- (genes %in% GO_term_genes[[x]])
-        return(ifelse(sum(a,na.rm = T) > 10, wilcox.test(gene.values[a],
-                                                  gene.values)$p.value,NA))}
- 
+        if(sum(a,na.rm = T) > 10){
+          return(wilcox.test(gene.values[a],
+                      gene.values)$p.value)
+        }else{
+          return(NA)
+        }}
+        
     go.pvalues <- sapply(seq_len(length(GO_term_genes)), FUN = mannfun1)
     return((go.pvalues))
 }

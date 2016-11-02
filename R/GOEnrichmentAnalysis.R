@@ -26,7 +26,7 @@ GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate){
     GenelistMean <- function(y){
         return(mean(gene.values[y]))
     }
-    sig.p <- ((adj.pvalues) < sig.rate)
+    sig.p <- which((adj.pvalues) < sig.rate)
     ordering.p <- order(adj.pvalues[sig.p])
     num.genes <- as.numeric(unlist(lapply(GO_term_genes[sig.p],
                                           length)))[ordering.p]
@@ -41,7 +41,7 @@ GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate){
   
     phenofun <- function(x) return(ifelse(CV.av.value[x] > 
                                             av.gene.values,1,-1))
-    phenotype <- sapply(seq_len(sum(sig.p, na.rm = T)),FUN = phenofun)
+    phenotype <- sapply(seq_len(length(sig.p)),FUN = phenofun)
   
     return(cbind(GO_term_matrix[sig.p[ordering.p],], num.genes,
                  g.in.genelist, adj.p.value, CV.av.value, phenotype))

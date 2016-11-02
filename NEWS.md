@@ -59,3 +59,7 @@
 
 * Fixed bug in GOEnrichmentAnalysis
 
+# MCbiclust 0.99.15
+
+* More bug fixes 
+

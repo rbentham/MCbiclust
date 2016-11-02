@@ -18,8 +18,8 @@ ForkClassifier <- function(pc1,samp.num){
         group2 <- g1
     }
   fork.status <- rep("None",length(pc1))
-  fork.status[group1] <- "Upper"
-  fork.status[group2] <- "Lower"
+  fork.status[seq_len(samp.num)][group1] <- "Upper"
+  fork.status[seq_len(samp.num)][group2] <- "Lower"
   
   return(fork.status)}
 
