@@ -67,3 +67,7 @@
 
 * MultiSampleSortPrep bug fix
 
+# MCbiclust 0.99.17
+
+* T to TRUE
+

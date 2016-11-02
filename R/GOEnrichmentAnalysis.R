@@ -18,7 +18,7 @@ GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate){
     adj.pvalues <- p.adjust(pvalues)
 
     GenelistNum <- function(y){
-        return(sum(gene.names %in% y, na.rm = T))
+        return(sum(gene.names %in% y, na.rm = TRUE))
     }
     GenelistLoc <- function(y){
         return(gene.names %in% y)

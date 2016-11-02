@@ -9,7 +9,7 @@ MannWhitneyGOTerms <- function(genes, gene.values,GO_term_genes){
   
     mannfun1 <- function(x){
         a <- (genes %in% GO_term_genes[[x]])
-        if(sum(a,na.rm = T) > 10){
+        if(sum(a,na.rm = TRUE) > 10){
           return(wilcox.test(gene.values[a],
                       gene.values)$p.value)
         }else{
