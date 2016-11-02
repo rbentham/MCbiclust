@@ -63,3 +63,7 @@
 
 * More bug fixes 
 
+# MCbiclust 0.99.16
+
+* MultiSampleSortPrep bug fix
+
