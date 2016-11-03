@@ -20,10 +20,10 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name, alpha1 = 0.005,
     cv.num <- dim(cv.df)[2]
     if(length(cnames) != cv.num){
         colnames(cv.df)[seq_len(cv.num)] <- paste(rep("CV",cv.num),
-                                              seq_len(cv.num),sep = "")}
-    else{
+                                              seq_len(cv.num),sep = "")
+        }else{
         colnames(cv.df) <- cnames
-    }
+        }
   
     mito_status <- rep(paste("Non", geneset.name),dim(cv.df)[1])
     mito_status[geneset.loc] <- geneset.name
@@ -33,7 +33,7 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name, alpha1 = 0.005,
   
     if(dim(cv.df)[2] == 2){
         a1 <- colnames(cv.df)[1]
-        p <- eval(parse(text=paste("ggplot(cv.df,aes(x =",a1,",col=Status))")))
+        p <- ggplot(cv.df,aes(x = get(a1), col=Status)) + xlab(a1)
         return(p + geom_density() )
     }
   
@@ -47,8 +47,8 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name, alpha1 = 0.005,
     H_plot_fun <- function(a,b){
         a1 <- colnames(cv.df)[a]
         b1 <- colnames(cv.df)[b]
-        p <- eval(parse(text=paste("ggplot(cv.df[-geneset.loc,],
-                                   aes(x =",a1,",y =",b1,"))")))
+        p <- ggplot(cv.df[-geneset.loc,],aes(x = get(a1), y = get(b1))) +
+          xlab(a1) + ylab(b1)
         return(p + geom_point(size = 2,alpha = alpha1,col=col_cv[2]))
         }
   
@@ -67,8 +67,8 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name, alpha1 = 0.005,
     H_m_plot_fun <- function(a,b){
         a1 <- colnames(cv.df)[a]
         b1 <- colnames(cv.df)[b]
-        p <- eval(parse(text=paste("ggplot(cv.df[geneset.loc,],
-                                   aes(x =",a1,",y =",b1,"))")))
+        p <- ggplot(cv.df[geneset.loc,], aes(x = get(a1), y = get(b1))) +
+          xlab(a1) + ylab(b1)
         return(p + geom_point(size = 2,alpha = alpha2,col=col_cv[1]))
     }
   
@@ -86,7 +86,8 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name, alpha1 = 0.005,
   
     H_d_plot_fun <- function(a,l1=FALSE){
         a1 <- colnames(cv.df)[a]
-        p <- eval(parse(text=paste("ggplot(cv.df,aes(x =",a1,",col=Status))")))
+        p <- ggplot(cv.df, aes(x = get(a1), col = Status)) +
+          xlab(a1)
         if(l1 == FALSE){
             return(p + geom_density() + theme(legend.position="none"))}
         else{

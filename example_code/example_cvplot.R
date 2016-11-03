@@ -25,4 +25,4 @@ for(i in 1:3){
 CCLE.cor.df <- (as.data.frame(CCLE.cor.vec))
 
 CVPlot(cv.df = CCLE.cor.df, geneset.loc = mito.loc,
-       geneset.name = "Mitochondrial")
+       geneset.name = "Mitochondrial",alpha1 = 0.5)

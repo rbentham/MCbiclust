@@ -79,3 +79,7 @@
 
 * sapply changed to vapply
 
+# MCbiclust 0.99.20
+
+* cases of eval(parse(text) removed
+
