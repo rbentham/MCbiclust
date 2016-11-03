@@ -52,10 +52,12 @@ SilhouetteClustGroups <- function(cor.vec.mat, max.clusters,
   
     if(rand.vec == TRUE){
         cor.vec.minus.fun <- function(x){
-            return(sum(x==cor.vec.mat.add,na.rm = TRUE))}
+            return(sum(all(x==c(rep(FALSE,dim(cor.vec.mat)[2]), TRUE)),na.rm = TRUE))}
         cor.vec.minus <- unlist(lapply(cluster.groups,
                                              FUN = cor.vec.minus.fun)) == 1
         cluster.groups <- cluster.groups[!(cor.vec.minus)]
+        cluster.groups <- lapply(cluster.groups,
+                                 FUN = function(x) x[seq_len(dim(cor.vec.mat)[2])])
     }
     return(cluster.groups)
 }

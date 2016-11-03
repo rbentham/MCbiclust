@@ -71,3 +71,7 @@
 
 * T to TRUE
 
+# MCbiclust 0.99.18
+
+* Bug fix in SilhouetteClustGroups
+
