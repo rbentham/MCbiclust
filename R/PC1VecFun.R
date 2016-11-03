@@ -19,7 +19,7 @@ PC1VecFun <- function(top.gem,seed.sort,n){
         return(lsfit(as.matrix(pca.loadings),
                      as.matrix(hi.cor.matrix[,x]))$coef[2])}
   
-    pc1.vec <- sapply(seq_len(length(seed.sort)), FUN = pc1fun1)
+    pc1.vec <- vapply(seq_len(length(seed.sort)), FUN = pc1fun1, FUN.VALUE = numeric(1))
   
     return(pc1.vec)
 }

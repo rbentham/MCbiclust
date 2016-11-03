@@ -22,14 +22,14 @@ MultiSampleSortPrep <- function(gem, av.corvec, top.genes.num,
     top.seed.score <- lapply(groups,
                              FUN = function(x) seq_len(length(x)))
   
-    top.seed.fun1 <- function(y) sapply(seq_len(sum(groups[[y]],na.rm = TRUE)),
+    top.seed.fun1 <- function(y) vapply(seq_len(sum(groups[[y]],na.rm = TRUE)),
                                         FUN = function(x){
                                             l1 <- top.genes[[y]]
                                             a <- groups[[y]]
                                             l2 <- initial.seeds[a][[x]]
                                             b <- as.matrix(gem)[l1,l2]
                                             return(mean(abs(cor(t(b)))))
-                                            })
+                                            }, FUN.VALUE = numeric(1))
   
     top.seed.score <- lapply(seq_len(length(groups)),FUN = top.seed.fun1)
   

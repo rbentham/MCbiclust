@@ -16,6 +16,6 @@ MannWhitneyGOTerms <- function(genes, gene.values,GO_term_genes){
           return(NA)
         }}
         
-    go.pvalues <- sapply(seq_len(length(GO_term_genes)), FUN = mannfun1)
+    go.pvalues <- vapply(seq_len(length(GO_term_genes)), FUN = mannfun1, FUN.VALUE = numeric(1))
     return((go.pvalues))
 }

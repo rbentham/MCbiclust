@@ -35,7 +35,7 @@ SilhouetteClustGroups <- function(cor.vec.mat, max.clusters,
         return(mean(si2[,3]))
     }
   
-    sil.value <- sapply(seq_len(max.clusters)[-1], FUN = silfun1)
+    sil.value <- vapply(seq_len(max.clusters)[-1], FUN = silfun1,FUN.VALUE = numeric(1))
   
     if(plots == TRUE) print(plot(seq_len(max.clusters-1)+1,
                                  sil.value, xlab="Number of clusters",

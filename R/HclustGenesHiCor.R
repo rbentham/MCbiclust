@@ -19,7 +19,7 @@ HclustGenesHiCor <- function(gem,seed,cuts){
                                 function(x) which(gem.cuts == x))
  
     temp.fun <- function(i) CorScoreCalc(gem[hclust.genes.list[[i]],],seed)
-    hi.cor.values <- sapply(X=seq_len(cuts),temp.fun)
+    hi.cor.values <- vapply(X=seq_len(cuts),temp.fun, FUN.VALUE = numeric(1))
   
     cor.value <- CorScoreCalc(gem, seed) 
   

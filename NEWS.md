@@ -75,3 +75,7 @@
 
 * Bug fix in SilhouetteClustGroups
 
+# MCbiclust 0.99.19
+
+* sapply changed to vapply
+
