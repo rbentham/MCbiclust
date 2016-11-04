@@ -83,3 +83,7 @@
 
 * cases of eval(parse(text) removed
 
+# MCbiclust 0.99.21
+
+* Updated NAMESPACE and man pages
+
