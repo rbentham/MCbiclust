@@ -2,7 +2,7 @@ Package: MCbiclust
 Type: Package
 Title: Massive correlating biclusters for gene expression data and associated
     methods
-Version: 0.99.25
+Version: 0.99.26
 Date: 2016-12-07
 Author: Robert Bentham
 Maintainer: Robert Bentham <robert.bentham.11@ucl.ac.uk>
@@ -33,9 +33,10 @@ Suggests:
     MASS,
     dplyr,
     pander,
-    devtools
+    devtools,
+    testthat
 License: GPL-2
 biocViews: Clustering, Microarray, StatisticalMethod, Software, RNASeq, GeneExpression
 RoxygenNote: 5.0.1
 VignetteBuilder: knitr
-LazyData:true
+LazyData: true

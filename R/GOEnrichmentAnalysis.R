@@ -3,7 +3,6 @@
 #' @param gene.names Names of the genes
 #' @param gene.values Values associated with the genes 
 #' @param sig.rate Level of significance
-
 #' @return Significant gene sets
 #' @example example_code/example_GOEnrichment.R
 #' @name GOEnrichmentAnalysis

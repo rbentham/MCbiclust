@@ -10,7 +10,7 @@ BiocStyle::latex()
 \usepackage{url}
 
 \title{Robert Bentham}
-\author{MCbiclust 0.99.10}
+\author{MCbiclust 0.99.26}
 \begin{document}
 \SweaveOpts{concordance=TRUE}
 
@@ -44,7 +44,7 @@ library(devtools)
 \section{Example of a single run}
 \subsection{Loading Cancer Cell Line Encyclopedia (CCLE) and MitoCarta data sets}
 
-For this example analysis we will be seeking to find biclusters related to mitochondrial function in the cancer cell line encyclopedia \cite{barretina2012cancer}. For this two datasets are needed, both of which are available on the MCbiclust package. The first in CCLE$\_$small that contains a subset of the gene expression values found in the entire CCLE data set (the full dataset is avaliable at \url{https://portals.broadinstitute.org/ccle/home}, the second, Mitochondrial$\_$genes, is a list of mitochondrial genes that can be found from MitoCarta1.0 \cite{pagliarini2008mitochondrial}.
+For this example analysis we will be seeking to find biclusters related to mitochondrial function in the cancer cell line encyclopedia. For this two datasets are needed, both of which are available on the MCbiclust package. The first in CCLE$\_$small that contains a subset of the gene expression values found in the entire CCLE data set (the full dataset is avaliable at \url{https://portals.broadinstitute.org/ccle/home}, the second, Mitochondrial$\_$genes, is a list of mitochondrial genes that can be found from MitoCarta1.0.
 
 <<>>=
 data(CCLE_small)
@@ -553,6 +553,6 @@ toLatex(sessionInfo())
 
 
 
-\bibliography{bibvignette}
+%%\bibliography{bibvignette}
 
 \end{document}

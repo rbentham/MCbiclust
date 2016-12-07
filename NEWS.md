@@ -102,3 +102,7 @@
 # MCbiclust 0.99.25
 
 * Updated examples
+
+# MCbiclust 0.99.26
+
+* Removed bibliography from vignette

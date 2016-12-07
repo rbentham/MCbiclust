@@ -27,6 +27,9 @@ ForkClassifier(pc1, samp.num)
 
 \item{samp.num}{Number of samples in the bicluster}
 }
+\value{
+Defined bicluster
+}
 \description{
 Methods for defining bicluster
 }

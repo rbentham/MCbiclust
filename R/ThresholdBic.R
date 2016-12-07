@@ -7,6 +7,7 @@
 #' @param samp.sig Value between 0 and 1 determining number of samples in bicluster
 #' @param bic bicluster
 #' @param samp.num Number of samples in the bicluster
+#' @return Defined bicluster
 #' @example example_code/example_pc1.R
 #' @name ThresholdBic
 
