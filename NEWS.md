@@ -95,3 +95,6 @@
 
 * Small bug with PC1Align
 
+# MCbiclust 0.99.24
+
+* Incorrect previous commit
