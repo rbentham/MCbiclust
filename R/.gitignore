@@ -7,3 +7,10 @@ SampleSortGroups.R
 PointScoreCalc.R
 FSGZeroRowUpdate.R
 MultiSampleSort.R
+ForkClassifier.R
+GeneVecFun.R
+GeneVecFunCalc.R
+GoDataLoad.R
+MannWhitneyGOTerms.R
+MultiSampleSortPrep.R
+PC1Align.R

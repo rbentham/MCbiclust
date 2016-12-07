@@ -91,3 +91,7 @@
 
 * Restructured R files
 
+# MCbiclust 0.99.23
+
+* Small bug with PC1Align
+
