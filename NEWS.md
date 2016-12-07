@@ -87,3 +87,7 @@
 
 * Updated NAMESPACE and man pages
 
+# MCbiclust 0.99.22
+
+* Restructured R files
+

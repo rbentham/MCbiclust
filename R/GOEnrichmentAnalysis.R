@@ -6,7 +6,13 @@
 
 #' @return Significant gene sets
 #' @example example_code/example_GOEnrichment.R
+#' @name GOEnrichmentAnalysis
+
+NULL
+
 #' @export
+#' @rdname GOEnrichmentAnalysis
+
 
 GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate){
     GO.data <-GoDataLoad()
@@ -46,4 +52,34 @@ GOEnrichmentAnalysis <- function(gene.names,gene.values,sig.rate){
     return(cbind(GO_term_matrix[sig.p[ordering.p],], num.genes,
                  g.in.genelist, adj.p.value, CV.av.value, phenotype))
 
+}
+
+# Runs Mann-Whitney test for all GO terms
+MannWhitneyGOTerms <- function(genes, gene.values,GO_term_genes){
+  
+  mannfun1 <- function(x){
+    a <- (genes %in% GO_term_genes[[x]])
+    if(sum(a,na.rm = TRUE) > 10){
+      return(wilcox.test(gene.values[a],
+                         gene.values)$p.value)
+    }else{
+      return(NA)
+    }}
+  
+  go.pvalues <- vapply(seq_len(length(GO_term_genes)), FUN = mannfun1, FUN.VALUE = numeric(1))
+  return((go.pvalues))
+}
+
+# Load data for Gene set enrichment analysis
+GoDataLoad <- function(){
+  xx <- as.list(org.Hs.eg.db::org.Hs.egGO2ALLEGS)
+  GO_term_list <- names(xx)
+  GO_term_matrix <- AnnotationDbi::select(GO.db::GO.db, GO_term_list, c("TERM","ONTOLOGY"))
+  
+  GO_gene_get<-function(y){
+    return(as.character(unlist(mget(y,org.Hs.egSYMBOL))))}
+  
+  GO_term_genes<-lapply(X=xx,GO_gene_get)
+  
+  return(list(GO_term_matrix, GO_term_genes))
 }

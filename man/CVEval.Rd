@@ -2,7 +2,7 @@
 % Please edit documentation in R/CVEval.R
 \name{CVEval}
 \alias{CVEval}
-\title{Calculate correlation vector}
+\title{Method for the calculation of a correlation vector}
 \usage{
 CVEval(gem.part, gem.all, seed, splits)
 }
@@ -19,7 +19,7 @@ CVEval(gem.part, gem.all, seed, splits)
 Correlation vector
 }
 \description{
-Calculate correlation vector
+Method for the calculation of a correlation vector
 }
 \examples{
 data(CCLE_small)
