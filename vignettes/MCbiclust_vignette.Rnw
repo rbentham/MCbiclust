@@ -285,9 +285,9 @@ Once this thresholded bicluster has been found it is important to properly align
 This is done with function \Rfunction{PC1Align} which if necessary times the pc1.vec by -1 to ensure that the correlation vector and PC1 vector are "aligned".
 
 <<>>=
-pc1.vec <- PC1Align(gem = CCLE_small, PC1 = pc1.vec,
+pc1.vec <- PC1Align(gem = CCLE_small, pc1 = pc1.vec,
                     sort.order = CCLE.samp.sort,
-                    CV = CCLE.cor.vec, bic = CCLE.bic)
+                    cor.vec = CCLE.cor.vec, bic = CCLE.bic)
 @
 
 

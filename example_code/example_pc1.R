@@ -28,8 +28,8 @@ CCLE.cor.vec <-  CVEval(gem.part = CCLE.mito,
 CCLE.bic <- ThresholdBic(cor.vec = CCLE.cor.vec,sort.order = CCLE.samp.sort,
                          pc1 = as.numeric(CCLE.pc1))
 
-CCLE.pc1 <- PC1Align(gem = CCLE_small, PC1 = CCLE.pc1,
-                     CV = CCLE.cor.vec ,
+CCLE.pc1 <- PC1Align(gem = CCLE_small, pc1 = CCLE.pc1,
+                     cor.vec = CCLE.cor.vec ,
                      sort.order = CCLE.samp.sort,
                      bic =CCLE.bic)
 
