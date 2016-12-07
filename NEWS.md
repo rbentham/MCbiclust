@@ -98,3 +98,7 @@
 # MCbiclust 0.99.24
 
 * Incorrect previous commit
+
+# MCbiclust 0.99.25
+
+* Updated examples
