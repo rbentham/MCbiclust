@@ -106,3 +106,7 @@
 # MCbiclust 0.99.26
 
 * Removed bibliography from vignette
+
+# MCbiclust 0.99.27
+
+* Added unit tests
