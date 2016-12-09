@@ -1,6 +1,19 @@
 #' Method for the calculation of a correlation vector
 #' 
-#' @param gem.part Part of gene expression matrix only containing gene set of interest
+#' Upon identifying a bicluster seed with \code{FindSeed}, one of the next
+#' steps is to identify which genes not in your chosen gene set are also
+#' highly correlated to the bicluster found. This is done by \code{CVEval},
+#' and the output is known as the correlation vector.
+#' 
+#' \code{CVeval} uses hierarchical clustering to select the genes most 
+#' representative of the bicluster and then uses the average expression of
+#' these genes across the sample seed and calculates the correlation of
+#' every gene measured across the sample seed to this average expression value.
+#' 
+#' The correlation vector is the output of this calculation.
+#' 
+#' 
+#' @param gem.part Part of gene expression matrix only containing gene set of interest with genes as rows and samples as columns
 #' @param gem.all All of gene expression matrix
 #' @param seed Seed of highly correlating samples
 #' @param splits Number of cuts from hierarchical clustering

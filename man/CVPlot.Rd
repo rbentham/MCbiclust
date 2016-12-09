@@ -24,7 +24,13 @@ CVPlot(cv.df, geneset.loc, geneset.name, alpha1 = 0.005, alpha2 = 0.1,
 A plot of the correlation vectors
 }
 \description{
-Make correlation vector plot
+A function to visualise the differences between different found biclusters. 
+Output is a matrix of plots. Each correlation vector is plotted against each 
+other across the entire  measured gene set in the lower diagonal plots, and
+a chosen gene set (e.g. mitochondrial) in the upper diagonal plots. The diagnal
+plots themselves show the density plots of the entire measured and chosen
+gene set. There are addition options to set the transparancy of the data
+points and names of the correlation vectors.
 }
 \examples{
 data(CCLE_small)

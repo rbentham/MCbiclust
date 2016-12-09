@@ -2,7 +2,7 @@
 % Please edit documentation in R/PC1VecFun.R
 \name{PC1VecFun}
 \alias{PC1VecFun}
-\title{Calculate PC1 of found pattern}
+\title{Calculate PC1 vector of found pattern}
 \usage{
 PC1VecFun(top.gem, seed.sort, n)
 }
@@ -17,7 +17,14 @@ PC1VecFun(top.gem, seed.sort, n)
 PC1 value for each sample
 }
 \description{
-Calculate PC1 of found pattern
+The correlations found between the chosen geneset in a subset of samples
+can be summarised by looking at the first principal component (PC1) 
+using principal coponent analysis (PCA).
+}
+\details{
+\code{PC1VecFun()} takes a gene expression matrix and the sample ordering
+and fits a PC1 value to all the samples based on a PCA analysis done on
+the first n samples.
 }
 \examples{
 data(CCLE_small)

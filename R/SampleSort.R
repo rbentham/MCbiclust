@@ -1,6 +1,18 @@
 #' Methods for ordering samples
 #' 
-#' @param gem Gene expression matrix
+#' After finding an initial bicluster with \code{FindSeed()} the next step is
+#' to extend the bicluster by ordering the remaining samples by how they 
+#' preserve the correlation found.
+#' 
+#' \code{SampleSort()} is the basic function that achieves this, it takes the
+#' gene expression matrix, seed of samples, and also has options for the number
+#' of cores to run the method on and the number of samples to sort.
+#' 
+#' \code{MultiSampleSortPrep()} is a preparation function for \code{SampleSort()}
+#' when MCbiclust has been run multiple times and returns a list of gene expression
+#' matrices and seeds for each `distinct` bicluster found.
+#' 
+#' @param gem Gene expression matrix with genes as rows and samples as columns
 #' @param seed Sample seed of highly correlating genes
 #' @param num.cores Number of cores used in parallel evaluation
 #' @param sort.length Number of samples to be sorted

@@ -1,6 +1,15 @@
 #' Find highly correlated seed of samples for gene expression matrix
 #' 
-#' @param gem Gene expression matrix
+#' \code{FindSeed()} is the key function in MCbiclust. It takes a gene expression
+#' matrix and by a stochastic method greedily searches for a seed of samples
+#' that maximizes the correlation score of the chosen gene set.
+#' 
+#' Additional options allow for the search to start at a chosen seed, for instance
+#' if a improvement to a known seed is desired. The result of \code{FindSeed()} is 
+#' dependent on the number of iterations, with above 1000 usually providing a good
+#' seed, and above 10000 an optimum seed.
+#' 
+#' @param gem Gene expression matrix with genes as rows and samples as columns
 #' @param seed.size Size of sample seed
 #' @param iterations Number of iterations
 #' @param initial.seed Initial seed used, if NULL randomly chosen

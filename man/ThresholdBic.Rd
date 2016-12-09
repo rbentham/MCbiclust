@@ -4,7 +4,7 @@
 \alias{ForkClassifier}
 \alias{PC1Align}
 \alias{ThresholdBic}
-\title{Methods for defining bicluster}
+\title{Methods for defining a bicluster}
 \usage{
 ThresholdBic(cor.vec, sort.order, pc1, samp.sig = 0)
 
@@ -13,17 +13,17 @@ PC1Align(gem, pc1, cor.vec, sort.order, bic)
 ForkClassifier(pc1, samp.num)
 }
 \arguments{
-\item{cor.vec}{Correlation vector}
+\item{cor.vec}{Correlation vector (output of \code{CVEval()}).}
 
-\item{sort.order}{Order of samples}
+\item{sort.order}{Order of samples (output of \code{SampleSort()}).}
 
-\item{pc1}{PC1 values for samples}
+\item{pc1}{PC1 values for samples (output of \code{PC1VecFun}).}
 
 \item{samp.sig}{Value between 0 and 1 determining number of samples in bicluster}
 
-\item{gem}{Gene expression matrix}
+\item{gem}{Gene expression matrix containing genes as rows and samples as columns.}
 
-\item{bic}{bicluster}
+\item{bic}{bicluster (output of \code{ThresholdBic()})}
 
 \item{samp.num}{Number of samples in the bicluster}
 }
@@ -31,7 +31,24 @@ ForkClassifier(pc1, samp.num)
 Defined bicluster
 }
 \description{
-Methods for defining bicluster
+A bicluster is the fundamental result found using MCbiclust. These
+three functions are essential for the precise definition of these
+biclusters.
+}
+\details{
+\code{ThresholdBic()} takes as its main inputs the correlation vector 
+(output of \code{CVEval()}), sample ordering (output of
+\code{SampleSort()}), PC1 vector (output of \code{PC1VecFun}) and returns
+a list of the genes and samples which belong to the bicluster according 
+to a certain level of significance.
+
+\code{PC1Align()} is a function used once the bicluster has been found to
+ensure that the upper fork samples (those with higher PC1 values) correspond
+to those samples that have genes with positive correlation vector values
+up-regulated.
+
+\code{ForkClassifier()} is a function used to classify which samples are in
+the upper or lower fork.
 }
 \examples{
 data(CCLE_small)

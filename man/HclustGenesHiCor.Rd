@@ -7,7 +7,7 @@
 HclustGenesHiCor(gem, seed, cuts)
 }
 \arguments{
-\item{gem}{Gene expression matrix}
+\item{gem}{Gene expression matrix with genes as rows and samples as columns}
 
 \item{seed}{Seed of highly correlating samples}
 
@@ -17,7 +17,13 @@ HclustGenesHiCor(gem, seed, cuts)
 Numeric vector of most highly correlated genes
 }
 \description{
-Find the most highly correlated genes using hierarchical clustering
+Upon finding an initial bicluster with \code{FindSeed()} not all the genes
+in the chosen geneset will be highly correlated to the bicluster. 
+\code{HclustGenesHiCor()} uses the output of \code{FindSeed()} and 
+hierarchical clustering to only select the genes that are most highly correlated
+to the bicluster. This is achieved by cutting the dendogram produced
+from the clustering into a set number of groups and then only selecting the
+groups that are most highly correlated to the bicluster
 }
 \examples{
 data(CCLE_small)

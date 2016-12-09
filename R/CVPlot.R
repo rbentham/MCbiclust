@@ -1,5 +1,13 @@
 #' Make correlation vector plot
 #' 
+#' A function to visualise the differences between different found biclusters. 
+#' Output is a matrix of plots. Each correlation vector is plotted against each 
+#' other across the entire  measured gene set in the lower diagonal plots, and
+#' a chosen gene set (e.g. mitochondrial) in the upper diagonal plots. The diagnal
+#' plots themselves show the density plots of the entire measured and chosen
+#' gene set. There are addition options to set the transparancy of the data
+#' points and names of the correlation vectors.
+#' 
 #' @param cv.df A dataframe containing the correlation vectors of one or more patterns.
 #' @param geneset.loc A gene set of interest (e.g. mitochondrial) to be plotted separately from rest of genes.
 #' @param geneset.name Name of geneset (e.g. mitochondrial genes)

@@ -110,3 +110,7 @@
 # MCbiclust 0.99.27
 
 * Added unit tests
+
+# MCbiclust 0.99.28
+
+* More detailed help files

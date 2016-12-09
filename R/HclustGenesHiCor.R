@@ -1,6 +1,14 @@
 #' Find the most highly correlated genes using hierarchical clustering
 #' 
-#' @param gem Gene expression matrix
+#' Upon finding an initial bicluster with \code{FindSeed()} not all the genes
+#' in the chosen geneset will be highly correlated to the bicluster. 
+#' \code{HclustGenesHiCor()} uses the output of \code{FindSeed()} and 
+#' hierarchical clustering to only select the genes that are most highly correlated
+#' to the bicluster. This is achieved by cutting the dendogram produced
+#' from the clustering into a set number of groups and then only selecting the
+#' groups that are most highly correlated to the bicluster
+#' 
+#' @param gem Gene expression matrix with genes as rows and samples as columns
 #' @param seed Seed of highly correlating samples
 #' @param cuts Number of groups to cut dendogram into
 #' @return Numeric vector of most highly correlated genes

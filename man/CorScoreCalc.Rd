@@ -7,7 +7,7 @@
 CorScoreCalc(gene.expr.matrix, sample.vec)
 }
 \arguments{
-\item{gene.expr.matrix}{Gene expression matrix}
+\item{gene.expr.matrix}{Gene expression matrix with genes as rows and samples as columns}
 
 \item{sample.vec}{Vector of samples}
 }
@@ -15,7 +15,8 @@ CorScoreCalc(gene.expr.matrix, sample.vec)
 The correlation score
 }
 \description{
-Calculate correlation score
+The standard method to calculate the correlation score used to judge biclusters
+in MCbiclust
 }
 \examples{
 data(CCLE_small)

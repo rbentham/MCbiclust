@@ -1,9 +1,20 @@
 #' Calculate gene set enrichment of correlation vector using Mann-Whitney test
 #' 
-#' @param gene.names Names of the genes
-#' @param gene.values Values associated with the genes 
-#' @param sig.rate Level of significance
-#' @return Significant gene sets
+#' The Mann-Whitney test is typically used due to the values of the correlation
+#'  vector, not being normally distributed. \code{GOEnrichmentAnalysis} provides 
+#'  an interface  with the GO database annotation to find the most significant GO
+#'  terms.
+#' 
+#' @param gene.names Names of the genes in standard gene name format.
+#' @param gene.values Values associated with the genes, e.g the correlation vector
+#'  output of \code{CVEval}. 
+#' @param sig.rate Level of significance required after multiple hypothesis
+#'  adjustment.
+#' @return Data frame of the significant gene sets, with GOID, GO Term, number
+#'  of genes, number of genes in GO Term, number of genes in GO Term also in
+#'  gene set, adjusted p-value, average value of correlation vector in gene set
+#'  and phenotype describing whether average value of correlation vector is
+#'  above or below the total average.
 #' @example example_code/example_GOEnrichment.R
 #' @name GOEnrichmentAnalysis
 

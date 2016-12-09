@@ -10,7 +10,7 @@ SampleSort(gem, seed, num.cores = NULL, sort.length = NULL)
 MultiSampleSortPrep(gem, av.corvec, top.genes.num, groups, initial.seeds)
 }
 \arguments{
-\item{gem}{Gene expression matrix}
+\item{gem}{Gene expression matrix with genes as rows and samples as columns}
 
 \item{seed}{Sample seed of highly correlating genes}
 
@@ -30,7 +30,18 @@ MultiSampleSortPrep(gem, av.corvec, top.genes.num, groups, initial.seeds)
 Order of samples by strength to correlation pattern
 }
 \description{
-Methods for ordering samples
+After finding an initial bicluster with \code{FindSeed()} the next step is
+to extend the bicluster by ordering the remaining samples by how they 
+preserve the correlation found.
+}
+\details{
+\code{SampleSort()} is the basic function that achieves this, it takes the
+gene expression matrix, seed of samples, and also has options for the number
+of cores to run the method on and the number of samples to sort.
+
+\code{MultiSampleSortPrep()} is a preparation function for \code{SampleSort()}
+when MCbiclust has been run multiple times and returns a list of gene expression
+matrices and seeds for each `distinct` bicluster found.
 }
 \examples{
 data(CCLE_small)

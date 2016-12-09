@@ -7,17 +7,26 @@
 GOEnrichmentAnalysis(gene.names, gene.values, sig.rate)
 }
 \arguments{
-\item{gene.names}{Names of the genes}
+\item{gene.names}{Names of the genes in standard gene name format.}
 
-\item{gene.values}{Values associated with the genes}
+\item{gene.values}{Values associated with the genes, e.g the correlation vector
+output of \code{CVEval}.}
 
-\item{sig.rate}{Level of significance}
+\item{sig.rate}{Level of significance required after multiple hypothesis
+adjustment.}
 }
 \value{
-Significant gene sets
+Data frame of the significant gene sets, with GOID, GO Term, number
+ of genes, number of genes in GO Term, number of genes in GO Term also in
+ gene set, adjusted p-value, average value of correlation vector in gene set
+ and phenotype describing whether average value of correlation vector is
+ above or below the total average.
 }
 \description{
-Calculate gene set enrichment of correlation vector using Mann-Whitney test
+The Mann-Whitney test is typically used due to the values of the correlation
+ vector, not being normally distributed. \code{GOEnrichmentAnalysis} provides 
+ an interface  with the GO database annotation to find the most significant GO
+ terms.
 }
 \examples{
 data(CCLE_small)

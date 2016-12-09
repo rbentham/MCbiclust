@@ -1,5 +1,11 @@
 #' Slihouette validation of correlation vector clusters 
 #' 
+#' MCbiclust is a stochastic method and needs to be run multiple times to 
+#' identify different biclusters. \code{SilhouetteClustGroups()} examines
+#' the correlation vectors calculated from different runs and uses the
+#' technique of examining silhouette widths to identify the number of distinct
+#' clusters (and hence biclusters) found.
+#' 
 #' @param cor.vec.mat Correlation matrix of the correlation vectors (CVs)
 #' @param max.clusters Maximum number of clusters to divide CVs into
 #' @param plots True or False for whether to show silhouette plots

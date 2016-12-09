@@ -7,7 +7,7 @@
 CVEval(gem.part, gem.all, seed, splits)
 }
 \arguments{
-\item{gem.part}{Part of gene expression matrix only containing gene set of interest}
+\item{gem.part}{Part of gene expression matrix only containing gene set of interest with genes as rows and samples as columns}
 
 \item{gem.all}{All of gene expression matrix}
 
@@ -19,7 +19,18 @@ CVEval(gem.part, gem.all, seed, splits)
 Correlation vector
 }
 \description{
-Method for the calculation of a correlation vector
+Upon identifying a bicluster seed with \code{FindSeed}, one of the next
+steps is to identify which genes not in your chosen gene set are also
+highly correlated to the bicluster found. This is done by \code{CVEval},
+and the output is known as the correlation vector.
+}
+\details{
+\code{CVeval} uses hierarchical clustering to select the genes most 
+representative of the bicluster and then uses the average expression of
+these genes across the sample seed and calculates the correlation of
+every gene measured across the sample seed to this average expression value.
+
+The correlation vector is the output of this calculation.
 }
 \examples{
 data(CCLE_small)
