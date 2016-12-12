@@ -114,3 +114,7 @@
 # MCbiclust 0.99.28
 
 * More detailed help files
+
+# MCbiclust 0.99.29
+
+* Fixed testthat bug
