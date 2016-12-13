@@ -1,10 +1,10 @@
 
 %\VignetteIndexEntry{Bioconductor LaTeX Style}
 %\VignettePackage{BiocStyle}
-%\VignetteEngine{utils::Sweave}
+%\VignetteEngine{knitr::rmarkdown}
 
 \documentclass{article}
-<<style-Sweave, eval=TRUE, echo=FALSE, results=tex>>=
+<<style-Sweave, eval=TRUE, echo=FALSE, results='asis'>>=
 BiocStyle::latex()
 @
 \usepackage{url}
@@ -12,7 +12,14 @@ BiocStyle::latex()
 \title{Robert Bentham}
 \author{MCbiclust 0.99.29}
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+
+<<include=FALSE>>=
+library(knitr)
+opts_chunk$set(
+concordance=TRUE
+)
+@
+
 
 \maketitle
 
@@ -44,7 +51,7 @@ library(devtools)
 \section{Example of a single run}
 \subsection{Loading Cancer Cell Line Encyclopedia (CCLE) and MitoCarta data sets}
 
-For this example analysis we will be seeking to find biclusters related to mitochondrial function in the cancer cell line encyclopedia. For this two datasets are needed, both of which are available on the MCbiclust package. The first in CCLE$\_$small that contains a subset of the gene expression values found in the entire CCLE data set (the full dataset is avaliable at \url{https://portals.broadinstitute.org/ccle/home}, the second, Mitochondrial$\_$genes, is a list of mitochondrial genes that can be found from MitoCarta1.0.
+For this example analysis we will be seeking to find biclusters related to mitochondrial function in the cancer cell line encyclopedia  \cite{barretina2012cancer}. For this two datasets are needed, both of which are available on the MCbiclust package. The first in CCLE$\_$small that contains a subset of the gene expression values found in the entire CCLE data set (the full dataset is avaliable at \url{https://portals.broadinstitute.org/ccle/home}, the second, Mitochondrial$\_$genes, is a list of mitochondrial genes that can be found from MitoCarta1.0 \cite{pagliarini2008mitochondrial}.
 
 <<>>=
 data(CCLE_small)
@@ -109,12 +116,12 @@ CorScoreCalc(CCLE.mito,CCLE.seed)
 
 The results of \Rfunction{FindSeed} can also be visualised by examining the associated correlation matrix, and viewing the result as a heatmap. Again it is easy to see the difference between the random subsample and the one outputted from \Rfunction{FindSeed}.
 
-<<fig=TRUE, width=5, height=4>>=
+<<fig.width=5, fig.height=4>>=
 CCLE.random.cor <- cor(t(CCLE.mito[,random.seed]))
 heatmap.2(CCLE.random.cor,trace = "none")
 @
 
-<<fig=TRUE, width=5, height=4>>=
+<<fig.width=5, fig.height=4>>=
 CCLE.mito.cor <- cor(t(CCLE.mito[,CCLE.seed]))
 heatmap.2(CCLE.mito.cor,trace = "none")
 @
@@ -125,7 +132,7 @@ Note that when the genes are represented as the rows in a matrix, that matrix ne
 
 \subsection{Selecting highly correlated genes}
 As can be clearly seen from the heat map, not all the mitochondrial genes are equally strongly correlated to each other. There is a function in `MCbiclust` which automatically selects those genes that are most strongly associated with the pattern. This function is \Rfunction{HclustGenesHiCor} and it works by using hierarchical clustering to select the genes into n different groups, and then discarding any of these groups that fail to have a correlation score greater than the correlation score from all the genes together.
-<<fig=TRUE,  width=5, height=4>>=
+<<fig.width=5, fig.height=4>>=
 CCLE.hicor.genes <- as.numeric(HclustGenesHiCor(CCLE.mito,
                                                 CCLE.seed,
                                                 cuts = 8))
@@ -320,17 +327,17 @@ CCLE.df <- data.frame(CCLE.name = CCLE.names,
                       Order = seq(length = length(pc1.vec)))
 @
 
-<<fig=TRUE, width=7, height=4>>=
+<<fig.width=7, fig.height=4>>=
 ggplot(CCLE.df, aes(Order,PC1)) +
   geom_point(aes(colour = Fork)) + ylab("PC1")
 @
 
-<<fig=TRUE,  width=7, height=4>>=
+<<fig.width=7, fig.height=4>>=
 ggplot(CCLE.df, aes(Order,Average.Group1)) +
   geom_point(aes(colour = Fork)) + ylab("Average Group 1")
 @
 
-<<fig=TRUE, width=7, height=4>>=
+<<fig.width=7, fig.height=4>>=
 ggplot(CCLE.df, aes(Order,Average.Group2)) +
   geom_point(aes(colour = Fork)) + ylab("Average Group 2")
 @
@@ -373,7 +380,7 @@ CCLE_small_samples <- CCLE_samples[CCLE.data.names,]
 
 Using the `dplyr` library, it is possible to join this new data set to the one we made for plotting the values of PC1 in the previous section. This can be easily done as both datasets share a column - the name of the samples. Once this is done, it is again simple to produce additional plots.
 
-<<fig=TRUE,  width=7, height=4>>=
+<<fig.width=7, fig.height=4>>=
 CCLE.df.samples <- inner_join(CCLE.df,CCLE_samples,by="CCLE.name")
 
 ggplot(CCLE.df.samples, aes(Order,PC1)) +
@@ -382,7 +389,7 @@ ggplot(CCLE.df.samples, aes(Order,PC1)) +
 
 In this case the figure is slightly confusing due to the number of factors. We can however rename factors that appear less than 30 times in total as "Other".
 
-<<fig=TRUE, width=7, height=4>>=
+<<fig.width=7, fig.height=4>>=
 rare.sites <- names(which(summary(CCLE.df.samples$Site.Primary) < 15))
 CCLE.df.samples$Site.Primary2 <- as.character(CCLE.df.samples$Site.Primary)
 
@@ -393,7 +400,7 @@ ggplot(CCLE.df.samples, aes(Order,PC1)) +
   geom_point(aes(colour=factor(Site.Primary2))) + ylab("PC1")
 @
 
-<<fig=TRUE, width=7, height=4>>=
+<<fig.width=7, fig.height=4>>=
 ggplot(CCLE.df.samples, aes(Order,PC1)) +
   geom_point(aes(colour=factor(Gender))) + ylab("PC1")
 @
@@ -457,7 +464,7 @@ rm(CCLE.cor.vec.multi)
 
 A correlation matrix can be formed from the correlation vectors, and in this way they can be viewed as a heatmap.
 
-<<fig=TRUE,  width=5, height=4>>=
+<<fig.width=5, fig.height=4>>=
 CV.cor.mat1 <- abs(cor((multi.run.cor.vec.mat)))
 cor.dist <- function(c){as.dist(1 - abs(c))}
 
@@ -468,7 +475,7 @@ routput.corvec.matrix.cor.heat <- heatmap.2(CV.cor.mat1,
 
 It needs to be known how many distinct patterns have been found, this is done with clustering and particular silhouette coefficients to judge what number of clusters is optimum within the data. Function \Rfunction{SilhouetteClustGroups} achieves this and uses hierarchical clustering to split the patterns into clusters, for comparison a randomly generated correlation vector is also added to allow for the possibility that all patterns found are best grouped into a single cluster.
 
-<<fig=TRUE, width=5, height=4>>=
+<<fig.width=5, fig.height=4>>=
 multi.clust.groups <- SilhouetteClustGroups(multi.run.cor.vec.mat,
                                             max.clusters = 20,
                                             plots = TRUE,rand.vec = FALSE)
@@ -476,7 +483,7 @@ multi.clust.groups <- SilhouetteClustGroups(multi.run.cor.vec.mat,
 
 Here two clusters were found, and we can visualise this pattern (and any additional others found) with the function \Rfunction{CVPlot}, which highlights a chosen gene set, in this case the mitochondrial genes.
 
-<<fig=TRUE, width=5, height=5>>=
+<<fig.width=5, fig.height=5>>=
 gene.names <- row.names(CCLE_small)
 av.corvec.fun <- function(x) rowMeans(multi.run.cor.vec.mat[,x])
 average.corvec <- lapply(X = multi.clust.groups,
@@ -534,7 +541,7 @@ These two biclusters can now be analysed in the same way as the single bicluster
 
 One final thing that can be done is to compare all 3 correlation vectors found
 
-<<fig=TRUE, width=5, height=5>>=
+<<fig.width=5, fig.height=5>>=
 cv.df <- as.data.frame(average.corvec)
 cv.df$Mito1 <- CCLE.cor.vec
 
@@ -547,12 +554,12 @@ CVPlot(cv.df,cnames = c("R1","R2","M1"),
 It is immediately apparent that the one of the biclusters found from the random gene set is very similar to that of the mitochondrial based bicluster.
 
 \section{Session Info}
-<<results=tex>>=
+<<results='asis'>>=
 toLatex(sessionInfo())
 @
 
 
 
-%%\bibliography{bibvignette}
+\bibliography{bibvignette}
 
 \end{document}

@@ -122,3 +122,7 @@
 # MCbiclust 0.99.30
 
 * Removed unit tests to see if builds successfully
+
+# MCbiclust 0.99.31
+
+* Fixed sweave issues in vignette and replaces unit tests
