@@ -427,7 +427,7 @@ As was easily apparent from examining the plots, the primary site the cell line 
 \section{Dealing with multiple runs}
 
 `MCbiclust` is a stochastic method so for best results it needs to be run multiple times, in practice this means using high-performance computing the run the algorithm on a computer cluster which will be dealt with in a later section. Here however the task of dealing with the results will be looked at. The algorithm will be run $100$ times with only $500$ iterations each. Typically more iterations are required, but for this demonstration it will be sufficient.
-<<>>=
+<<results = "hide", message = FALSE>>=
 CCLE.multi.seed <- list()
 initial.seed1 <- list()
 
