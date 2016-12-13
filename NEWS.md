@@ -118,3 +118,7 @@
 # MCbiclust 0.99.29
 
 * Fixed testthat bug
+
+# MCbiclust 0.99.30
+
+* Removed unit tests to see if builds successfully
