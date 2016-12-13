@@ -126,3 +126,8 @@
 # MCbiclust 0.99.31
 
 * Fixed sweave issues in vignette and replaces unit tests
+
+# MCbiclust 0.99.32
+
+* Vignette now created during build
+
