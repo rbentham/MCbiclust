@@ -10,7 +10,7 @@ BiocStyle::latex()
 \usepackage{url}
 
 \title{Robert Bentham}
-\author{MCbiclust 0.99.29}
+\author{MCbiclust 0.99.33}
 \begin{document}
 
 <<include=FALSE>>=

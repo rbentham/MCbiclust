@@ -131,3 +131,8 @@
 
 * Vignette now created during build
 
+
+# MCbiclust 0.99.33
+
+* Update R dependency
+
