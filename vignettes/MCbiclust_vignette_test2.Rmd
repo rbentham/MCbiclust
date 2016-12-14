@@ -6,8 +6,8 @@ author:
    email: "robert.bentham.11@ucl.ac.uk"
 date: "2016-09-07"
 output: 
-  BiocStyle::pdf_document2:
-    toc_newpage: TRUE
+  BiocStyle::html_document2:
+    toc_float: true
 vignette: >
   %\VignetteIndexEntry{MCbiclust 0.99.4}
   %\VignetteEngine{knitr::rmarkdown}
