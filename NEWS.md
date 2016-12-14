@@ -136,3 +136,8 @@
 
 * Update R dependency
 
+# MCbiclust 0.99.39
+
+* HTML Rmd vignette
+
+
