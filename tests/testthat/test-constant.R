@@ -8,6 +8,7 @@ CCLE.mito <- CCLE_small[mito.loc,]
 set.seed(101)
 CCLE.seed <- FindSeed(gem = CCLE.mito,seed.size = 10,
                       iterations = 100,messages = 50)
+
 CCLE.sort <- SampleSort(gem = CCLE.mito,seed = CCLE.seed,sort.length = 11)
 
 data("Vignette_sort")
@@ -70,4 +71,7 @@ test_that("ThresholdBic returns as expected",{
 test_that("PC1Align returns as expected",{
   expect_equal(length(CCLE.pc1), 500)
 })
+
+
+
           

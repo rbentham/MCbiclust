@@ -41,13 +41,13 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name, alpha1 = 0.005,
   
     if(dim(cv.df)[2] == 2){
         a1 <- colnames(cv.df)[1]
-        p <- ggplot(cv.df,aes(x = get(a1), col=Status)) + xlab(a1)
+        p <- ggplot(cv.df,aes_string(x = 'get(a1)', col='Status')) + xlab(a1)
         return(p + geom_density() )
     }
   
     custom_cv_plot <- ggpairs(cv.df[,!status.loc],upper = "blank",
                               lower = "blank",
-                              title = "",axisLabels ="show", legends=TRUE)
+                              title = "",axisLabels ="show")
   
     col_cv <- hue_pal(h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
                       direction = 1)(2)
@@ -94,7 +94,7 @@ CVPlot <- function(cv.df,geneset.loc, geneset.name, alpha1 = 0.005,
   
     H_d_plot_fun <- function(a,l1=FALSE){
         a1 <- colnames(cv.df)[a]
-        p <- ggplot(cv.df, aes(x = get(a1), col = Status)) +
+        p <- ggplot(cv.df, aes_string(x = 'get(a1)', col = 'Status')) +
           xlab(a1)
         if(l1 == FALSE){
             return(p + geom_density() + theme(legend.position="none"))}
