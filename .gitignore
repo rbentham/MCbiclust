@@ -1,0 +1,9 @@
+.Rproj.user
+.Rhistory
+.RData
+MCbiclust_tutorial.Rdata
+MCbiclustTutorial_cache/
+MCbiclustTutorial_files/
+MCbiclust_GO.gmt
+MCbiclust.Rproj
+inst/doc
