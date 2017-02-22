@@ -65,9 +65,8 @@ CCLE.seed <- FindSeed(gem = CCLE.mito,
 
 CCLE.sort <- SampleSort(gem = CCLE.mito,seed = CCLE.seed,sort.length = 11)
 
-# Full ordering can be loaded here:
-data("Vignette_sort")
-CCLE.samp.sort <- Vignette_sort[[1]]
+# Full ordering are in Vignette_sort in sysdata.rda
+CCLE.samp.sort <- MCbiclust:::Vignette_sort[[1]]
 
 CCLE.pc1 <- PC1VecFun(top.gem = CCLE.mito,
                       seed.sort = CCLE.samp.sort,

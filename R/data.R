@@ -50,11 +50,3 @@
 #' @return NA
 "Mitochondrial_genes"
 
-#' List of samples pre-sorted for vignette
-#'
-#' Different sortings of CCLE_small calcualted in the Vignette.
-#' 
-#' @format A list of the different sample sortings calculated in the vignette:
-#' @return NA
-"Vignette_sort"
-
