@@ -141,3 +141,6 @@
 * HTML Rmd vignette
 
 
+# MCbiclust 0.99.42
+
+* Vignette_sort moved to sysdata.rda and get() function removed from CVPlot
