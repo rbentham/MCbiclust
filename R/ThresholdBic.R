@@ -69,7 +69,7 @@ ThresholdBic <- function(cor.vec,sort.order,pc1,samp.sig = 0){
 PC1Align <- function(gem, pc1, cor.vec, sort.order, bic){
   
   max.cv.loc <- which.max(cor.vec)
-  number.samps <- seq_len(length(bic[[2]]))
+  number.samps <- seq_len(max(3, length(bic[[2]])))
   gem1 <- gem[max.cv.loc, sort.order[number.samps]]
   cor.test <- cor(as.numeric(gem1), pc1[number.samps])
   
