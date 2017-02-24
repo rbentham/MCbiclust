@@ -11,12 +11,23 @@ CCLE.seed <- FindSeed(gem = CCLE.mito,seed.size = 10,
 
 CCLE.sort <- SampleSort(gem = CCLE.mito,seed = CCLE.seed,sort.length = 11)
 
-data("Vignette_sort")
-CCLE.samp.sort <- Vignette_sort[[1]]
+CCLE.samp.sort <- MCbiclust:::Vignette_sort[[1]]
 
 CCLE.pc1 <- PC1VecFun(top.gem = CCLE.mito,
                       seed.sort = CCLE.samp.sort,
                       n = 10)
+
+test_that("HclustGenesHiCor and CVEval work with matrices",{
+  expect_error(as.numeric(HclustGenesHiCor(as.matrix(CCLE.mito),
+                                                CCLE.seed,
+                                                cuts = 58)), NA)
+  
+  expect_error(CVEval(gem.part = as.matrix(CCLE.mito),
+         gem.all = as.matrix(CCLE_small),
+         seed = CCLE.seed,
+         splits = 58), NA)
+  
+})
 
 test_that("PC1VecFun returns as expected",{
   expect_equal(length(CCLE.pc1), 500)
@@ -46,6 +57,7 @@ test_that("Basic functioning remains constant",{
   expect_equal_to_reference(CCLE.fork,"ccle_fork.rds")
 })
 
+
 test_that("FindSeed returns as expected",{
   expect_equal(length(CCLE.seed), 10)
   expect_message(FindSeed(gem = CCLE.mito,seed.size = 10,
@@ -73,5 +85,14 @@ test_that("PC1Align returns as expected",{
 })
 
 
+CCLE.bic[[2]] <- CCLE.bic[[2]][1]
+
+test_that("PC1Align works with bicluster with single sample",{
+  expect_error(PC1Align(gem = CCLE_small, pc1 = CCLE.pc1,
+                        cor.vec = CCLE.cor.vec ,
+                        sort.order = CCLE.samp.sort,
+                        bic =CCLE.bic), NA)
+          }
+          )
 
           
