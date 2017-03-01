@@ -46,8 +46,8 @@ GeneVecFun <- function(gem,seed,splits){
   test2 <- lapply(seq_len((test4 + 1)),
                   FUN = function(x) (test1 == x))
   
-  temp.fun <- function(x) CorScoreCalc(gem[test2[[x]],],seed) * 
-    sqrt(length(test2[[x]]))
+  temp.fun <- function(x) CorScoreCalc(data.frame(gem)[test2[[x]],],seed) * 
+    sqrt(sum(test2[[x]],na.rm = TRUE))
   
   test3 <- vapply(seq_len((test4 + 1)), FUN = temp.fun, FUN.VALUE = numeric(1))
   test5 <- test2[[which.max(test3)]]
