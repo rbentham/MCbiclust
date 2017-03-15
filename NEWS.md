@@ -148,3 +148,7 @@
 # MCbiclust 0.99.44
 
 * Bug fixes in CVEval and related functions
+
+# MCbiclust 0.99.45
+
+* Vignette can now be built in under a minute using sysdata

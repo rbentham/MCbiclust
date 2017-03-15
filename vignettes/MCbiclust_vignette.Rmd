@@ -1,15 +1,15 @@
 ---
-title: "MCbiclust 0.99.44"
+title: "MCbiclust 0.99.45"
 author: 
  - name: "Robert Bentham"
    affiliation: "Cell and Developmental Biology, University College London"
    email: "robert.bentham.11@ucl.ac.uk"
-date: "2017-28-02"
+date: "2017-15-03"
 output: 
   BiocStyle::html_document2:
     toc_float: true
 vignette: >
-  %\VignetteIndexEntry{MCbiclust 0.99.44}
+  %\VignetteIndexEntry{MCbiclust 0.99.45}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 abstract: MCbiclust is a R package for running massively correlating biclustering analysis. MCbiclust aims to find large scale biclusters with selected features being highly correlated with each other over a subset of samples. MCbiclust was particularly designed for the application of studying gene expression data, finding and understanding biclusters that are related to large scale co-regulation of genes.
@@ -91,12 +91,16 @@ This is achieved with function `FindSeed`, initially a random subset of samples 
 
 For reproducibility `set.seed` has been used to set R's pseudo-random number generator. It should also be noted that the for `gem` the data matrix can not contain all the genes, since `FindSeed` involves the calculation of correlation matrices which are not computationally efficient to compute if they involve greater than ~1000 genes.
 
-```{r}
+```{r, results='hide', eval=FALSE}
 set.seed(102)
 CCLE.seed <- FindSeed(gem = CCLE.mito,
                       seed.size = 10,
                       iterations = 10000,
                       messages = 1000)
+```
+
+```{r, results='hide', eval=TRUE, echo=FALSE}
+CCLE.seed <- MCbiclust:::Vignette_seed
 ```
 
 `FindSeed` has one more additional options, `initial.seed` allows the user to specify the initial subsample to be tested, by default the initial sample subset is randomly chosen. 
@@ -191,13 +195,17 @@ The output is a table with 7 columns:
 
 1. `phenotype`: +1 if `CV.av.value` is greater than the overall CV average, -1 if the `CV.av.value` is less then the overall CV average.
 
-```{r}
+```{r, results='hide', eval=FALSE}
 GSE.MW <- GOEnrichmentAnalysis(gene.names = row.names(CCLE_small),
                                gene.values = CCLE.cor.vec,
                                sig.rate = 0.05)
 ```
 
-There are 82 significant terms and the top 10 most significant can be viewed below:
+```{r, results='hide', eval=TRUE, echo=FALSE}
+GSE.MW <- MCbiclust:::Vignette_GSE
+```
+
+There are 76 significant terms and the top 10 most significant can be viewed below:
 
 ```{r, results = "asis"}
 row.names(GSE.MW) <- NULL
@@ -439,7 +447,7 @@ As was easily apparent from examining the plots, the primary site the cell line 
 
 `MCbiclust` is a stochastic method so for best results it needs to be run multiple times, in practice this means using high-performance computing the run the algorithm on a computer cluster which will be dealt with in a later section. Here however the task of dealing with the results will be looked at. The algorithm will be run $100$ times with only $500$ iterations each. Typically more iterations are required, but for this demonstration it will be sufficient.
 
-```{r, results='hide', message=FALSE}
+```{r, results='hide', message=FALSE, eval=FALSE}
 CCLE.multi.seed <- list()
 initial.seed1 <- list()
 
@@ -453,9 +461,14 @@ for(i in seq(100)){
 }
 ```
 
+```{r, results='hide', eval=TRUE, echo=FALSE}
+CCLE.multi.seed <- MCbiclust:::Vignette_multi_seed
+initial.seed1 <- MCbiclust:::Vignette_initial_seed
+```
+
 The associated correlation vector must also be calculated for each run and these correlation vectors can be put into a matrix.
 
-```{r}
+```{r, results='hide', message=FALSE, eval=FALSE}
 CCLE.cor.vec.multi <- list()
 
 for(i in seq(100)){
@@ -465,7 +478,13 @@ for(i in seq(100)){
                                     splits = 10)
                                       
 }
+```
 
+```{r, results='hide', eval=TRUE, echo=FALSE}
+CCLE.cor.vec.multi <- MCbiclust:::Vignette_multi_cv
+```
+
+```{r}
 len.a <- length(CCLE.cor.vec.multi[[1]])
 len.b <- length(CCLE.cor.vec.multi)
 multi.run.cor.vec.mat <- matrix(0,len.a,len.b)
@@ -515,11 +534,15 @@ As before can also calculate the gene set enrichment.
 GOfun <- function(x) GOEnrichmentAnalysis(gene.names = gene.names,
                                           gene.values = x,
                                           sig.rate = 0.05)
+```
 
-
+```{r, results='hide', message=FALSE, eval=FALSE}
 corvec.gsea <- lapply(X = average.corvec,
                       FUN = GOfun)
-                
+```
+
+```{r, results='hide', eval=TRUE, echo=FALSE}
+corvec.gsea <- MCbiclust:::Vignette_multi_gsea
 ```
 
 Before using `SampleSort` a special prep function, `MultiSampleSortPrep` is used to generate the gene expression matrix and top seed for each found bicluster. The gene expression matrix is composed of the top $n$ genes in the correlation vector, and the seed is chosen as the calculated seed that has the maximum correlation score. 
