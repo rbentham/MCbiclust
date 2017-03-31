@@ -152,3 +152,7 @@
 # MCbiclust 0.99.45
 
 * Vignette can now be built in under a minute using sysdata
+
+# MCbiclust 0.99.46
+
+* Bug fixes involving NAs in gene expression matrices

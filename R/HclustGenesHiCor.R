@@ -19,8 +19,10 @@ HclustGenesHiCor <- function(gem,seed,cuts){
   
     row.names(gem) <- seq_len(dim(gem)[1])
   
-    gem.dend <- as.dendrogram(hclust(dist(cor(t(gem[,seed])))))
-    gem.hclust <- hclust(dist(cor(t(gem[,seed]))))
+    gem.cor <- cor(t(gem[,seed]),use = 'pairwise.complete.obs')
+    
+    gem.dend <- as.dendrogram(hclust(dist(gem.cor)))
+    gem.hclust <- hclust(dist(gem.cor))
     gem.cuts <- cutree(gem.hclust, k=cuts)
   
     hclust.genes.list <- lapply(seq_len(cuts),

@@ -28,7 +28,8 @@ NULL
 CVEval <- function(gem.part, gem.all, seed, splits){
       gene.vec <- GeneVecFun(gem.part, seed, splits)
       dim1 <- dim(gem.all)[1]
-      temp.fun <- function(x) return(cor(as.numeric(gem.all[x, seed]), gene.vec))
+      temp.fun <- function(x) return(cor(as.numeric(gem.all[x, seed]), gene.vec,
+                                         use = 'pairwise.complete.obs'))
       return(vapply(seq_len(dim1), temp.fun,FUN.VALUE = numeric(1)))
 }
 
@@ -42,7 +43,8 @@ GeneVecFun <- function(gem,seed,splits){
   
   test4 <- which.max(vapply(test.list,max,
                             FUN.VALUE = numeric(1)))
-  test1 <- cutree(hclust(dist(cor(t(gem[,seed])))),k = (test4 + 1))
+  test1 <- cutree(hclust(dist(cor(t(gem[,seed]),use = 'pairwise.complete.obs'))),
+                  k = (test4 + 1))
   test2 <- lapply(seq_len((test4 + 1)),
                   FUN = function(x) (test1 == x))
   
@@ -57,7 +59,7 @@ GeneVecFun <- function(gem,seed,splits){
 # Function needed for gene vector calculation
 
 GeneVecFunCalc <- function(gem,seed,n){
-  test1 <- cutree(hclust(dist(cor(t(gem[,seed])))),k = n)
+  test1 <- cutree(hclust(dist(cor(t(gem[,seed]),use = 'pairwise.complete.obs'))),k = n)
   test2 <- lapply(seq_len(n),FUN = function(x) (test1 == x))
   temp.fun <- function(x) CorScoreCalc(data.frame(gem)[test2[[x]],],seed) * 
     sqrt(sum(test2[[x]],na.rm = TRUE))
