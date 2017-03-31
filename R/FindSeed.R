@@ -38,7 +38,7 @@ FindSeed <- function (gem, seed.size, iterations,
     else {
         test.cor <- cor(gem.t[seed, ])
     }
-    test.cor.score <- mean(abs(test.cor))
+    test.cor.score <- mean(abs(test.cor),na.rm = TRUE)
   
     rv <- sample(seq_len(seed.size), iterations, replace = TRUE)
   
@@ -53,7 +53,7 @@ FindSeed <- function (gem, seed.size, iterations,
         else {
             test.cor <- cor(gem.t[seed2, ])
         }
-        test.cor.score2 <- mean(abs(test.cor))
+        test.cor.score2 <- mean(abs(test.cor),na.rm = TRUE)
         if (test.cor.score2 > test.cor.score) {
             taken.out <- rv[i]
             if(taken.out == 1){
