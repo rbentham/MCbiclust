@@ -160,3 +160,7 @@
 # MCbiclust 1.1.1
 
 * Changed title in vignette.
+
+# MCbiclust 1.1.2
+
+* Minor vignette changes.

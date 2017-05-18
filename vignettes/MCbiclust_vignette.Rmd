@@ -14,7 +14,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 abstract: MCbiclust is a R package for running massively correlating biclustering analysis. MCbiclust aims to find large scale biclusters with selected features being highly correlated with each other over a subset of samples. MCbiclust was particularly designed for the application of studying gene expression data, finding and understanding biclusters that are related to large scale co-regulation of genes.
 package: |
-  MCbiclust 1.1.1
+  MCbiclust 1.1.2
 
   Report issues on https://github.com/rbentham/MCbiclust/issues
 bibliography: bibvignette.bib
