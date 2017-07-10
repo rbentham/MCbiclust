@@ -11,7 +11,7 @@ Description: Custom made algorithm and associated methods for finding,
     Algorithm is based on with a supplied gene set of size n, finding the maximum
     strength correlation matrix containing m samples from the data set.
 Depends:
-    R (>= 3.4) 
+    R (>= 3.2) 
 Imports:
     BiocParallel,
     graphics,
