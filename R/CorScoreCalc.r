@@ -10,6 +10,6 @@
 #' @export
 
 CorScoreCalc <- function(gene.expr.matrix,sample.vec){
-      a <- abs(cor(t(gene.expr.matrix[,sample.vec])))
+      a <- abs(WGCNA::cor(t(gene.expr.matrix[,sample.vec])))
       return(sum(a,na.rm = TRUE)/length(a))
 }

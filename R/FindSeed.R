@@ -33,10 +33,10 @@ FindSeed <- function (gem, seed.size, iterations,
     zero.rows <- (apply(X = gem[, seed],MARGIN = 1,FUN = sd) == 0)
 
     if (sum(zero.rows,na.rm = TRUE) != 0) {
-        test.cor <- cor(gem.t[seed, !zero.rows])
+        test.cor <- WGCNA::cor(gem.t[seed, !zero.rows])
     }
     else {
-        test.cor <- cor(gem.t[seed, ])
+        test.cor <- WGCNA::cor(gem.t[seed, ])
     }
     test.cor.score <- mean(abs(test.cor),na.rm = TRUE)
   
@@ -48,10 +48,10 @@ FindSeed <- function (gem, seed.size, iterations,
         seed2 <- c(seed2, sample(seq_len(sample.size)[-avoid.samples],1))
         zero.rows <- (apply(X = gem[, seed2],MARGIN = 1,FUN = sd) == 0)
         if (sum(zero.rows,na.rm = TRUE) != 0) {
-            test.cor <- cor(gem.t[seed2, !zero.rows])
+            test.cor <- WGCNA::cor(gem.t[seed2, !zero.rows])
         }
         else {
-            test.cor <- cor(gem.t[seed2, ])
+            test.cor <- WGCNA::cor(gem.t[seed2, ])
         }
         test.cor.score2 <- mean(abs(test.cor),na.rm = TRUE)
         if (test.cor.score2 > test.cor.score) {
