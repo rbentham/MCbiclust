@@ -2,7 +2,7 @@ Package: MCbiclust
 Type: Package
 Title: Massive correlating biclusters for gene expression data and associated
     methods
-Version: 1.1.2
+Version: 1.1.3
 Date: 2017-18-05
 Author: Robert Bentham
 Maintainer: Robert Bentham <robert.bentham.11@ucl.ac.uk>
@@ -23,7 +23,8 @@ Imports:
     GGally,
     ggplot2,
     scales,
-    cluster
+    cluster,
+    WGCNA
 Suggests:
     gplots,
     knitr,
@@ -37,6 +38,6 @@ Suggests:
     testthat
 License: GPL-2
 biocViews: Clustering, Microarray, StatisticalMethod, Software, RNASeq, GeneExpression
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 VignetteBuilder: knitr
 LazyData: true

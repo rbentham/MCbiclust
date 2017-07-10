@@ -25,6 +25,7 @@
 #' @importFrom ggplot2 ggplot theme geom_density geom_point xlab ylab aes_
 #' @importFrom scales hue_pal
 #' @importFrom cluster silhouette
+#' @importFrom WGCNA cor
 #' @importMethodsFrom AnnotationDbi as.list
 
 NULL
