@@ -29,9 +29,10 @@ NULL
 #' @export
 #' @rdname SampleSort
 
-
-SampleSort <- function(gem,seed,num.cores = NULL,sort.length = NULL){
+SampleSort <- function(gem,seed,num.cores = 1,sort.length = NULL){
     message("Sort Length \t Cor Score")
+    
+    gem_t <- t(gem)
   
     seed1 <- seed
     sample.size <- dim(gem)[2]
@@ -44,8 +45,8 @@ SampleSort <- function(gem,seed,num.cores = NULL,sort.length = NULL){
   
     seq.vec <- seq_len(order.size - length(seed))  
     tcv.max <- seq_len(length(seq.vec) + 1)
-    tcv.max[1] <- CorScoreCalc(gem, seed)
-    temp.fun1 <- function(x) CorScoreCalc(gem,x)
+    tcv.max[1] <- CorScoreCalc_t(gem_t, seed)
+    temp.fun1 <- function(x) CorScoreCalc_t(gem_t,x)
     
     if(length(num.cores)==0){
       param = bpstart(SnowParam())
