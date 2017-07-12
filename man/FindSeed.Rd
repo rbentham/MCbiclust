@@ -54,4 +54,3 @@ CCLE.hicor.genes <- as.numeric(HclustGenesHiCor(CCLE.mito,
 
 CorScoreCalc(CCLE.mito[CCLE.hicor.genes,], CCLE.seed)
 }
-

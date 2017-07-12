@@ -64,4 +64,3 @@ CCLE.pc1 <- PC1Align(gem = CCLE_small, pc1 = CCLE.pc1,
 CCLE.fork <- ForkClassifier(CCLE.pc1, samp.num = length(CCLE.bic[[2]]))
 
 }
-

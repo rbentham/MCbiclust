@@ -22,4 +22,3 @@ A dataset containing the gene-centric RMA-normalized mRNA expression data for ne
 1000 genes were selected randomly such that 500 were mitochondrial and 500 non-mitochondrial.
 }
 \keyword{datasets}
-

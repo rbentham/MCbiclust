@@ -20,4 +20,3 @@ find biclusters of interest.
 To learn more about MCbiclust, start with the vignette:
 \code{browseVignettes(package = "MCbiclust")}
 }
-
