@@ -4,7 +4,7 @@ author:
  - name: "Robert Bentham"
    affiliation: "Cell and Developmental Biology, University College London"
    email: "robert.bentham.11@ucl.ac.uk"
-date: "2017-18-05"
+date: "2017-12-07"
 output: 
   BiocStyle::html_document2:
     toc_float: true
@@ -239,14 +239,14 @@ Already all the genes in the data set have had the correlation calculated to the
 
 1. `seed`: the initial subsample found with `FindSeed`.
 
-1. ` num.cores`: Used for setting the number of cores used in calculation, important to use to increase the speed of what is a slow calculation.
+1. ` num.cores`: Used for setting the number of cores used in calculation, default value is to use one core.
 
 1. `sort.length`: Sets the number of samples to be ordered.
 
 
 ```{r, results='hide', eval=FALSE}
 CCLE.samp.sort <- SampleSort(CCLE.mito[as.numeric(CCLE.hicor.genes),],
-                             seed = CCLE.seed, num.cores = 4)
+                             seed = CCLE.seed)
 ```
 
 Note as before that these are long calculations, and may take some time.
@@ -255,7 +255,7 @@ Note as before that these are long calculations, and may take some time.
 CCLE.samp.sort <- MCbiclust:::Vignette_sort[[1]]
 ```
 
-Note that SampleSort even on multiple cores is a very computationally expensive function and requires time to run. For a large dataset such as the CCLE data it is advisable to either calculate a partial ordering, which can be done with the `sort.length` arguement or submit the job of sorting the samples to a high performance computing facility.
+Note that SampleSort is a very computationally expensive function and requires time to run. For a large dataset such as the CCLE data it is advisable to either calculate a partial ordering, which can be done with the `sort.length` arguement or submit the job of sorting the samples to a high performance computing facility.
 
 ## PCA
 
@@ -559,11 +559,9 @@ multi.prep <- MultiSampleSortPrep(gem = CCLE_small,
 
 ```{r,eval=FALSE}
 CCLE.samp.multi.sort[[1]] <- SampleSort(gem = multi.prep[[1]][[1]],
-                                        seed = multi.prep[[2]][[1]],
-                                        num.cores = 4)
+                                        seed = multi.prep[[2]][[1]])
 CCLE.samp.multi.sort[[2]] <- SampleSort(gem = multi.prep[[1]][[1]],
-                                        seed = multi.prep[[2]][[1]],
-                                        num.cores = 4)     
+                                        seed = multi.prep[[2]][[1]])     
 ```
 
 Note as before that these are long calculations.
