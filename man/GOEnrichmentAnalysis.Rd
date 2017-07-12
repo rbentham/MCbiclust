@@ -2,6 +2,7 @@
 % Please edit documentation in R/GOEnrichmentAnalysis.R
 \name{GOEnrichmentAnalysis}
 \alias{GOEnrichmentAnalysis}
+\alias{GOEnrichmentAnalysis}
 \title{Calculate gene set enrichment of correlation vector using Mann-Whitney test}
 \usage{
 GOEnrichmentAnalysis(gene.names, gene.values, sig.rate)
@@ -51,4 +52,3 @@ CCLE.cor.vec <- CVEval(gem.part = CCLE.mito,
 #                            sig.rate = 0.05)
 
 }
-

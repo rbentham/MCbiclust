@@ -2,6 +2,7 @@
 % Please edit documentation in R/CVEval.R
 \name{CVEval}
 \alias{CVEval}
+\alias{CVEval}
 \title{Method for the calculation of a correlation vector}
 \usage{
 CVEval(gem.part, gem.all, seed, splits)
@@ -70,4 +71,3 @@ CCLE.pc1 <- PC1Align(gem = CCLE_small, pc1 = CCLE.pc1,
 CCLE.fork <- ForkClassifier(CCLE.pc1, samp.num = length(CCLE.bic[[2]]))
 
 }
-
