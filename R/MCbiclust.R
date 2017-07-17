@@ -14,7 +14,7 @@
 #' \code{browseVignettes(package = "MCbiclust")}
 #' @docType package
 #' @name MCbiclust
-#' @import stats
+#' @importFrom stats hclust kmeans sd p.adjust cutree dist as.dendrogram wilcox.test prcomp lsfit rnorm as.dist quantile
 #' @importFrom BiocParallel bplapply MulticoreParam bpstart bpstop SnowParam
 #' @importFrom graphics plot
 #' @importFrom utils combn
