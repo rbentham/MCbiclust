@@ -2,8 +2,8 @@ Package: MCbiclust
 Type: Package
 Title: Massive correlating biclusters for gene expression data and associated
     methods
-Version: 1.2.0
-Date: 2017-17-07
+Version: 1.2.1
+Date: 2018-02-01
 Author: Robert Bentham
 Maintainer: Robert Bentham <robert.bentham.11@ucl.ac.uk>
 Description: Custom made algorithm and associated methods for finding,

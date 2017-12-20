@@ -33,7 +33,7 @@ SilhouetteClustGroups <- function(cor.vec.mat, max.clusters,
         cor.vec.mat2 <- cor.vec.mat
     }
   
-    cor.dist <- as.dist(1 - abs(cor(cor.vec.mat2)))
+    cor.dist <- as.dist(1 - abs(cor(cor.vec.mat2,use = 'pairwise.complete.obs')))
     cor.hclust <- hclust(cor.dist)
   
     silfun1 <- function(x){
