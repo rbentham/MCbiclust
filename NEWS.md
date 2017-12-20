@@ -167,5 +167,8 @@
 
 # MCbiclust 1.1.3
 
-* Now using cor function from WGCNA for speedup of SampleSort and FindSeed
+* Now using cor function from WGCNA for speedup of SampleSort and FindSeed.
 
+# MCbiclust 1.3.1
+
+* Updated Vignette including more detail for multiple runs section.
