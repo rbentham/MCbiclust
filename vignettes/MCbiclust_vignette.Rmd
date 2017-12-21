@@ -15,7 +15,6 @@ vignette: >
 abstract: MCbiclust is a R package for running massively correlating biclustering analysis. MCbiclust aims to find large scale biclusters with selected features being highly correlated with each other over a subset of samples. MCbiclust was particularly designed for the application of studying gene expression data, finding and understanding biclusters that are related to large scale co-regulation of genes.
 package: |
   MCbiclust 1.3.1
-
   Report issues on https://github.com/rbentham/MCbiclust/issues
 bibliography: bibvignette.bib
 ---
@@ -560,6 +559,7 @@ multi.prep <- MultiSampleSortPrep(gem = CCLE_small,
 ```{r,eval=FALSE}
 CCLE.samp.multi.sort[[1]] <- SampleSort(gem = multi.prep[[1]][[1]],
                                         seed = multi.prep[[2]][[1]])
+
 CCLE.samp.multi.sort[[2]] <- SampleSort(gem = multi.prep[[1]][[2]],
                                         seed = multi.prep[[2]][[2]])     
 ```
@@ -573,6 +573,7 @@ CCLE.samp.multi.sort[[2]] <- MCbiclust:::Vignette_sort[[2]][[2]]
 ```
 
 These two biclusters can now be analysed in the same way as the single bicluster before.
+
 
 To calculate the PC1 values:
 
