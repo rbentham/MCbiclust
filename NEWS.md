@@ -172,3 +172,8 @@
 # MCbiclust 1.3.1
 
 * Updated Vignette including more detail for multiple runs section.
+
+
+# MCbiclust 1.3.2
+
+* Vignette style change html_document2 to html_document

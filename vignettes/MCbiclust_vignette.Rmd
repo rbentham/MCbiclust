@@ -4,9 +4,9 @@ author:
  - name: "Robert Bentham"
    affiliation: "Cell and Developmental Biology, University College London"
    email: "robert.bentham.11@ucl.ac.uk"
-date: "2017-20-12"
+date: "2018-22-01"
 output: 
-  BiocStyle::html_document2:
+  BiocStyle::html_document:
     toc_float: true
 vignette: >
   %\VignetteIndexEntry{Introduction to MCbiclust}
