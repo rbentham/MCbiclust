@@ -11,11 +11,33 @@ Description: Custom made algorithm and associated methods for finding,
         data sets. Algorithm is based on with a supplied gene set of
         size n, finding the maximum strength correlation matrix
         containing m samples from the data set.
-Depends: R (>= 3.4)
-Imports: BiocParallel, graphics, utils, stats, AnnotationDbi, GO.db,
-        org.Hs.eg.db, GGally, ggplot2, scales, cluster, WGCNA
-Suggests: gplots, knitr, rmarkdown, BiocStyle, gProfileR, MASS, dplyr,
-        pander, devtools, testthat
+Depends:
+    R (>= 3.4) 
+Imports:
+    BiocParallel,
+    graphics,
+    utils,
+    stats,
+    AnnotationDbi,
+    GO.db,
+    org.Hs.eg.db,
+    GGally,
+    ggplot2,
+    scales,
+    cluster,
+    WGCNA
+Suggests:
+    gplots,
+    knitr,
+    rmarkdown,
+    BiocStyle,
+    gProfileR,
+    MASS,
+    dplyr,
+    pander,
+    devtools,
+    testthat,
+    GSVA
 License: GPL-2
 biocViews: Clustering, Microarray, StatisticalMethod, Software, RNASeq,
         GeneExpression

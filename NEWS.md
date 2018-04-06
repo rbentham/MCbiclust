@@ -176,4 +176,4 @@
 
 # MCbiclust 1.2.2
 
-* Vignette style change html_document2 to html_document and PointScore added
+* Vignette style change html_document2 to html_document and PointScore function, examples, tests and vignette section.
