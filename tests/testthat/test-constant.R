@@ -17,6 +17,29 @@ CCLE.pc1 <- PC1VecFun(top.gem = CCLE.mito,
                       seed.sort = CCLE.samp.sort,
                       n = 10)
 
+CCLE.hicor.genes <- as.numeric(HclustGenesHiCor(CCLE.mito,
+                                                CCLE.seed,
+                                                cuts = 8))
+
+CCLE.cor.mat <- cor(t(CCLE.mito[CCLE.hicor.genes,CCLE.seed]))
+
+gene.set1 <- labels(as.dendrogram(hclust(dist(CCLE.cor.mat)))[[1]])
+gene.set2 <- labels(as.dendrogram(hclust(dist(CCLE.cor.mat)))[[2]])
+
+gene.set1.loc <- which(row.names(CCLE.mito) %in% gene.set1)
+gene.set2.loc <- which(row.names(CCLE.mito) %in% gene.set2)
+
+CCLE.ps <- PointScoreCalc(CCLE.mito,gene.set1.loc,gene.set2.loc)
+
+test_that('PointScoreCalc returns error and warnings in right situation',{
+  expect_error(PointScoreCalc(CCLE.mito[,1],gene.set1.loc,gene.set2.loc))
+  expect_error(PointScoreCalc(CCLE.mito[,1],gene.set1.loc,gene.set2.loc))
+  expect_warning(PointScoreCalc(CCLE.mito[,seq_len(10)],gene.set1.loc,gene.set2.loc))
+}
+)
+
+CCLE.mito[gene.set1.loc,1][10] <- NA 
+
 test_that("HclustGenesHiCor and CVEval work with matrices",{
   expect_error(as.numeric(HclustGenesHiCor(as.matrix(CCLE.mito),
                                                 CCLE.seed,
@@ -55,8 +78,14 @@ test_that("Basic functioning remains constant",{
   expect_equal_to_reference(CCLE.bic,"ccle_bic.rds")
   #expect_equal_to_reference(CCLE.pc1,"ccle_pc1.rds")
   expect_equal_to_reference(CCLE.fork,"ccle_fork.rds")
+  expect_equal_to_reference(CCLE.ps,"ccle_ps.rds")
 })
 
+CCLE.mito[gene.set1.loc,1][10] <- NA 
+test_that("PointScoreCalc handles NA values",{
+  expect_error(PointScoreCalc(CCLE.mito[,seq_len(11)],gene.set1.loc,gene.set2.loc),
+               NA)
+})
 
 test_that("FindSeed returns as expected",{
   expect_equal(length(CCLE.seed), 10)
