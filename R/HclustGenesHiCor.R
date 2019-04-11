@@ -17,21 +17,35 @@
 
 HclustGenesHiCor <- function(gem,seed,cuts){
   
-    row.names(gem) <- seq_len(dim(gem)[1])
+  row.vec <- seq_len(dim(gem)[1])
+  row.names(gem) <- seq_len(dim(gem)[1])
+  sd.loc <- which(as.numeric(apply(gem, MARGIN = 1, sd)) == 0)
   
-    gem.cor <- cor(t(gem[,seed]),use = 'pairwise.complete.obs')
-    
-    gem.dend <- as.dendrogram(hclust(dist(gem.cor)))
-    gem.hclust <- hclust(dist(gem.cor))
-    gem.cuts <- cutree(gem.hclust, k=cuts)
+  if(length(sd.loc > 0)){
+    gem <- gem[-sd.loc,]
+    row.vec <- row.vec[-sd.loc]
+  }
   
-    hclust.genes.list <- lapply(seq_len(cuts),
-                                function(x) which(gem.cuts == x))
- 
-    temp.fun <- function(i) CorScoreCalc(data.frame(gem)[hclust.genes.list[[i]],],seed)
-    hi.cor.values <- vapply(X=seq_len(cuts),temp.fun, FUN.VALUE = numeric(1))
+  gem.cor <- cor(t(gem[, seed]),
+                 use = 'pairwise.complete.obs')
   
-    cor.value <- CorScoreCalc(gem, seed) 
+  gem.dend <- as.dendrogram(hclust(dist(gem.cor)))
+  gem.hclust <- hclust(dist(gem.cor))
+  gem.cuts <- cutree(gem.hclust, k=cuts)
   
-    return(unlist(hclust.genes.list[which(hi.cor.values > cor.value)]))
+  hclust.genes.list <- lapply(seq_len(cuts),
+                              function(x) which(gem.cuts == x))
+  
+  temp.fun <- function(i) {
+    CorScoreCalc(data.frame(gem)[hclust.genes.list[[i]],],seed)}
+  
+  hi.cor.values <- vapply(X=seq_len(cuts),temp.fun,
+                          FUN.VALUE = numeric(1))
+  
+  cor.value <- CorScoreCalc(gem, seed) 
+  hi.loc <- which(hi.cor.values > cor.value)
+  row.vec[as.numeric(unlist(hclust.genes.list[hi.loc]))]
+  
+  return(row.vec[as.numeric(unlist(hclust.genes.list[hi.loc]))])
 }
+

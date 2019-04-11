@@ -38,6 +38,15 @@ test_that('PointScoreCalc returns error and warnings in right situation',{
 }
 )
 
+CCLE.mito2 <- CCLE.mito
+CCLE.mito2[3,] <- 1
+test_that("HclustGenesHiCor handles rows where sd = 0",{
+  expect_error(as.numeric(HclustGenesHiCor(as.matrix(CCLE.mito2),
+                                           CCLE.seed,
+                                           cuts = 8)), NA)
+  
+})
+
 CCLE.mito[gene.set1.loc,1][10] <- NA 
 
 test_that("HclustGenesHiCor and CVEval work with matrices",{
@@ -79,6 +88,7 @@ test_that("Basic functioning remains constant",{
   #expect_equal_to_reference(CCLE.pc1,"ccle_pc1.rds")
   expect_equal_to_reference(CCLE.fork,"ccle_fork.rds")
   expect_equal_to_reference(CCLE.ps,"ccle_ps.rds")
+  expect_equal_to_reference(CCLE.hicor.genes, "ccle_hicor.rds")
 })
 
 CCLE.mito[gene.set1.loc,1][10] <- NA 

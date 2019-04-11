@@ -25,7 +25,8 @@ Imports:
     ggplot2,
     scales,
     cluster,
-    WGCNA
+    WGCNA,
+    Rcpp
 Suggests:
     gplots,
     knitr,
@@ -44,3 +45,4 @@ biocViews: Clustering, Microarray, StatisticalMethod, Software, RNASeq,
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
 LazyData: true
+LinkingTo: Rcpp
