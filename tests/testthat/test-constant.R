@@ -5,6 +5,7 @@ data(Mitochondrial_genes)
 mito.loc <- which(row.names(CCLE_small) %in% Mitochondrial_genes)
 CCLE.mito <- CCLE_small[mito.loc,]
 
+suppressWarnings(RNGversion("3.5.0")) 
 set.seed(101)
 CCLE.seed <- FindSeed(gem = CCLE.mito,seed.size = 10,
                       iterations = 100,messages = 50)
