@@ -683,26 +683,26 @@ ggplot(CCLE.df, aes(Order,PointScore)) +
 For single samples an alternative method must be used. One described in literature is that of single sample GSEA or ssGSEA (@barbie2009systematic). This can be calculated with the R package `GSVA` (@hanzelmann2013gsva), the ssGSEA score of the two gene sets can be calculated, the final ssGSEA of these two groups combines is the mean of the first group and the negative value of the second group.
 
 ```{r}
-library(GSVA)
-
-ssGSEA.test <- gsva(expr = as.matrix(CCLE.mito[CCLE.hicor.genes,]),
-                    gset.idx.list = CCLE.groups,
-                    method = 'gsva',
-                    parallel.sz = 1)
-ssGSEA.test[2,] <- -ssGSEA.test[2,]
-CCLE.ssGSEA <- colMeans(ssGSEA.test)
+# library(GSVA)
+# 
+# ssGSEA.test <- gsva(expr = as.matrix(CCLE.mito[CCLE.hicor.genes,]),
+#                     gset.idx.list = CCLE.groups,
+#                     method = 'gsva',
+#                     parallel.sz = 1)
+# ssGSEA.test[2,] <- -ssGSEA.test[2,]
+# CCLE.ssGSEA <- colMeans(ssGSEA.test)
 
 ```
 
 Similarly to the PointScore it can be directly compared to the PC1 values.
 
 ```{r, dev="png"}
-CCLE.df$ssGSEA <- CCLE.ssGSEA[CCLE.samp.sort]
-
-ggplot(CCLE.df, aes(Order, PC1)) +
-  geom_point(aes(colour = Fork)) + ylab("PC1")
-ggplot(CCLE.df, aes(Order, ssGSEA)) +
-  geom_point(aes(colour = Fork)) + ylab("ssGSEA")
+# CCLE.df$ssGSEA <- CCLE.ssGSEA[CCLE.samp.sort]
+# 
+# ggplot(CCLE.df, aes(Order, PC1)) +
+#   geom_point(aes(colour = Fork)) + ylab("PC1")
+# ggplot(CCLE.df, aes(Order, ssGSEA)) +
+#   geom_point(aes(colour = Fork)) + ylab("ssGSEA")
 
 ```
 
